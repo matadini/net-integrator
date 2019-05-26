@@ -3,10 +3,8 @@ package pl.inzynier.netintegrator.server.module.urlmapping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.*;
-
 
 @Data
 @Entity
@@ -18,12 +16,11 @@ class UrlMapping {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long urlMappingId;
 
-    String endpoing;
+    @Embedded
+    PublishEndpoint endpoint;
 
-    @Enumerated(EnumType.STRING)
-    UrlMappingMethod method;
-
-    String target;
+    @Embedded
+    TargetEndpoint target;
 
 }
 

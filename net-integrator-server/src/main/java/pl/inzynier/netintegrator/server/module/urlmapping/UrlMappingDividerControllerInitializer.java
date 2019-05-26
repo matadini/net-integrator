@@ -13,20 +13,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 
+/**
+ * Komponent pobierajacy konfiguracje z bazy i wystawiajacy
+ * mapowania na targetowym kontrolerze {@link UrlMappingController}
+ */
 @Value
 @Component
 class UrlMappingDividerControllerInitializer {
 
     RequestMappingHandlerMapping handlerMapping;
 
+    UrlMappingRepository urlMappingRepository;
+
     UrlMappingDividerController dividerController;
 
+    UrlMappingDemoInitializer urlMappingDemoInitializer;
+
     @Autowired
-    public UrlMappingDividerControllerInitializer(RequestMappingHandlerMapping handlerMapping, UrlMappingDividerController dividerController) {
+    public UrlMappingDividerControllerInitializer(
+            RequestMappingHandlerMapping handlerMapping,
+            UrlMappingRepository urlMappingRepository,
+            UrlMappingDividerController dividerController,
+            UrlMappingDemoInitializer urlMappingDemoInitializer) {
+
         this.handlerMapping = handlerMapping;
+        this.urlMappingRepository = urlMappingRepository;
         this.dividerController = dividerController;
+        this.urlMappingDemoInitializer = urlMappingDemoInitializer;
     }
+
 
     /*
      * Wystaw endpointy dynamicznie skonfigurowane w bazie
@@ -37,34 +54,32 @@ class UrlMappingDividerControllerInitializer {
         try {
 
             /*
-             * Pobierz skonfigurowane endpointy
+             *
              */
-
-
-
-            /*
-             * Utworz manifest endpointu do wystawienia na podstawie konfiguracji z bazy
-             */
-            RequestMappingInfo requestMappingInfo = RequestMappingInfo
-                    .paths("/dodany")
-                    .methods(RequestMethod.GET)
-                    .produces(MediaType.APPLICATION_JSON_VALUE)
-                    .build();
-
-            /*
-             * Wystaw endpoint na kontrolerze rozdzielczym
-             */
-            System.err.println(Arrays.toString(UrlMappingDividerController.class.getMethods()));
-            System.err.println(Arrays.toString(UrlMappingDividerController.class.getDeclaredMethods()));
-
             Class[] cArg = new Class[2];
             cArg[0] = HttpServletRequest.class;
-            cArg[1] =  HttpServletResponse.class;
+            cArg[1] = HttpServletResponse.class;
 
-            Method handler = UrlMappingDividerController.class.getDeclaredMethod(UrlMappingConst.DIVIDER_CONTROLLER_HANDLE_METHOD_NAME,cArg);
-            handlerMapping.registerMapping(requestMappingInfo, dividerController, handler);
+            /*
+             * Pobierz skonfigurowane endpointy
+             */
+            List<UrlMapping> mappingList = this.urlMappingRepository.findAll();
+            for (UrlMapping mapping : mappingList) {
 
-        }catch (Exception ex) {
+                PublishEndpoint publishEndpoint = mapping.getEndpoint();
+
+                RequestMappingInfo requestMappingInfo = RequestMappingInfo
+                        .paths(publishEndpoint.getMethodUrl())
+                        .methods()
+                        .build();
+
+                Method handler = UrlMappingDividerController.class.getDeclaredMethod(UrlMappingConst.DIVIDER_CONTROLLER_HANDLE_METHOD_NAME, cArg);
+                handlerMapping.registerMapping(requestMappingInfo, dividerController, handler);
+            }
+
+
+
+        } catch (Exception ex) {
             System.err.println(ex);
         }
     }
