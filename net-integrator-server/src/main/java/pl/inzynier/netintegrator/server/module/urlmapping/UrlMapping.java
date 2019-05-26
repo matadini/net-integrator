@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 
 @Data
 @Entity
@@ -21,6 +19,9 @@ class UrlMapping {
     Long urlMappingId;
 
     String endpoing;
+
+    @Enumerated(EnumType.STRING)
+    UrlMappingMethod method;
 
     String target;
 
