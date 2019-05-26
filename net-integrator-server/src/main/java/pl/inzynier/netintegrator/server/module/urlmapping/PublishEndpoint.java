@@ -18,10 +18,10 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 class PublishEndpoint {
 
-    @Column(name = "publish_url")
+    @Column(name = "publish_url", nullable = false, unique = true)
     String methodUrl;
 
-    @Column(name ="publish_method")
+    @Column(name ="publish_method", nullable = false)
     @Enumerated(EnumType.STRING)
     RequestMethod method;
 }

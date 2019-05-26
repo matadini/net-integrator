@@ -10,9 +10,11 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "url_mapping")
 class UrlMapping {
 
     @Id
+    @Column(nullable = false, unique = true, name = "url_mapping_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long urlMappingId;
 

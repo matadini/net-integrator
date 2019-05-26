@@ -1,4 +1,5 @@
 package pl.inzynier.netintegrator.server.module.converting;
 
-public aspect Converter {
+enum ScriptType {
+    PRE_CALL, POST_CALL
 }

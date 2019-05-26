@@ -32,7 +32,7 @@ class UrlMappingDemoInitializer {
                 RequestMethod.GET);
 
         TargetEndpoint targetEndpoint0 = new TargetEndpoint(
-                "/dodano-target",
+                "/test",
                 "http://localhost:9090",
                 RequestMethod.GET);
 

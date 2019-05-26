@@ -27,4 +27,8 @@ class TargetEndpoint {
     @Column(name = "target_method")
     @Enumerated(EnumType.STRING)
     RequestMethod method;
+
+    String getFullUrl() {
+        return this.getServerAddress() + this.getMethodUrl();
+    }
 }
