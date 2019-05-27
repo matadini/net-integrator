@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "18960b14-9690-4197-96a9-91704e90307d",
+		"name": "Inzynierka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get: Fake-Server",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9090/fake-get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"fake-get"
+					]
+				},
+				"description": "Get-Fake"
+			},
+			"response": []
+		},
+		{
+			"name": "Get: API-Gateway",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api-get?imie=Janusz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-get"
+					],
+					"query": [
+						{
+							"key": "imie",
+							"value": "Janusz"
+						}
+					]
+				},
+				"description": "Get-Fake"
+			},
+			"response": []
+		},
+		{
+			"name": "POST: Fake-Server",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\":\"Janusz\", \"surname\":\"Nosacz\"}"
+				},
+				"url": {
+					"raw": "http://localhost:9090/fake-post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"fake-post"
+					]
+				},
+				"description": "Get-Fake"
+			},
+			"response": []
+		},
+		{
+			"name": "POST: API-Gateway",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\":\"Janusz\", \"surname\":\"Nosacz-X\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api-post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-post"
+					]
+				},
+				"description": "Get-Fake"
+			},
+			"response": []
+		}
+	]
+}

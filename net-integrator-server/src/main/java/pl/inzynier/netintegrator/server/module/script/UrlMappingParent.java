@@ -2,7 +2,6 @@ package pl.inzynier.netintegrator.server.module.script;
 
 import com.google.common.collect.Sets;
 import lombok.Data;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.*;
 import java.util.Set;

@@ -1,7 +1,8 @@
 package pl.inzynier.netintegrator.server.module.script;
 
-import lombok.*;
-import net.bytebuddy.asm.Advice;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.inzynier.netintegrator.server.module.script.dto.ScriptType;
 
 import javax.persistence.*;

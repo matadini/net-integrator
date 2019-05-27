@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import lombok.Value;
 import org.python.util.PythonInterpreter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;

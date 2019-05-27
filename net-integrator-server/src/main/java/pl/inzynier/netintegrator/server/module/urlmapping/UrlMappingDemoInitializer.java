@@ -1,6 +1,5 @@
 package pl.inzynier.netintegrator.server.module.urlmapping;
 
-import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;

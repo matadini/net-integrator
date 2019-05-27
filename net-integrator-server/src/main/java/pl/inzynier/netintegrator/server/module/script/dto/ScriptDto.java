@@ -1,9 +1,8 @@
 package pl.inzynier.netintegrator.server.module.script.dto;
 
-import lombok.*;
-import net.bytebuddy.asm.Advice;
-
-import javax.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor

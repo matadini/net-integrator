@@ -5,7 +5,6 @@ import pl.inzynier.netintegrator.server.module.script.dto.ScriptServiceException
 import pl.inzynier.netintegrator.server.module.script.dto.ScriptType;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ScriptService {
 

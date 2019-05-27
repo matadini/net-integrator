@@ -9,7 +9,7 @@ import pl.inzynier.netintegrator.server.module.script.ScriptService;
 import pl.inzynier.netintegrator.server.module.script.dto.ScriptDto;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.StringWriter;
 import java.util.List;
 import java.util.stream.Collectors;
 
