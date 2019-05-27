@@ -19,7 +19,7 @@ powstała na potrzeby demostracji przekierowan
 * wywołaj z konsoli: `mvn clean install`
 * przejdz do katalogu `net-integrator-server/target`
 * uruchom aplikacje w konsoli `java -jar <nazwa_jara, np. net-integrator-server-1.0-snapshot.jar>`
-* uruchom przegladarke i sprawdz: `localhost:8080/test`
+* uruchom przegladarke i sprawdz: `localhost:8080/fake-get`
 * powinno byc git ;)
 
 ## build and run: net-integrator-fake-server
