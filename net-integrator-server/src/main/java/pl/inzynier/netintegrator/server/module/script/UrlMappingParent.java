@@ -1,7 +1,8 @@
-package pl.inzynier.netintegrator.server.module.converting;
+package pl.inzynier.netintegrator.server.module.script;
 
 import com.google.common.collect.Sets;
 import lombok.Data;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,7 +14,7 @@ class UrlMappingParent {
 
     @Id
     @Column(nullable = false, unique = true, name = "url_mapping_id")
-    Long converterUrlMappingParentId;
+    Long urlMappingParentId;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "urlMappingParent")
     Set<Script> converters = Sets.newHashSet();

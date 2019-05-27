@@ -4,25 +4,30 @@ import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.inzynier.netintegrator.server.module.script.ScriptService;
+import pl.inzynier.netintegrator.server.module.script.dto.ScriptServiceException;
+import pl.inzynier.netintegrator.server.module.script.dto.ScriptType;
 
 import javax.annotation.PostConstruct;
 
 /**
  * Inicjalizuje testowe dane w tabeli konfiguracji mapowan
  */
-@Value
 @Component
 class UrlMappingDemoInitializer {
 
-    UrlMappingRepository mappingRepository;
+    private final UrlMappingRepository mappingRepository;
+
+    private final ScriptService scriptService;
 
     @Autowired
-    public UrlMappingDemoInitializer(UrlMappingRepository mappingRepository) {
+    public UrlMappingDemoInitializer(UrlMappingRepository mappingRepository, ScriptService scriptService) {
         this.mappingRepository = mappingRepository;
+        this.scriptService = scriptService;
     }
 
     @PostConstruct
-    private void initializeDemo() {
+    private void initializeDemo() throws ScriptServiceException {
 
         // 0
         PublishEndpoint publishEndpoint0 = new PublishEndpoint(
@@ -48,7 +53,8 @@ class UrlMappingDemoInitializer {
                 RequestMethod.POST);
 
         UrlMapping mapping2 = new UrlMapping(publishEndpoint2, targetEndpoint2);
-        mappingRepository.save(mapping2);
+        UrlMapping save = mappingRepository.save(mapping2);
+        scriptService.addScript(save.getUrlMappingId(), ScriptType.POST_CALL, "Elo");
         // przetestuj kontrolnie
 
     }
