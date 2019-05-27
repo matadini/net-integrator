@@ -1,6 +1,7 @@
 package pl.inzynier.netintegrator.server.module.converting;
 
 import lombok.Data;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.*;
 
@@ -23,3 +24,5 @@ class Script {
     UrlMappingParent urlMappingParent;
 
 }
+
+

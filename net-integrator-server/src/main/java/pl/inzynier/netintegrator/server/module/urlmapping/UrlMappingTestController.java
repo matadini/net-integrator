@@ -1,6 +1,5 @@
 package pl.inzynier.netintegrator.server.module.urlmapping;
 
-import lombok.Builder;
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

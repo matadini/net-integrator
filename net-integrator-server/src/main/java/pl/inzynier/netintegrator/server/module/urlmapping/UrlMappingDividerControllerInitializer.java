@@ -2,9 +2,7 @@ package pl.inzynier.netintegrator.server.module.urlmapping;
 
 import lombok.Value;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -12,12 +10,11 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Komponent pobierajacy konfiguracje z bazy i wystawiajacy
- * mapowania na targetowym kontrolerze {@link UrlMappingController}
+ * mapowania na targetowym kontrolerze {@link UrlMappingDividerController}
  */
 @Value
 @Component

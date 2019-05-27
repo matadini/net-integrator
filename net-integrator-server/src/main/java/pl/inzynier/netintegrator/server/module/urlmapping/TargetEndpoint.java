@@ -3,8 +3,6 @@ package pl.inzynier.netintegrator.server.module.urlmapping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.persistence.Column;

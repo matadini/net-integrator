@@ -24,5 +24,9 @@ class UrlMapping {
     @Embedded
     TargetEndpoint target;
 
+    public UrlMapping(PublishEndpoint endpoint, TargetEndpoint target) {
+        this.endpoint = endpoint;
+        this.target = target;
+    }
 }
 

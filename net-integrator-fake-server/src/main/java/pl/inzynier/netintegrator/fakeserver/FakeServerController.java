@@ -13,18 +13,28 @@ class FakeServerController {
     Gson gson;
 
     void initMapping(Service service) {
-        service.get("/test", this::test, gson::toJson);
+        service.get("/fake-get", this::getTest, gson::toJson);
+        service.post("/fake-post", this::postTest, gson::toJson);
     }
 
-    Object test(Request request, Response response) {
+    private Object getTest(Request request, Response response) {
 
-        FakeServerReponse reponse = FakeServerReponse.builder()
-                .message("Hello from FakeServer")
+        return FakeServerReponse.builder()
+                .message("Get response from FakeServer")
                 .object(request.queryMap().toMap())
                 .statusCode(HttpStatus.OK_200)
                 .build();
+    }
 
-        return reponse;
-    };
+    private Object postTest(Request request, Response response) {
+
+        return FakeServerReponse.builder()
+                .message("Post response from FakeServer")
+                .object(request.body())
+                .statusCode(HttpStatus.OK_200)
+                .build();
+
+    }
+
 
 }
