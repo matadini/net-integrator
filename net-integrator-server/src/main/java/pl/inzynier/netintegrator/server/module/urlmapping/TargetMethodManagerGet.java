@@ -16,10 +16,11 @@ class TargetMethodManagerGet implements TargetMethodManager {
     RestTemplate restTemplate;
 
     @Override
-    public ResponseEntity<String> manage(TargetEndpoint target, HttpServletRequest request) {
+    public ResponseEntity<String> manage(UrlMapping urlMapping, HttpServletRequest request) {
 
         // utworz nowy URI na podstawie target + parametrow get
-        String fullUrl = target.getFullUrl();
+        TargetEndpoint target1 = urlMapping.getTarget();
+        String fullUrl = target1.getFullUrl();
         Map<String, String[]> parameterMap1 = request.getParameterMap();
 
         // przepisz zapytanie na nowy URL

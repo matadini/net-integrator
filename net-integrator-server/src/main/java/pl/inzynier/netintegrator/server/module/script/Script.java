@@ -1,9 +1,6 @@
 package pl.inzynier.netintegrator.server.module.script;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Value;
+import lombok.*;
 import net.bytebuddy.asm.Advice;
 import pl.inzynier.netintegrator.server.module.script.dto.ScriptType;
 
@@ -13,6 +10,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "scripts")
 class Script {
 

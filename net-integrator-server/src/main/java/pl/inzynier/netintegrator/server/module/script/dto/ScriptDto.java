@@ -1,10 +1,11 @@
 package pl.inzynier.netintegrator.server.module.script.dto;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
+import net.bytebuddy.asm.Advice;
 
-@Value
-@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ScriptDto {
     ScriptType scriptType;
     String content;

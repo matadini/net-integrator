@@ -7,6 +7,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 
 interface TargetMethodManager {
-    ResponseEntity<String> manage(TargetEndpoint target, HttpServletRequest request);
+    ResponseEntity<String> manage(UrlMapping urlMapping, HttpServletRequest request);
 }
 

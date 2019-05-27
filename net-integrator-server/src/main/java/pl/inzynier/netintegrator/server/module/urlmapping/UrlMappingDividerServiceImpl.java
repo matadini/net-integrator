@@ -27,14 +27,12 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
     Map<RequestMethod, TargetMethodManager> requestMethodManagerStrategyMap;
 
     @Autowired
-    public UrlMappingDividerServiceImpl(RestTemplate restTemplate, UrlMappingRepository mappingRepository, ScriptService scriptService, Map<RequestMethod, TargetMethodManager> requestMethodManagerStrategyMap) {
+    public UrlMappingDividerServiceImpl(RestTemplate restTemplate, UrlMappingRepository mappingRepository, ScriptService scriptService) {
         this.restTemplate = restTemplate;
         this.mappingRepository = mappingRepository;
         this.scriptService = scriptService;
-        this.requestMethodManagerStrategyMap = requestMethodManagerStrategyMap;
+        this.requestMethodManagerStrategyMap = initMap();
     }
-
-
 
     private Map<RequestMethod, TargetMethodManager> initMap() {
         Map<RequestMethod, TargetMethodManager> hashMap = Maps.newHashMap();
@@ -61,7 +59,8 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
         UrlMapping urlMapping = byPublishUrlAndPublishMethod.get();
         TargetEndpoint target = urlMapping.getTarget();
         RequestMethod method = target.getMethod();
+
         TargetMethodManager targetMethodManager = requestMethodManagerStrategyMap.get(method);
-        return targetMethodManager.manage(target, request);
+        return targetMethodManager.manage(urlMapping, request);
     }
 }
