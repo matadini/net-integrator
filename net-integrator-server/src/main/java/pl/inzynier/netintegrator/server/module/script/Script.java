@@ -23,6 +23,7 @@ class Script {
     @Enumerated(EnumType.STRING)
     ScriptType type;
 
+    @Column(nullable = false, length = Integer.MAX_VALUE)
     String content;
 
     @ManyToOne(fetch = FetchType.LAZY)

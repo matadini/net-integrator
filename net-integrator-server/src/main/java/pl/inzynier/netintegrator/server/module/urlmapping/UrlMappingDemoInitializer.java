@@ -26,6 +26,38 @@ class UrlMappingDemoInitializer {
         this.scriptService = scriptService;
     }
 
+    private String productExamplePythonScript() {
+        return "import sys\n" +
+                "import json\n" +
+                "\n" +
+                "# example call: py test.py '{ \"name\":\"Janusz\", \"surname\":\"Nosacz\"}'\n" +
+                "\n" +
+                "# define input data structure\n" +
+                "class Person:\n" +
+                "    def __init__(self, name, surname):\n" +
+                "        self.name = name\n" +
+                "        self.surname = surname\n" +
+                "\n" +
+                "    def toJSON(self):\n" +
+                "        return json.dumps(self, default=lambda o: o.__dict__, \n" +
+                "            sort_keys=True, indent=4)\n" +
+                "# define ouput data structure\n" +
+                "\n" +
+                "\n" +
+                "# read input args\n" +
+                "arg = sys.argv[1]\n" +
+                "loads = json.loads(arg)\n" +
+                "object = Person(**loads)\n" +
+                "\n" +
+                "# transform data\n" +
+                "object.name = object.name.upper()\n" +
+                "object.surname = object.surname.upper()\n" +
+                "\n" +
+                "# return data\n" +
+                "\n" +
+                "print(object.toJSON())";
+    }
+
     @PostConstruct
     private void initializeDemo() throws ScriptServiceException {
 
@@ -54,7 +86,7 @@ class UrlMappingDemoInitializer {
 
         UrlMapping mapping2 = new UrlMapping(publishEndpoint2, targetEndpoint2);
         UrlMapping save = mappingRepository.save(mapping2);
-        scriptService.addScript(save.getUrlMappingId(), ScriptType.POST_CALL, "Elo");
+        scriptService.addScript(save.getUrlMappingId(), ScriptType.POST_CALL, productExamplePythonScript());
         // przetestuj kontrolnie
 
     }
