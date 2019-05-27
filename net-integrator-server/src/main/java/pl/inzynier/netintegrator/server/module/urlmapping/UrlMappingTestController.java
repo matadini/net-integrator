@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Value
 @RestController
-class UrlMappingController {
+class UrlMappingTestController {
 
     UrlMappingRepository urlMappingRepository;
 
     @Autowired
-    public UrlMappingController(UrlMappingRepository urlMappingRepository) {
+    public UrlMappingTestController(UrlMappingRepository urlMappingRepository) {
         this.urlMappingRepository = urlMappingRepository;
     }
 
