@@ -26,6 +26,9 @@ class Script {
     @Column(nullable = false, length = Integer.MAX_VALUE)
     String content;
 
+    @Column(nullable = false)
+    Integer execOrder;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "url_mapping_id")
     UrlMappingParent urlMappingParent;

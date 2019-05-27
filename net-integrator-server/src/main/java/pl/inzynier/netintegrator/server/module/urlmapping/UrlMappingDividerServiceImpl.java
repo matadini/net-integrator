@@ -2,6 +2,7 @@ package pl.inzynier.netintegrator.server.module.urlmapping;
 
 import com.google.common.collect.Maps;
 import lombok.Value;
+import org.python.util.PythonInterpreter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -9,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import pl.inzynier.netintegrator.server.module.script.ScriptService;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,22 +21,24 @@ import java.util.Optional;
 class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
 
     RestTemplate restTemplate;
-    UrlMappingRepository mappingRepository;
     ScriptService scriptService;
+    PythonInterpreter pythonInterpreter;
+    UrlMappingRepository mappingRepository;
     Map<RequestMethod, TargetMethodManager> requestMethodManagerStrategyMap;
 
     @Autowired
-    public UrlMappingDividerServiceImpl(RestTemplate restTemplate, UrlMappingRepository mappingRepository, ScriptService scriptService) {
+    public UrlMappingDividerServiceImpl(RestTemplate restTemplate, UrlMappingRepository mappingRepository, ScriptService scriptService, PythonInterpreter pythonInterpreter) {
         this.restTemplate = restTemplate;
         this.mappingRepository = mappingRepository;
         this.scriptService = scriptService;
+        this.pythonInterpreter = pythonInterpreter;
         this.requestMethodManagerStrategyMap = initMap();
     }
 
     private Map<RequestMethod, TargetMethodManager> initMap() {
         Map<RequestMethod, TargetMethodManager> hashMap = Maps.newHashMap();
         hashMap.put(RequestMethod.GET, new TargetMethodManagerGet(restTemplate));
-        hashMap.put(RequestMethod.POST, new TargetMethodManagerPost(restTemplate, scriptService));
+        hashMap.put(RequestMethod.POST, new TargetMethodManagerPost(restTemplate, scriptService, pythonInterpreter));
         return hashMap;
     }
 

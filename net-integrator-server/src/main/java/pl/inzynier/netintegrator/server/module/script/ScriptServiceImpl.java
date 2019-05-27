@@ -36,7 +36,7 @@ class ScriptServiceImpl implements ScriptService {
         }
         UrlMappingParent urlMappingParent = mappingParent.get();
 
-        Script script = new Script(null, type, content, urlMappingParent);
+        Script script = new Script(null, type, content, 0, urlMappingParent);
         Script save = scriptRepository.save(script);
         return save.getScriptId();
     }

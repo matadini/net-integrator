@@ -1,6 +1,5 @@
 package pl.inzynier.netintegrator.server.module.urlmapping;
 
-import com.google.common.base.Strings;
 import lombok.AllArgsConstructor;
 import org.python.util.PythonInterpreter;
 import org.springframework.http.HttpStatus;
@@ -18,8 +17,8 @@ import java.util.stream.Collectors;
 class TargetMethodManagerPost implements TargetMethodManager {
 
     RestTemplate restTemplate;
-
     ScriptService scriptService;
+    PythonInterpreter pythonInterpreter;
 
     @Override
     public ResponseEntity<String> manage(UrlMapping urlMapping, HttpServletRequest request) {
@@ -37,11 +36,11 @@ class TargetMethodManagerPost implements TargetMethodManager {
 
                 // wykonaj skrypt
                 StringWriter outStream = new StringWriter();
-                PythonInterpreter pi = new PythonInterpreter();
-                pi.setOut(outStream);
-                pi.exec(bodyAsPythonSysArgv(body));
-                pi.exec(content);
+                pythonInterpreter.setOut(outStream);
+                pythonInterpreter.exec(bodyAsPythonSysArgv(body));
+                pythonInterpreter.exec(content);
 
+                // odczytaj odpowiedz ze skryptu
                 body = outStream.toString().replaceAll("\\s+","");
             }
             return restTemplate.postForEntity(fullUrl, body, String.class);
