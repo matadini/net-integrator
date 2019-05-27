@@ -30,7 +30,7 @@ class UrlMappingDemoInitializer {
         return "import sys\n" +
                 "import json\n" +
                 "\n" +
-                "# example call: py test.py '{ \"name\":\"Janusz\", \"surname\":\"Nosacz\"}'\n" +
+                "# gui call: py test.py '{ \"name\":\"Janusz\", \"surname\":\"Nosacz\"}'\n" +
                 "\n" +
                 "# define input data structure\n" +
                 "class Person:\n" +

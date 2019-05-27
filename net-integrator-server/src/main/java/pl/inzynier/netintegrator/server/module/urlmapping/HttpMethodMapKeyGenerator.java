@@ -1,4 +1,9 @@
 package pl.inzynier.netintegrator.server.module.urlmapping;
 
-class HttpMethodMapKeyGenerator {
+import org.springframework.stereotype.Component;
+
+@Component
+interface HttpMethodMapKeyGenerator {
+
+    String genreate(UrlMapping urlMapping);
 }

@@ -1,7 +1,7 @@
 import sys
 import json
 
-# example call: py test.py '{ "name":"Janusz", "surname":"Nosacz"}'
+# gui call: py test.py '{ "name":"Janusz", "surname":"Nosacz"}'
 
 # define input data structure
 class Person:
