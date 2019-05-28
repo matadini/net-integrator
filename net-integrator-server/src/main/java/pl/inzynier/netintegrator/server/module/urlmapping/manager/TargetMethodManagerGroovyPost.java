@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.module.urlmapping;
+package pl.inzynier.netintegrator.server.module.urlmapping.manager;
 
 import groovy.lang.GroovyShell;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import pl.inzynier.netintegrator.server.module.script.ScriptService;
 import pl.inzynier.netintegrator.server.module.script.dto.ScriptDto;
+import pl.inzynier.netintegrator.server.module.urlmapping.dto.TargetEndpointDto;
+import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -21,10 +23,10 @@ class TargetMethodManagerGroovyPost implements TargetMethodManager {
     GroovyShell groovyShell;
 
     @Override
-    public ResponseEntity<String> manage(UrlMapping urlMapping, HttpServletRequest request) {
+    public ResponseEntity<String> manage(UrlMappingDto urlMapping, HttpServletRequest request) {
 
         try {
-            TargetEndpoint target1 = urlMapping.getTarget();
+            TargetEndpointDto target1 = urlMapping.getTarget();
             String fullUrl = target1.getFullUrl();
             String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 

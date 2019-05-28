@@ -1,10 +1,10 @@
-package pl.inzynier.netintegrator.server.module.urlmapping;
+package pl.inzynier.netintegrator.server.module.urlmapping.generator;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class HttpMethodMapKeys {
+public class HttpMethodMapKeys {
 
     public static final String CONNECTOR = "_TO_";
     public static final String GET_TO_GET = "GET" + CONNECTOR + "GET";

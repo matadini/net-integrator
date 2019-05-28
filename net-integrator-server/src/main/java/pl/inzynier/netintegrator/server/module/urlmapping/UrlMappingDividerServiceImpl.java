@@ -3,12 +3,18 @@ package pl.inzynier.netintegrator.server.module.urlmapping;
 import com.google.common.collect.Maps;
 import groovy.lang.GroovyShell;
 import lombok.Value;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import pl.inzynier.netintegrator.server.module.script.ScriptService;
+import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
+import pl.inzynier.netintegrator.server.module.urlmapping.generator.HttpMethodMapKeyGenerator;
+import pl.inzynier.netintegrator.server.module.urlmapping.generator.HttpMethodMapKeys;
+import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManager;
+import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManagerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +31,7 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
     UrlMappingRepository mappingRepository;
     Map<String, TargetMethodManager> requestMethodManagerStrategyMap;
     HttpMethodMapKeyGenerator httpMethodMapKeyGenerator;
+    ModelMapper modelMapper;
 
     @Autowired
     public UrlMappingDividerServiceImpl(
@@ -32,7 +39,8 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
             UrlMappingRepository mappingRepository,
             ScriptService scriptService,
             GroovyShell groovyShell,
-            HttpMethodMapKeyGenerator httpMethodMapKeyGenerator) {
+            HttpMethodMapKeyGenerator httpMethodMapKeyGenerator,
+            ModelMapper modelMapper) {
 
         this.restTemplate = restTemplate;
         this.mappingRepository = mappingRepository;
@@ -40,12 +48,13 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
         this.groovyShell = groovyShell;
         this.requestMethodManagerStrategyMap = initMap();
         this.httpMethodMapKeyGenerator = httpMethodMapKeyGenerator;
+        this.modelMapper = modelMapper;
     }
 
     private Map<String, TargetMethodManager> initMap() {
         Map<String, TargetMethodManager> hashMap = Maps.newHashMap();
-        hashMap.put(HttpMethodMapKeys.GET_TO_GET, new TargetMethodManagerGet(restTemplate));
-        hashMap.put(HttpMethodMapKeys.POST_TO_POST, new TargetMethodManagerGroovyPost(restTemplate, scriptService, groovyShell));
+        hashMap.put(HttpMethodMapKeys.GET_TO_GET, TargetMethodManagerFactory.getToGet(restTemplate));
+        hashMap.put(HttpMethodMapKeys.POST_TO_POST, TargetMethodManagerFactory.postToPost(restTemplate, scriptService, groovyShell));
         return hashMap;
     }
 
@@ -65,10 +74,11 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
 
         // okreslic typ metody http i wykonac zadanie na nowy adres
         UrlMapping urlMapping = byPublishUrlAndPublishMethod.get();
-        String strategyKey = httpMethodMapKeyGenerator.genreate(urlMapping);
+        UrlMappingDto mappingDto = modelMapper.map(urlMapping, UrlMappingDto.class);
+        String strategyKey = httpMethodMapKeyGenerator.genreate(mappingDto);
 
         // w zaleznosci od pary publish-target, strategia wywolania moze sie roznic
         TargetMethodManager targetMethodManager = requestMethodManagerStrategyMap.get(strategyKey);
-        return targetMethodManager.manage(urlMapping, request);
+        return targetMethodManager.manage(mappingDto, request);
     }
 }

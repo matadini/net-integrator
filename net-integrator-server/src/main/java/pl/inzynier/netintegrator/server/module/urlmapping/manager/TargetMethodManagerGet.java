@@ -1,10 +1,12 @@
-package pl.inzynier.netintegrator.server.module.urlmapping;
+package pl.inzynier.netintegrator.server.module.urlmapping.manager;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import pl.inzynier.netintegrator.server.module.urlmapping.dto.TargetEndpointDto;
+import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -16,10 +18,10 @@ class TargetMethodManagerGet implements TargetMethodManager {
     RestTemplate restTemplate;
 
     @Override
-    public ResponseEntity<String> manage(UrlMapping urlMapping, HttpServletRequest request) {
+    public ResponseEntity<String> manage(UrlMappingDto urlMapping, HttpServletRequest request) {
 
         // utworz nowy URI na podstawie target + parametrow get
-        TargetEndpoint target1 = urlMapping.getTarget();
+        TargetEndpointDto target1 = urlMapping.getTarget();
         String fullUrl = target1.getFullUrl();
         Map<String, String[]> parameterMap1 = request.getParameterMap();
 
