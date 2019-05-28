@@ -1,8 +1,8 @@
 package pl.inzynier.netintegrator.server.module.urlmapping;
 
 import com.google.common.collect.Maps;
+import groovy.lang.GroovyShell;
 import lombok.Value;
-import org.python.util.PythonInterpreter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
 
     RestTemplate restTemplate;
     ScriptService scriptService;
-    PythonInterpreter pythonInterpreter;
+    GroovyShell groovyShell;
     UrlMappingRepository mappingRepository;
     Map<String, TargetMethodManager> requestMethodManagerStrategyMap;
     HttpMethodMapKeyGenerator httpMethodMapKeyGenerator;
@@ -31,13 +31,13 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
             RestTemplate restTemplate,
             UrlMappingRepository mappingRepository,
             ScriptService scriptService,
-            PythonInterpreter pythonInterpreter,
+            GroovyShell groovyShell,
             HttpMethodMapKeyGenerator httpMethodMapKeyGenerator) {
 
         this.restTemplate = restTemplate;
         this.mappingRepository = mappingRepository;
         this.scriptService = scriptService;
-        this.pythonInterpreter = pythonInterpreter;
+        this.groovyShell = groovyShell;
         this.requestMethodManagerStrategyMap = initMap();
         this.httpMethodMapKeyGenerator = httpMethodMapKeyGenerator;
     }
@@ -45,7 +45,7 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
     private Map<String, TargetMethodManager> initMap() {
         Map<String, TargetMethodManager> hashMap = Maps.newHashMap();
         hashMap.put(HttpMethodMapKeys.GET_TO_GET, new TargetMethodManagerGet(restTemplate));
-        hashMap.put(HttpMethodMapKeys.POST_TO_POST, new TargetMethodManagerPost(restTemplate, scriptService, pythonInterpreter));
+        hashMap.put(HttpMethodMapKeys.POST_TO_POST, new TargetMethodManagerGroovyPost(restTemplate, scriptService, groovyShell));
         return hashMap;
     }
 

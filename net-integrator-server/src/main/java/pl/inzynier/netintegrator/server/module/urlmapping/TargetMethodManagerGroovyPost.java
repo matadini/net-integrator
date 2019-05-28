@@ -1,7 +1,8 @@
 package pl.inzynier.netintegrator.server.module.urlmapping;
 
+import groovy.lang.GroovyShell;
 import lombok.AllArgsConstructor;
-import org.python.util.PythonInterpreter;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -9,16 +10,15 @@ import pl.inzynier.netintegrator.server.module.script.ScriptService;
 import pl.inzynier.netintegrator.server.module.script.dto.ScriptDto;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.StringWriter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-class TargetMethodManagerPost implements TargetMethodManager {
+class TargetMethodManagerGroovyPost implements TargetMethodManager {
 
     RestTemplate restTemplate;
     ScriptService scriptService;
-    PythonInterpreter pythonInterpreter;
+    GroovyShell groovyShell;
 
     @Override
     public ResponseEntity<String> manage(UrlMapping urlMapping, HttpServletRequest request) {
@@ -33,15 +33,8 @@ class TargetMethodManagerPost implements TargetMethodManager {
             for (ScriptDto script : byUrlMappingId) {
 
                 String content = script.getContent();
-
-                // wykonaj skrypt
-                StringWriter outStream = new StringWriter();
-                pythonInterpreter.setOut(outStream);
-                pythonInterpreter.exec(bodyAsPythonSysArgv(body));
-                pythonInterpreter.exec(content);
-
-                // odczytaj odpowiedz ze skryptu
-                body = outStream.toString().replaceAll("\\s+","");
+                Object skrypt = groovyShell.run(content, "skrypt", new String[]{body});
+                body = skrypt.toString();
             }
             return restTemplate.postForEntity(fullUrl, body, String.class);
 
@@ -49,10 +42,5 @@ class TargetMethodManagerPost implements TargetMethodManager {
             System.out.println(e);
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-    }
-
-    private String bodyAsPythonSysArgv(String body) {
-        return "import sys\n"+"sys.argv = ['', '"+body+"']";
     }
 }

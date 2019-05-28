@@ -1,13 +1,9 @@
 
 // example call: groovy json-upper.groovy "{ \"name\":\"Janusz\", \"surname\":\"Nosacz\"}"
 
-// imports 
-import groovy.json.JsonBuilder
+// imports
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
-import groovy.transform.ToString
-import groovy.xml.XmlUtil
-
 
 //define input data class
 class Person {

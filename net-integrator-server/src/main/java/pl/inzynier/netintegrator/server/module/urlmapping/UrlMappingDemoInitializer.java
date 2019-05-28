@@ -25,36 +25,31 @@ class UrlMappingDemoInitializer {
         this.scriptService = scriptService;
     }
 
-    private String productExamplePythonScript() {
-        return "import sys\n" +
-                "import json\n" +
+    private String createExampleGroovyScript() {
+        return "//imports\n" +
+                "import groovy.json.JsonOutput\n" +
+                "import groovy.json.JsonSlurper\n" +
                 "\n" +
-                "# gui call: py test.py '{ \"name\":\"Janusz\", \"surname\":\"Nosacz\"}'\n" +
+                "//define input data class\n" +
+                "class Person {\n" +
+                "    String name\n" +
+                "    String surname\n" +
+                "}\n" +
                 "\n" +
-                "# define input data structure\n" +
-                "class Person:\n" +
-                "    def __init__(self, name, surname):\n" +
-                "        self.name = name\n" +
-                "        self.surname = surname\n" +
+                "// Read input data\n" +
+                "def input = args[0]\n" +
                 "\n" +
-                "    def toJSON(self):\n" +
-                "        return json.dumps(self, default=lambda o: o.__dict__, \n" +
-                "            sort_keys=True, indent=4)\n" +
-                "# define ouput data structure\n" +
+                "// convert to UDR\n" +
+                "def slurper = new JsonSlurper()\n" +
+                "def personMap = slurper.parseText(input)\n" +
+                "def newPerson = new Person(personMap)\n" +
                 "\n" +
+                "// transform data\n" +
+                "newPerson.name = newPerson.name.toUpperCase()\n" +
+                "newPerson.surname = newPerson.surname.toUpperCase()\n" +
                 "\n" +
-                "# read input args\n" +
-                "arg = sys.argv[1]\n" +
-                "loads = json.loads(arg)\n" +
-                "object = Person(**loads)\n" +
-                "\n" +
-                "# transform data\n" +
-                "object.name = object.name.upper()\n" +
-                "object.surname = object.surname.upper()\n" +
-                "\n" +
-                "# return data\n" +
-                "\n" +
-                "print(object.toJSON())";
+                "// return data\n" +
+                "return JsonOutput.toJson(newPerson)\n";
     }
 
     @PostConstruct
@@ -85,7 +80,7 @@ class UrlMappingDemoInitializer {
 
         UrlMapping mapping2 = new UrlMapping(publishEndpoint2, targetEndpoint2);
         UrlMapping save = mappingRepository.save(mapping2);
-        scriptService.addScript(save.getUrlMappingId(), ScriptType.POST_CALL, productExamplePythonScript());
+        scriptService.addScript(save.getUrlMappingId(), ScriptType.POST_CALL, createExampleGroovyScript());
         // przetestuj kontrolnie
 
     }
