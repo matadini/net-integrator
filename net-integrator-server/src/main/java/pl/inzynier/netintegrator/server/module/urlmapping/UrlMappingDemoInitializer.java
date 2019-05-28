@@ -9,6 +9,7 @@ import pl.inzynier.netintegrator.server.module.script.dto.ScriptType;
 
 import javax.annotation.PostConstruct;
 
+
 /**
  * Inicjalizuje testowe dane w tabeli konfiguracji mapowan
  */
@@ -25,32 +26,7 @@ class UrlMappingDemoInitializer {
         this.scriptService = scriptService;
     }
 
-    private String createExampleGroovyScript() {
-        return "//imports\n" +
-                "import groovy.json.JsonOutput\n" +
-                "import groovy.json.JsonSlurper\n" +
-                "\n" +
-                "//define input data class\n" +
-                "class Person {\n" +
-                "    String name\n" +
-                "    String surname\n" +
-                "}\n" +
-                "\n" +
-                "// Read input data\n" +
-                "def input = args[0]\n" +
-                "\n" +
-                "// convert to UDR\n" +
-                "def slurper = new JsonSlurper()\n" +
-                "def personMap = slurper.parseText(input)\n" +
-                "def newPerson = new Person(personMap)\n" +
-                "\n" +
-                "// transform data\n" +
-                "newPerson.name = newPerson.name.toUpperCase()\n" +
-                "newPerson.surname = newPerson.surname.toUpperCase()\n" +
-                "\n" +
-                "// return data\n" +
-                "return JsonOutput.toJson(newPerson)\n";
-    }
+
 
     @PostConstruct
     private void initializeDemo() throws ScriptServiceException {
@@ -68,6 +44,22 @@ class UrlMappingDemoInitializer {
         UrlMapping mapping0 = new UrlMapping(publishEndpoint0, targetEndpoint0);
         mappingRepository.save(mapping0);
 
+        // 1
+        PublishEndpoint publishEndpoint1 = new PublishEndpoint(
+                "/api-post-xml",
+                RequestMethod.POST);
+
+        TargetEndpoint targetEndpoint1 = new TargetEndpoint(
+                "/fake-post",
+                "http://localhost:9090",
+                RequestMethod.POST);
+
+        UrlMapping mapping1 = new UrlMapping(publishEndpoint1, targetEndpoint1);
+        UrlMapping save1 = mappingRepository.save(mapping1);
+        String scriptJsonToXml = ExampleGroovyScript.createExampleGroovyScriptJsonToXml();
+        scriptService.addScript(save1.getUrlMappingId(), ScriptType.POST_CALL, scriptJsonToXml);
+
+
         // 2
         PublishEndpoint publishEndpoint2 = new PublishEndpoint(
                 "/api-post",
@@ -80,7 +72,10 @@ class UrlMappingDemoInitializer {
 
         UrlMapping mapping2 = new UrlMapping(publishEndpoint2, targetEndpoint2);
         UrlMapping save = mappingRepository.save(mapping2);
-        scriptService.addScript(save.getUrlMappingId(), ScriptType.POST_CALL, createExampleGroovyScript());
+        String scriptJsonUpper = ExampleGroovyScript.createExampleGroovyScriptToUpperCase();
+        scriptService.addScript(save.getUrlMappingId(), ScriptType.POST_CALL, scriptJsonUpper);
+
+
         // przetestuj kontrolnie
 
     }

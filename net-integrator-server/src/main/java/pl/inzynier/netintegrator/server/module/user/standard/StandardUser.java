@@ -5,7 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * Encja dedykowana uzytkownikom tj. konta uzytkownikow klienta rozwiazania
+ * Encja dedykowana uzytkownikom tj. konta uzytkownikow klienta rozwiazania,
+ * w zalozeniu ma byc parentem dla urlMappingow
  */
 @Data
 @Entity

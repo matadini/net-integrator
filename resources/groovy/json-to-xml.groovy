@@ -1,7 +1,4 @@
-// example call: groovy json-upper.groovy "{ \"name\":\"Janusz\", \"surname\":\"Nosacz\"}"
-
 // imports
-import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 
 //define input data class
@@ -22,5 +19,11 @@ def newPerson = new Person(personMap)
 newPerson.name = newPerson.name.toUpperCase()
 newPerson.surname = newPerson.name.toUpperCase()
 
+def node = new groovy.util.Node(null, "person")
+node.appendNode("surname",newPerson.surname)
+node.appendNode("name",newPerson.name)
+
 // return data
-print JsonOutput.toJson(newPerson)
+def serialize = groovy.xml.XmlUtil.serialize(node).replaceAll("\\s","")
+print serialize
+return serialize

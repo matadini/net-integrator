@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.module.urlmapping.generator;
+package pl.inzynier.netintegrator.server.module.urlmapping.manager.generator;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

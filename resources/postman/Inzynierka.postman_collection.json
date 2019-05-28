@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "18960b14-9690-4197-96a9-91704e90307d",
+		"_postman_id": "38f79688-a100-42ff-ade6-a07c131502e0",
 		"name": "Inzynierka",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -107,6 +107,37 @@
 					"port": "8080",
 					"path": [
 						"api-post"
+					]
+				},
+				"description": "Get-Fake"
+			},
+			"response": []
+		},
+		{
+			"name": "POST: API-Gateway XML",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\":\"Janusz\", \"surname\":\"Nosacz-X\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api-post-xml",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api-post-xml"
 					]
 				},
 				"description": "Get-Fake"

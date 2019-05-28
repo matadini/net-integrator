@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import pl.inzynier.netintegrator.server.module.script.ScriptService;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
-import pl.inzynier.netintegrator.server.module.urlmapping.generator.HttpMethodMapKeyGenerator;
-import pl.inzynier.netintegrator.server.module.urlmapping.generator.HttpMethodMapKeys;
+import pl.inzynier.netintegrator.server.module.urlmapping.manager.generator.HttpMethodMapKeyGenerator;
+import pl.inzynier.netintegrator.server.module.urlmapping.manager.generator.HttpMethodMapKeys;
 import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManager;
 import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManagerFactory;
 

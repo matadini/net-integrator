@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Targetowy kontroler na ktorym wystawiane sa mapowania z konfiguracji/bazy
  */
 @Value
-@RestController(UrlMappingConst.DIVIDER_CONTROLLER_NAME)
+@RestController
 class UrlMappingDividerController {
 
     Gson gson;
