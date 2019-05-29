@@ -10,14 +10,15 @@ import javax.persistence.*;
 class LoadBalancerConfigHost {
 
     @Id
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "load_balancer_config_host_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long loadBalancerConfigId;
+    Long LoadBalancerConfigHostId;
 
     @Column(nullable = false)
     String serverAddress;
 
-    @ManyToMany(mappedBy = "hosts")
+    @ManyToOne
+    @JoinColumn(name = "load_balancer_config_id")
     LoadBalancerConfig loadBalancerConfig;
 
 }

@@ -16,11 +16,11 @@ import java.util.List;
 class LoadBalancerConfig {
 
     @Id
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "load_balancer_config_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long loadBalancerConfigId;
 
-    @OneToMany
+    @OneToMany(mappedBy = "loadBalancerConfig")
     List<LoadBalancerConfigHost> hosts = Lists.newArrayList();
 
 }
