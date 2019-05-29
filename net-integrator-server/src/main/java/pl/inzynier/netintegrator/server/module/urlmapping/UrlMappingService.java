@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.module.urlmapping.dto;
+package pl.inzynier.netintegrator.server.module.urlmapping;
 
 import org.springframework.stereotype.Service;
 
