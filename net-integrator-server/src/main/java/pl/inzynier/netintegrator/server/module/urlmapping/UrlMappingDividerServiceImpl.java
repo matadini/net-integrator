@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
+import pl.inzynier.netintegrator.server.module.loadbalancer.LoadBalancerService;
 import pl.inzynier.netintegrator.server.module.script.ScriptService;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
 import pl.inzynier.netintegrator.server.module.urlmapping.manager.generator.HttpMethodMapKeyGenerator;
@@ -32,6 +33,7 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
     Map<String, TargetMethodManager> requestMethodManagerStrategyMap;
     HttpMethodMapKeyGenerator httpMethodMapKeyGenerator;
     ModelMapper modelMapper;
+    LoadBalancerService loadBalancerService;
 
     @Autowired
     public UrlMappingDividerServiceImpl(
@@ -40,7 +42,8 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
             ScriptService scriptService,
             GroovyShell groovyShell,
             HttpMethodMapKeyGenerator httpMethodMapKeyGenerator,
-            ModelMapper modelMapper) {
+            ModelMapper modelMapper,
+            LoadBalancerService loadBalancerService) {
 
         this.restTemplate = restTemplate;
         this.mappingRepository = mappingRepository;
@@ -49,12 +52,14 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
         this.requestMethodManagerStrategyMap = initMap();
         this.httpMethodMapKeyGenerator = httpMethodMapKeyGenerator;
         this.modelMapper = modelMapper;
+        this.loadBalancerService = loadBalancerService;
     }
 
+    // todo: te targetMethodManagery do jakis beanow i wrzucac przez konstruktor
     private Map<String, TargetMethodManager> initMap() {
         Map<String, TargetMethodManager> hashMap = Maps.newHashMap();
-        hashMap.put(HttpMethodMapKeys.GET_TO_GET, TargetMethodManagerFactory.getToGet(restTemplate));
-        hashMap.put(HttpMethodMapKeys.POST_TO_POST, TargetMethodManagerFactory.postToPost(restTemplate, scriptService, groovyShell));
+        hashMap.put(HttpMethodMapKeys.GET_TO_GET, TargetMethodManagerFactory.getToGet(restTemplate, loadBalancerService));
+        hashMap.put(HttpMethodMapKeys.POST_TO_POST, TargetMethodManagerFactory.postToPost(restTemplate, scriptService, groovyShell, loadBalancerService));
         return hashMap;
     }
 

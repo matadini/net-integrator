@@ -3,9 +3,11 @@ package pl.inzynier.netintegrator.server.module.urlmapping.manager;
 import groovy.lang.GroovyShell;
 import lombok.AllArgsConstructor;
 
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import pl.inzynier.netintegrator.server.module.loadbalancer.LoadBalancerService;
 import pl.inzynier.netintegrator.server.module.script.ScriptService;
 import pl.inzynier.netintegrator.server.module.script.dto.ScriptDto;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.TargetEndpointDto;
@@ -15,12 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
+@Builder
 class TargetMethodManagerGroovyPost implements TargetMethodManager {
 
+    GroovyShell groovyShell;
     RestTemplate restTemplate;
     ScriptService scriptService;
-    GroovyShell groovyShell;
+    LoadBalancerService loadBalancerService;
 
     @Override
     public ResponseEntity<String> manage(UrlMappingDto urlMapping, HttpServletRequest request) {
