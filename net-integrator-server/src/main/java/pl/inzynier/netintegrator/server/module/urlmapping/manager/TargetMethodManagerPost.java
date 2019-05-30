@@ -44,17 +44,11 @@ class TargetMethodManagerPost implements TargetMethodManager {
             TargetEndpointDto target = urlMapping.getTarget();
             String fullUrl = target.getFullUrl(addressIp);
 
-
+            // wykonaj skrypty na danych z body
             String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            body = scriptService.executeScripts(urlMappingId, body);
 
-            // pobierz skrypty powiazany z mapowaniem
-            List<ScriptDto> byUrlMappingId = scriptService.findByUrlMappingId(urlMappingId);
-            for (ScriptDto script : byUrlMappingId) {
 
-                String content = script.getContent();
-                Object skrypt = groovyShell.run(content, "skrypt", new String[]{body});
-                body = skrypt.toString();
-            }
             return restTemplate.postForEntity(fullUrl, body, String.class);
 
         } catch (Exception e) {

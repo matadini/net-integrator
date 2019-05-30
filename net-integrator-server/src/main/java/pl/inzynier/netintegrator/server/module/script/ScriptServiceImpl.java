@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.server.module.script;
 
+import groovy.lang.GroovyShell;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,17 +15,17 @@ import java.util.stream.Collectors;
 @Component
 class ScriptServiceImpl implements ScriptService {
 
+    private final GroovyShell groovyShell;
+    private final ModelMapper modelMapper;
     private final ScriptRepository scriptRepository;
-
     private final UrlMappingParentRepository mappingParentRepository;
 
-    private final ModelMapper modelMapper;
-
     @Autowired
-    public ScriptServiceImpl(ScriptRepository scriptRepository, UrlMappingParentRepository mappingParentRepository, ModelMapper modelMapper) {
+    public ScriptServiceImpl(ScriptRepository scriptRepository, UrlMappingParentRepository mappingParentRepository, ModelMapper modelMapper, GroovyShell groovyShell) {
         this.scriptRepository = scriptRepository;
         this.mappingParentRepository = mappingParentRepository;
         this.modelMapper = modelMapper;
+        this.groovyShell = groovyShell;
     }
 
     @Override
@@ -47,5 +48,18 @@ class ScriptServiceImpl implements ScriptService {
                 .stream()
                 .map(x -> modelMapper.map(x, ScriptDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String executeScripts(Long urlMappingId, String httpRequestContent) throws ScriptServiceException {
+
+        String body = "";
+        List<ScriptDto> byUrlMappingId = this.findByUrlMappingId(urlMappingId);
+        for (ScriptDto script : byUrlMappingId) {
+            String content = script.getContent();
+            Object skrypt = groovyShell.run(content, "skrypt", new String[]{httpRequestContent});
+            body = skrypt.toString();
+        }
+        return body;
     }
 }

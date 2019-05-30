@@ -11,4 +11,6 @@ public interface ScriptService {
     Long addScript(Long urlMappingId, ScriptType type, String content) throws ScriptServiceException;
 
     List<ScriptDto> findByUrlMappingId(Long urlMappingId) throws ScriptServiceException;
+
+    String executeScripts(Long urlMappingId, String httpRequestContent)  throws ScriptServiceException;
 }
