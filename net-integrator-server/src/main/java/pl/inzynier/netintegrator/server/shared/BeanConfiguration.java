@@ -7,6 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
+import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerIpInputData;
+import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerIpOutputData;
+import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerServiceException;
 
 @Configuration
 class BeanConfiguration {
@@ -29,5 +33,12 @@ class BeanConfiguration {
     @Bean
     GroovyShell groovyShell() {
         return new  GroovyShell();
+    }
+
+    @Bean
+    LoadBalancerService loadBalancerService() {
+        return data -> LoadBalancerIpOutputData.builder()
+                .addressIp("localhost:9090")
+                .build();
     }
 }

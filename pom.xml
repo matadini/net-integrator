@@ -11,6 +11,7 @@
         <module>net-integrator-server</module>
         <module>net-integrator-client-fx</module>
         <module>net-integrator-fake-server</module>
+        <module>net-integrator-load-balancer</module>
     </modules>
     <packaging>pom</packaging>
 

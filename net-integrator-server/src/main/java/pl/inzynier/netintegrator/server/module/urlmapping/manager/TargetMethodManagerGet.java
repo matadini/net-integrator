@@ -1,12 +1,10 @@
 package pl.inzynier.netintegrator.server.module.urlmapping.manager;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.inzynier.netintegrator.server.module.loadbalancer.LoadBalancerService;
+import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
 
