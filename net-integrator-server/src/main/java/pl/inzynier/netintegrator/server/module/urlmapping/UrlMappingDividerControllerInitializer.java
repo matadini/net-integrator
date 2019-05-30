@@ -20,13 +20,10 @@ import java.util.List;
 @Component
 class UrlMappingDividerControllerInitializer {
 
-    RequestMappingHandlerMapping handlerMapping;
-
     UrlMappingRepository urlMappingRepository;
-
-    UrlMappingDividerController dividerController;
-
     UrlMappingDemoInitializer urlMappingDemoInitializer;
+    UrlMappingDividerController dividerController;
+    RequestMappingHandlerMapping handlerMapping;
 
     @Autowired
     public UrlMappingDividerControllerInitializer(
@@ -50,9 +47,6 @@ class UrlMappingDividerControllerInitializer {
 
         try {
 
-            /*
-             *
-             */
             Class[] cArg = new Class[2];
             cArg[0] = HttpServletRequest.class;
             cArg[1] = HttpServletResponse.class;
@@ -73,8 +67,6 @@ class UrlMappingDividerControllerInitializer {
                 Method handler = UrlMappingDividerController.class.getDeclaredMethod(UrlMappingConst.DIVIDER_CONTROLLER_HANDLE_METHOD_NAME, cArg);
                 handlerMapping.registerMapping(requestMappingInfo, dividerController, handler);
             }
-
-
 
         } catch (Exception ex) {
             System.err.println(ex);
