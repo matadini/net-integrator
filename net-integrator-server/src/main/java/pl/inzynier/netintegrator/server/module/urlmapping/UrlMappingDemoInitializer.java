@@ -38,7 +38,6 @@ class UrlMappingDemoInitializer {
 
         TargetEndpoint targetEndpoint0 = new TargetEndpoint(
                 "/fake-get",
-                "http://localhost:9090",
                 RequestMethod.GET);
 
         UrlMapping mapping0 = new UrlMapping(publishEndpoint0, targetEndpoint0);
@@ -51,7 +50,6 @@ class UrlMappingDemoInitializer {
 
         TargetEndpoint targetEndpoint1 = new TargetEndpoint(
                 "/fake-post",
-                "http://localhost:9090",
                 RequestMethod.POST);
 
         UrlMapping mapping1 = new UrlMapping(publishEndpoint1, targetEndpoint1);
@@ -67,7 +65,6 @@ class UrlMappingDemoInitializer {
 
         TargetEndpoint targetEndpoint2 = new TargetEndpoint(
                 "/fake-post",
-                "http://localhost:9090",
                 RequestMethod.POST);
 
         UrlMapping mapping2 = new UrlMapping(publishEndpoint2, targetEndpoint2);

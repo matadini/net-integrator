@@ -49,10 +49,10 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
         this.mappingRepository = mappingRepository;
         this.scriptService = scriptService;
         this.groovyShell = groovyShell;
-        this.requestMethodManagerStrategyMap = initMap();
         this.httpMethodMapKeyGenerator = httpMethodMapKeyGenerator;
         this.modelMapper = modelMapper;
         this.loadBalancerService = loadBalancerService;
+        this.requestMethodManagerStrategyMap = initMap();
     }
 
     // todo: te targetMethodManagery do jakis beanow i wrzucac przez konstruktor

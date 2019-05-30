@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TargetEndpointDto {
+
     String methodUrl;
-    String serverAddress;
     RequestMethod method;
 
-    public String getFullUrl() {
-        return this.getServerAddress() + this.getMethodUrl();
+    public String getFullUrl(String hostAddress) {
+        return hostAddress + this.getMethodUrl();
     }
 }

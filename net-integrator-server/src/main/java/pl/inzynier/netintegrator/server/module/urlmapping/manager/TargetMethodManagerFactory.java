@@ -21,7 +21,7 @@ public class TargetMethodManagerFactory {
                                                  GroovyShell groovyShell,
                                                  LoadBalancerService loadBalancerService) {
 
-        return TargetMethodManagerGroovyPost.builder()
+        return TargetMethodManagerPost.builder()
                 .groovyShell(groovyShell)
                 .restTemplate(restTemplate)
                 .scriptService(scriptService)

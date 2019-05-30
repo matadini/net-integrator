@@ -37,8 +37,17 @@ class BeanConfiguration {
 
     @Bean
     LoadBalancerService loadBalancerService() {
-        return data -> LoadBalancerIpOutputData.builder()
-                .addressIp("localhost:9090")
-                .build();
+        return new LoadBalancerService() {
+
+            @Override
+            public LoadBalancerIpOutputData getHostIp(LoadBalancerIpInputData data) throws LoadBalancerServiceException {
+
+                System.out.println(data);
+
+                return LoadBalancerIpOutputData.builder()
+                        .addressIp("http://localhost:9090")
+                        .build();
+            }
+        };
     }
 }
