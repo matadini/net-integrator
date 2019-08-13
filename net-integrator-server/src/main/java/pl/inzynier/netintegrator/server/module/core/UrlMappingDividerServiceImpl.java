@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
-import pl.inzynier.netintegrator.server.module.script.ScriptService;
 import pl.inzynier.netintegrator.server.module.urlmapping.UrlMappingService;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
 import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManagerException;

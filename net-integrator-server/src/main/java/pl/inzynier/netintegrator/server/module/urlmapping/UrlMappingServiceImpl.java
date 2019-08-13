@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pl.inzynier.netintegrator.server.module.script.ScriptService;
-import pl.inzynier.netintegrator.server.module.script.dto.ScriptType;
+import pl.inzynier.netintegrator.script.ScriptService;
+import pl.inzynier.netintegrator.script.dto.ScriptType;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
 
 @Component

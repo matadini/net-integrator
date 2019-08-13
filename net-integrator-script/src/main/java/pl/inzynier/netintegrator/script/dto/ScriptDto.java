@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.module.script.dto;
+package pl.inzynier.netintegrator.script.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

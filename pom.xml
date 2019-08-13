@@ -12,6 +12,7 @@
         <module>net-integrator-client-fx</module>
         <module>net-integrator-fake-server</module>
         <module>net-integrator-load-balancer</module>
+        <module>net-integrator-script</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -20,6 +21,18 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.1.5.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <!-- zaleznosci dla wszystkich modulow/podprojektow -->
     <dependencies>
         <dependency>

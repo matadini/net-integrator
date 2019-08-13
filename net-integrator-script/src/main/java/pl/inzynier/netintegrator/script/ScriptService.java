@@ -1,11 +1,14 @@
-package pl.inzynier.netintegrator.server.module.script;
-
-import pl.inzynier.netintegrator.server.module.script.dto.ScriptDto;
-import pl.inzynier.netintegrator.server.module.script.dto.ScriptServiceException;
-import pl.inzynier.netintegrator.server.module.script.dto.ScriptType;
+package pl.inzynier.netintegrator.script;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import pl.inzynier.netintegrator.script.dto.ScriptDto;
+import pl.inzynier.netintegrator.script.dto.ScriptServiceException;
+import pl.inzynier.netintegrator.script.dto.ScriptType;
+
+@Service
 public interface ScriptService {
 
     Long addScript(Long urlMappingId, ScriptType type, String content) throws ScriptServiceException;

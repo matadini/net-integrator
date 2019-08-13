@@ -1,10 +1,11 @@
 package pl.inzynier.netintegrator.server.module.urlmapping.manager;
 
+import org.springframework.web.client.RestTemplate;
+
 import groovy.lang.GroovyShell;
 import lombok.NoArgsConstructor;
-import org.springframework.web.client.RestTemplate;
 import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
-import pl.inzynier.netintegrator.server.module.script.ScriptService;
+import pl.inzynier.netintegrator.script.ScriptService;
 
 @NoArgsConstructor
 public class TargetMethodManagerFactory {

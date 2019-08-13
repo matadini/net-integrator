@@ -1,23 +1,23 @@
 package pl.inzynier.netintegrator.server.module.urlmapping.manager;
 
-import groovy.lang.GroovyShell;
-import lombok.Builder;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import groovy.lang.GroovyShell;
+import lombok.Builder;
 import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
 import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerIpInputData;
 import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerIpOutputData;
-import pl.inzynier.netintegrator.server.module.script.ScriptService;
-import pl.inzynier.netintegrator.server.module.script.dto.ScriptDto;
+import pl.inzynier.netintegrator.script.ScriptService;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
 import pl.inzynier.netintegrator.server.shared.HttpServletRequestUtil;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Builder
 class TargetMethodManagerPost implements TargetMethodManager {

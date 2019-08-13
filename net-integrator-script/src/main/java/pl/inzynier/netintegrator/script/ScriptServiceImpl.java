@@ -1,16 +1,16 @@
-package pl.inzynier.netintegrator.server.module.script;
+package pl.inzynier.netintegrator.script;
 
-import groovy.lang.GroovyShell;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.inzynier.netintegrator.server.module.script.dto.ScriptDto;
-import pl.inzynier.netintegrator.server.module.script.dto.ScriptServiceException;
-import pl.inzynier.netintegrator.server.module.script.dto.ScriptType;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import groovy.lang.GroovyShell;
+import pl.inzynier.netintegrator.script.dto.ScriptDto;
+import pl.inzynier.netintegrator.script.dto.ScriptServiceException;
+import pl.inzynier.netintegrator.script.dto.ScriptType;
 
 @Component
 class ScriptServiceImpl implements ScriptService {
