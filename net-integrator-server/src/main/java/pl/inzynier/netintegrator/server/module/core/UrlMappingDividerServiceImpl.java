@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.module.urlmapping;
+package pl.inzynier.netintegrator.server.module.core;
 
 import com.google.common.collect.Maps;
 import groovy.lang.GroovyShell;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
 import pl.inzynier.netintegrator.server.module.script.ScriptService;
+import pl.inzynier.netintegrator.server.module.urlmapping.UrlMappingService;
 import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
 import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManagerException;
 import pl.inzynier.netintegrator.server.module.urlmapping.manager.generator.HttpMethodMapKeyGenerator;
@@ -31,14 +32,14 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
     ModelMapper modelMapper;
     TargetMethodManager getToGet;
     TargetMethodManager postToPost;
-    UrlMappingRepository mappingRepository;
+    UrlMappingService mappingRepository;
     Map<String, TargetMethodManager> requestMethodManagerStrategyMap;
     HttpMethodMapKeyGenerator httpMethodMapKeyGenerator;
 
     @Autowired
     public UrlMappingDividerServiceImpl(
             ModelMapper modelMapper,
-            UrlMappingRepository mappingRepository,
+            UrlMappingService mappingRepository,
             HttpMethodMapKeyGenerator httpMethodMapKeyGenerator,
             @Qualifier(HttpMethodMapKeys.GET_TO_GET) TargetMethodManager getToGet,
             @Qualifier(HttpMethodMapKeys.POST_TO_POST) TargetMethodManager postToPost) {
@@ -67,21 +68,21 @@ class UrlMappingDividerServiceImpl implements UrlMappingDividerService {
             String requestURI = request.getRequestURI();
 
             // odczytaj z bazy mapping
-            Optional<UrlMapping> byPublishUrlAndPublishMethod = mappingRepository.findByPublishUrlAndPublishMethod(
+            Optional<UrlMappingDto> byPublishUrlAndPublishMethod = mappingRepository.findByPublishUrlAndPublishMethod(
                     requestURI, requestMethod);
             if (!byPublishUrlAndPublishMethod.isPresent()) {
                 throw new UrlMappingDividerServiceException("No config");
             }
 
             // okreslic typ metody http i wykonac zadanie na nowy adres
-            UrlMapping urlMapping = byPublishUrlAndPublishMethod.get();
+            UrlMappingDto urlMapping = byPublishUrlAndPublishMethod.get();
             UrlMappingDto mappingDto = modelMapper.map(urlMapping, UrlMappingDto.class);
             String strategyKey = httpMethodMapKeyGenerator.genreate(mappingDto);
 
             // w zaleznosci od pary publish-target, strategia wywolania moze sie roznic
             TargetMethodManager targetMethodManager = requestMethodManagerStrategyMap.get(strategyKey);
             return targetMethodManager.manage(mappingDto, request);
-        } catch (TargetMethodManagerException e) {
+        } catch (Exception e) {
             throw new UrlMappingDividerServiceException(e);
 
         }

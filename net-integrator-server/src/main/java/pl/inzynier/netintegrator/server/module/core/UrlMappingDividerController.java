@@ -1,7 +1,8 @@
-package pl.inzynier.netintegrator.server.module.urlmapping;
+package pl.inzynier.netintegrator.server.module.core;
 
 import com.google.gson.Gson;
 import lombok.Value;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,13 +1,16 @@
 package pl.inzynier.netintegrator.server.module.urlmapping;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import picocli.CommandLine;
-
-import javax.persistence.*;
 
 @Data
 @Entity

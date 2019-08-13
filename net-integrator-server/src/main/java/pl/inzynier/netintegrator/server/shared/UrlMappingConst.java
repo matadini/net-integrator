@@ -1,9 +1,9 @@
-package pl.inzynier.netintegrator.server.module.urlmapping;
+package pl.inzynier.netintegrator.server.shared;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class UrlMappingConst {
-    static final String DIVIDER_CONTROLLER_HANDLE_METHOD_NAME = "handler";
+public class UrlMappingConst {
+    public static final String DIVIDER_CONTROLLER_HANDLE_METHOD_NAME = "handler";
 }

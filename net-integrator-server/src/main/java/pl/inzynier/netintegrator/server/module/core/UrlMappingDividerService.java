@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.module.urlmapping;
+package pl.inzynier.netintegrator.server.module.core;
 
 import org.springframework.http.ResponseEntity;
 
