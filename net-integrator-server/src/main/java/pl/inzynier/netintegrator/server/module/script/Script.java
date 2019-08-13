@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.server.module.script;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,8 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "scripts")
 class Script {
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 interface ScriptRepository extends JpaRepository<Script, Long> {
 
-    @Query("select s from Script s where s.urlMappingParent.urlMappingParentId = :parentId")
+    @Query("select s from Script s where s.urlMappingParentId = :parentId")
     List<Script> findByUrlMappingParentId(@Param("parentId") Long parentId);
 
 }
