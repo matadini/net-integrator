@@ -20,14 +20,17 @@ import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerServiceException;
 @Configuration
 @ComponentScan({
 	"pl.inzynier.netintegrator.script",
+	"pl.inzynier.netintegrator.mapping",
 	"pl.inzynier.netintegrator.server"})
 
 @EntityScan({
 		"pl.inzynier.netintegrator.script",
+		"pl.inzynier.netintegrator.mapping",
 		"pl.inzynier.netintegrator.server"})
 
 @EnableJpaRepositories({
 		"pl.inzynier.netintegrator.script",
+		"pl.inzynier.netintegrator.mapping",
 		"pl.inzynier.netintegrator.server"})
 class BeanConfiguration {
 

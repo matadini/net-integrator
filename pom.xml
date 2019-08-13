@@ -13,6 +13,7 @@
         <module>net-integrator-fake-server</module>
         <module>net-integrator-load-balancer</module>
         <module>net-integrator-script</module>
+        <module>net-integrator-mapping</module>
     </modules>
     <packaging>pom</packaging>
 

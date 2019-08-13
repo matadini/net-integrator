@@ -1,28 +1,26 @@
 package pl.inzynier.netintegrator.server.module.core;
 
-import com.google.common.collect.Maps;
-import groovy.lang.GroovyShell;
-import lombok.Value;
+import java.util.Map;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.client.RestTemplate;
-import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
-import pl.inzynier.netintegrator.server.module.urlmapping.UrlMappingService;
-import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
-import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManagerException;
-import pl.inzynier.netintegrator.server.module.urlmapping.manager.generator.HttpMethodMapKeyGenerator;
-import pl.inzynier.netintegrator.server.module.urlmapping.manager.generator.HttpMethodMapKeys;
-import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManager;
-import pl.inzynier.netintegrator.server.module.urlmapping.manager.TargetMethodManagerFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-import java.util.Optional;
+import com.google.common.collect.Maps;
+
+import lombok.Value;
+import pl.inzynier.netintegrator.mapping.UrlMappingService;
+import pl.inzynier.netintegrator.mapping.dto.UrlMappingDto;
+import pl.inzynier.netintegrator.mapping.manager.TargetMethodManager;
+import pl.inzynier.netintegrator.mapping.manager.generator.HttpMethodMapKeyGenerator;
+import pl.inzynier.netintegrator.mapping.manager.generator.HttpMethodMapKeys;
 
 @Value
 @Component

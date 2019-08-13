@@ -1,21 +1,22 @@
 package pl.inzynier.netintegrator.server.module.core;
 
-import lombok.Value;
-import pl.inzynier.netintegrator.server.module.urlmapping.UrlMappingService;
-import pl.inzynier.netintegrator.server.module.urlmapping.dto.PublishEndpointDto;
-import pl.inzynier.netintegrator.server.module.urlmapping.dto.UrlMappingDto;
-import pl.inzynier.netintegrator.server.shared.UrlMappingConst;
+import java.lang.reflect.Method;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
-import java.util.List;
+import lombok.Value;
+import pl.inzynier.netintegrator.mapping.UrlMappingService;
+import pl.inzynier.netintegrator.mapping.dto.PublishEndpointDto;
+import pl.inzynier.netintegrator.mapping.dto.UrlMappingDto;
+import pl.inzynier.netintegrator.server.shared.UrlMappingConst;
 
 /**
  * Komponent pobierajacy konfiguracje z bazy i wystawiajacy mapowania na
