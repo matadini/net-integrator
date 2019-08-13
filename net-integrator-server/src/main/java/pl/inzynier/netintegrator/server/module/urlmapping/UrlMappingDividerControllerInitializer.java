@@ -21,7 +21,6 @@ import java.util.List;
 class UrlMappingDividerControllerInitializer {
 
     UrlMappingRepository urlMappingRepository;
-    UrlMappingDemoInitializer urlMappingDemoInitializer;
     UrlMappingDividerController dividerController;
     RequestMappingHandlerMapping handlerMapping;
 
@@ -29,13 +28,11 @@ class UrlMappingDividerControllerInitializer {
     public UrlMappingDividerControllerInitializer(
             RequestMappingHandlerMapping handlerMapping,
             UrlMappingRepository urlMappingRepository,
-            UrlMappingDividerController dividerController,
-            UrlMappingDemoInitializer urlMappingDemoInitializer) {
+            UrlMappingDividerController dividerController) {
 
         this.handlerMapping = handlerMapping;
         this.urlMappingRepository = urlMappingRepository;
         this.dividerController = dividerController;
-        this.urlMappingDemoInitializer = urlMappingDemoInitializer;
     }
 
 
