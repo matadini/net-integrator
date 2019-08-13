@@ -18,12 +18,11 @@ class ScriptServiceImpl implements ScriptService {
     private final GroovyShell groovyShell;
     private final ModelMapper modelMapper;
     private final ScriptRepository scriptRepository;
-    private final UrlMappingParentRepository mappingParentRepository;
+
 
     @Autowired
-    public ScriptServiceImpl(ScriptRepository scriptRepository, UrlMappingParentRepository mappingParentRepository, ModelMapper modelMapper, GroovyShell groovyShell) {
+    public ScriptServiceImpl(ScriptRepository scriptRepository, ModelMapper modelMapper, GroovyShell groovyShell) {
         this.scriptRepository = scriptRepository;
-        this.mappingParentRepository = mappingParentRepository;
         this.modelMapper = modelMapper;
         this.groovyShell = groovyShell;
     }
@@ -31,13 +30,8 @@ class ScriptServiceImpl implements ScriptService {
     @Override
     public Long addScript(Long urlMappingId, ScriptType type, String content) throws ScriptServiceException {
 
-        Optional<UrlMappingParent> mappingParent = mappingParentRepository.findById(urlMappingId);
-        if (!mappingParent.isPresent()) {
-            throw new ScriptServiceException("lipne urlMappingId");
-        }
-        UrlMappingParent urlMappingParent = mappingParent.get();
 
-        Script script = new Script(null, type, content, 0, urlMappingParent);
+        Script script = new Script(null, type, content, 0, urlMappingId);
         Script save = scriptRepository.save(script);
         return save.getScriptId();
     }

@@ -30,9 +30,7 @@ class Script {
     @Column(nullable = false)
     Integer execOrder;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "url_mapping_id")
-    UrlMappingParent urlMappingParent;
+    Long urlMappingParentId;
 
 }
 
