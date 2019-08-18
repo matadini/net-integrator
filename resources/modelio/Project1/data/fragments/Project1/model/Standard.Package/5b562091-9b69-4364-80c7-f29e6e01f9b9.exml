@@ -15,6 +15,66 @@
     <DEPENDENCIES>
       <COMP relation="OwnedBehavior">
         <COMPID name="Interaction" mc="Standard.Interaction" uid="7e4f4a6c-ca65-4aae-ac3e-907875689dfe"/>
+        <COMPID name="Communication Interaction" mc="Standard.CommunicationInteraction" uid="bdc88d61-df35-41c1-acd5-7b515cc13a3c"/>
+      </COMP>
+      <COMP relation="OwnedInformationFlow">
+        <OBJECT>
+          <ID name="Zapytanie HTTP" mc="Standard.InformationFlow" uid="ff013320-4e3f-4bd0-9b1c-ec66482f9b93"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[Zapytanie HTTP]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <REFOBJ>
+                <ID name="Konsument systemu" mc="Standard.CommunicationNode" uid="98eb2778-ef3a-4210-a54c-b42cd9a64234"/>
+              </REFOBJ>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <REFOBJ>
+                <ID name="NET-Integrator" mc="Standard.CommunicationNode" uid="00c9ad17-9d12-4a86-b7f7-4ab312b3d984"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="Przekierowanie 1" mc="Standard.InformationFlow" uid="153f556c-2006-4716-b630-3bb2c264af51"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[Przekierowanie 1]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <REFOBJ>
+                <ID name="NET-Integrator" mc="Standard.CommunicationNode" uid="00c9ad17-9d12-4a86-b7f7-4ab312b3d984"/>
+              </REFOBJ>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <REFOBJ>
+                <ID name="Odbiorca API 1" mc="Standard.CommunicationNode" uid="38e60f02-1727-4827-a99b-2d5ada51eb40"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="Przekierowanie 2" mc="Standard.InformationFlow" uid="1a6226c1-73d8-41ce-8eb9-d06d12b7397e"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[Przekierowanie 2]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="InformationSource">
+              <REFOBJ>
+                <ID name="NET-Integrator" mc="Standard.CommunicationNode" uid="00c9ad17-9d12-4a86-b7f7-4ab312b3d984"/>
+              </REFOBJ>
+            </LINK>
+            <LINK relation="InformationTarget">
+              <REFOBJ>
+                <ID name="Odbiorca API 2" mc="Standard.CommunicationNode" uid="d64c03b2-f404-4585-8bc1-5fc97856bc0a"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>
