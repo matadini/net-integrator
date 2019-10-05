@@ -49,7 +49,7 @@ class ScriptServiceImpl implements ScriptService {
     }
 
     @Override
-    public List<ScriptReadDto> findAll(Long urlMappingId) throws ScriptServiceException {
+    public List<ScriptReadDto> findAll() throws ScriptServiceException {
         return scriptRepository.findAll()
                 .stream()
                 .map(x -> modelMapper.map(x, ScriptReadDto.class))

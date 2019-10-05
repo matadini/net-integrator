@@ -35,7 +35,8 @@ class ScriptRepositoryImpl implements ScriptRepository {
 
     @Override
     public List<Script> findAll() {
-        return null;
+        String sql = "select s from Script s order by s.scriptId";
+        return entityManager.createQuery(sql, Script.class).getResultList();
     }
 
     @Override

@@ -1,8 +1,6 @@
 package pl.inzynier.netintegrator.script.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -10,7 +8,6 @@ import lombok.NoArgsConstructor;
 public class ScriptWriteDto {
     Long urlMappingId;
     String content;
-    Integer execOrder;
     ScriptType scriptType;
 }
 

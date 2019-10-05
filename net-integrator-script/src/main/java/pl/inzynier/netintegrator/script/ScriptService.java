@@ -1,14 +1,10 @@
 package pl.inzynier.netintegrator.script;
 
-import java.util.List;
-
-
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import pl.inzynier.netintegrator.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.script.dto.ScriptServiceException;
-import pl.inzynier.netintegrator.script.dto.ScriptType;
 import pl.inzynier.netintegrator.script.dto.ScriptWriteDto;
+
+import java.util.List;
 
 
 public interface ScriptService {
@@ -17,7 +13,7 @@ public interface ScriptService {
 
     List<ScriptReadDto> findByUrlMappingId(Long urlMappingId) throws ScriptServiceException;
 
-    List<ScriptReadDto> findAll(Long urlMappingId) throws ScriptServiceException;
+    List<ScriptReadDto> findAll() throws ScriptServiceException;
 
     String executeScripts(Long urlMappingId, String httpRequestContent)  throws ScriptServiceException;
 }
