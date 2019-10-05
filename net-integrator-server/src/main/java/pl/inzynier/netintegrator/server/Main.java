@@ -2,7 +2,6 @@ package pl.inzynier.netintegrator.server;
 
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
-
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 import pl.inzynier.netintegrator.mapping.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.UrlMappingServiceException;
@@ -13,13 +12,18 @@ import pl.inzynier.netintegrator.mapping.dto.UrlMappingWriteDto;
 import pl.inzynier.netintegrator.server.configuration.Configuration;
 import pl.inzynier.netintegrator.server.configuration.ConfigurationRepository;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws UrlMappingServiceException {
 
+
+
+
+    }
+
+    private static void urlMappingAdd() throws UrlMappingServiceException {
         // urlmapping dodawanie
 
         PublishEndpointDto publishEndpoint0 = new PublishEndpointDto("/api-get", RequestMethod.GET);
