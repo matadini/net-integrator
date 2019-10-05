@@ -4,7 +4,8 @@ import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 import pl.inzynier.netintegrator.mapping.UrlMappingService;
-import pl.inzynier.netintegrator.mapping.UrlMappingServiceException;
+import pl.inzynier.netintegrator.mapping.UrlMappingServiceFactory;
+import pl.inzynier.netintegrator.mapping.dto.UrlMappingServiceException;
 import pl.inzynier.netintegrator.mapping.dto.PublishEndpointDto;
 import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
@@ -31,7 +32,7 @@ public class Main {
         UrlMappingWriteDto mapping0 = new UrlMappingWriteDto(publishEndpoint0, targetEndpoint0);
 
 
-        UrlMappingService urlMappingService = UrlMappingService.create(null);
+        UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
         urlMappingService.addUrlMapping(mapping0);
 
 

@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.mapping;
+package pl.inzynier.netintegrator.mapping.dto;
 
 public class UrlMappingServiceException extends Exception {
 

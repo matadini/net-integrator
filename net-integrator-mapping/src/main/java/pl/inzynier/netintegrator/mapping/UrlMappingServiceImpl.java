@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
+import pl.inzynier.netintegrator.mapping.dto.UrlMappingServiceException;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingWriteDto;
 
 

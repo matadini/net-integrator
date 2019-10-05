@@ -3,6 +3,8 @@ package pl.inzynier.netintegrator.script;
 import java.util.List;
 
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import pl.inzynier.netintegrator.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.script.dto.ScriptServiceException;
 import pl.inzynier.netintegrator.script.dto.ScriptType;
@@ -19,3 +21,4 @@ public interface ScriptService {
 
     String executeScripts(Long urlMappingId, String httpRequestContent)  throws ScriptServiceException;
 }
+
