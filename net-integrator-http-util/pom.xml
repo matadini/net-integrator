@@ -9,21 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>net-integrator-mapping</artifactId>
+    <artifactId>net-integrator-http-util</artifactId>
 
     <dependencies>
 
-        <dependency>
-            <groupId>pl.inzynier</groupId>
-            <artifactId>net-integrator-db-util</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
         <dependency>
-            <groupId>pl.inzynier</groupId>
-            <artifactId>net-integrator-http-util</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>2.8.0</version>
         </dependency>
-
     </dependencies>
+
 </project>

@@ -13,6 +13,7 @@
         <module>net-integrator-db-util</module>
         <module>net-integrator-mapping</module>
         <module>net-integrator-server</module>
+        <module>net-integrator-http-util</module>
     </modules>
     <packaging>pom</packaging>
 
