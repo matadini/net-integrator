@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UrlMappingDto {
+public class UrlMappingReadDto extends UrlMappingWriteDto {
     Long urlMappingId;
-    PublishEndpointDto endpoint;
-    TargetEndpointDto target;
 }

@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.db.util;
+package pl.inzynier.netintegrator.mapping;
 
 import com.google.common.collect.Maps;
 import lombok.AccessLevel;
@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class EntityManagerFactoryProvider {
+ class EntityManagerFactoryProvider {
 
     public static EntityManagerFactory createEntityManagerFactoryH2() {
 
@@ -26,6 +26,6 @@ public class EntityManagerFactoryProvider {
         properties.put("format_sql", "true");
         properties.put("use_sql_comments", "true");
 
-        return Persistence.createEntityManagerFactory("H2PU", properties);
+        return Persistence.createEntityManagerFactory("MAPPING_PERSISTANCE", properties);
     }
 }

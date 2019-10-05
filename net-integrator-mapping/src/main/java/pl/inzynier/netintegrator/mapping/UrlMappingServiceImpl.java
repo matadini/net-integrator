@@ -1,48 +1,59 @@
-//package pl.inzynier.netintegrator.mapping;
-//
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.stream.Collectors;
-//
-//import org.modelmapper.ModelMapper;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Component;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//
-//import pl.inzynier.netintegrator.mapping.dto.UrlMappingDto;
-//import pl.inzynier.netintegrator.script.ScriptService;
-//import pl.inzynier.netintegrator.script.dto.ScriptType;
-//
-//@Component
-//class UrlMappingServiceImpl implements UrlMappingService {
-//
-//	private final ModelMapper modelMapper;
-//	private final UrlMappingRepository repository;
+package pl.inzynier.netintegrator.mapping;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import pl.inzynier.netintegrator.http.util.RequestMethod;
+import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
+import pl.inzynier.netintegrator.mapping.dto.UrlMappingWriteDto;
+
+
+class UrlMappingServiceImpl implements UrlMappingService {
+
+	private final ModelMapper modelMapper;
+	private final UrlMappingRepository repository;
 //	private final ScriptService scriptService;
-//
-//	@Autowired
-//	public UrlMappingServiceImpl(ModelMapper modelMapper, UrlMappingRepository repository,
-//			ScriptService scriptService) {
-//		super();
-//		this.modelMapper = modelMapper;
-//		this.repository = repository;
-//		this.scriptService = scriptService;
-//	}
-//
-//	@Override
-//	public Optional<UrlMappingDto> findByPublishUrlAndPublishMethod(String url, RequestMethod mapping)
-//			throws UrlMappingServiceException {
-//
-//		Optional<UrlMapping> find = repository.findByPublishUrlAndPublishMethod(url, mapping);
-//		return find.isPresent() ? Optional.of(modelMapper.map(find.get(), UrlMappingDto.class)) : Optional.empty();
-//	}
-//
-//	@Override
-//	public List<UrlMappingDto> findAll() throws UrlMappingServiceException {
-//		List<UrlMapping> findAll = repository.findAll();
-//		return findAll.stream().map(item -> modelMapper.map(item, UrlMappingDto.class)).collect(Collectors.toList());
-//	}
-//
+
+
+	public UrlMappingServiceImpl(ModelMapper modelMapper, UrlMappingRepository repository) {
+		super();
+		this.modelMapper = modelMapper;
+		this.repository = repository;
+	}
+
+	@Override
+	public Long addUrlMapping(UrlMappingWriteDto mappingDto) throws UrlMappingServiceException {
+		PublishEndpoint publishEndpoint0 =modelMapper.map(mappingDto.getEndpoint(), PublishEndpoint.class);
+		TargetEndpoint targetEndpoint0 = modelMapper.map(mappingDto.getTarget(), TargetEndpoint.class);
+		UrlMapping mapping0 = new UrlMapping(publishEndpoint0, targetEndpoint0);
+		UrlMapping save = repository.save(mapping0);
+		return save.getUrlMappingId();
+	}
+
+	@Override
+	public Optional<UrlMappingReadDto> findByPublishUrlAndPublishMethod(String url, RequestMethod mapping)
+			throws UrlMappingServiceException {
+
+		Optional<UrlMapping> find = repository.findByPublishUrlAndPublishMethod(url, mapping);
+		return find.isPresent() ? Optional.of(modelMapper.map(find.get(), UrlMappingReadDto.class)) : Optional.empty();
+	}
+
+	@Override
+	public void deactivateUrlMapping(Long urlMappingId) throws UrlMappingServiceException {
+
+	}
+
+	@Override
+	public List<UrlMappingReadDto> findAll() throws UrlMappingServiceException {
+
+		return repository.findAll()
+				.stream()
+				.map(item -> modelMapper.map(item, UrlMappingReadDto.class))
+				.collect(Collectors.toList());
+	}
+
 //	@Override
 //	public void demoInit() throws UrlMappingServiceException {
 //
@@ -78,5 +89,5 @@
 //			throw new UrlMappingServiceException(e);
 //		}
 //	}
-//
-//}
+
+}
