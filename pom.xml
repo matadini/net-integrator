@@ -8,12 +8,11 @@
     <artifactId>net-integrator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>net-integrator-server</module>
         <module>net-integrator-client-fx</module>
         <module>net-integrator-fake-server</module>
-        <module>net-integrator-load-balancer</module>
-        <module>net-integrator-script</module>
+        <module>net-integrator-db-util</module>
         <module>net-integrator-mapping</module>
+        <module>net-integrator-server</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -22,7 +21,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <dependencyManagement>
+<!--    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -32,17 +31,24 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement>-->
     
     <!-- zaleznosci dla wszystkich modulow/podprojektow -->
     <dependencies>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+
+        <dependency>
+            <groupId>org.tinylog</groupId>
+            <artifactId>tinylog</artifactId>
+            <version>1.3.5</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
