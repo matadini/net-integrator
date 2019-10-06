@@ -2,7 +2,7 @@ package pl.inzynier.netintegrator.script;
 
 public class ExampleGroovyScript {
 
-    static String createExampleGroovyScriptJsonToXml() {
+    public static String createExampleGroovyScriptJsonToXml() {
         return "// imports\n" +
                 "import groovy.json.JsonSlurper\n" +
                 "\n" +

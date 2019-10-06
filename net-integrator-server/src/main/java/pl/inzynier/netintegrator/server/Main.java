@@ -21,45 +21,35 @@ import pl.inzynier.netintegrator.script.dto.ScriptType;
 import pl.inzynier.netintegrator.script.dto.ScriptWriteDto;
 import pl.inzynier.netintegrator.server.configuration.Configuration;
 import pl.inzynier.netintegrator.server.configuration.ConfigurationRepository;
+import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
+import pl.inzynier.netintegrator.server.server.NetIntegratorServer;
+import pl.inzynier.netintegrator.server.server.NetIntegratorServerConfig;
+import pl.inzynier.netintegrator.server.server.NetIntegratorServerCoreRoute;
 import spark.Service;
 
 import java.util.List;
 
 
-@Data
-class NetIntegratorServerConfig {
-    Integer port;
-}
-
-@RequiredArgsConstructor
-class NetIntegratorServer {
-
-    private Service service;
-    private final NetIntegratorServerConfig config;
-
-    void run() {
-        service = Service.ignite().port(config.port);
-        service.get("/test", (req,resp)->{
-            return "Hello test!";
-        });
-    }
-}
-
-
-class DemoInitializer {
-    public void demoInit() {
-
-    }
-}
-
 public class Main {
 
     public static void main(String[] args) throws UrlMappingServiceException, ScriptServiceException {
 
-        NetIntegratorServerConfig config = new NetIntegratorServerConfig();
-        config.setPort(9090);
+        // Serwisy
+        ScriptService scriptService = ScriptServiceFactory.create(null);
+        UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
 
-        NetIntegratorServer netIntegratorServer = new NetIntegratorServer(config);
+        // Dane dla dema
+        DemoInitializer demoInitializer = new DemoInitializer(scriptService, urlMappingService);
+        demoInitializer.demoInit();
+
+        // Uruchomienie serwera http i aplikacji wlasciwej
+        NetIntegratorServerConfig config = new NetIntegratorServerConfig();
+        config.setPort(8080);
+
+
+        HttpMethodMapKeyGenerator httpMethodMapKeyGenerator = HttpMethodMapKeyGenerator.create();
+        NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator);
+        NetIntegratorServer netIntegratorServer = new NetIntegratorServer(scriptService, urlMappingService, config, route);
         netIntegratorServer.run();
 
     }
