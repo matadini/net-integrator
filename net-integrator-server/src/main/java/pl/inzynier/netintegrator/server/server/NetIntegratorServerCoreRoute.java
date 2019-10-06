@@ -21,7 +21,7 @@ public class NetIntegratorServerCoreRoute implements Route {
 
     private final UrlMappingService urlMappingService;
     private final HttpMethodMapKeyGenerator httpMethodMapKeyGenerator;
- //   private final Map<String, TargetMethodManager> requestMethodManagerStrategyMap;
+    private final Map<String, TargetMethodManager> requestMethodManagerStrategyMap;
 
     @Override
     public Object handle(Request request, Response resp) throws Exception {
@@ -31,8 +31,7 @@ public class NetIntegratorServerCoreRoute implements Route {
         String requestURI = request.uri();
 
         // znajdz mapowanie w bazie
-        Optional<UrlMappingReadDto> byPublishUrlAndPublishMethod = urlMappingService.findByPublishUrlAndPublishMethod(
-                requestURI, requestMethod);
+        Optional<UrlMappingReadDto> byPublishUrlAndPublishMethod = urlMappingService.findByPublishUrlAndPublishMethod(requestURI, requestMethod);
         if (!byPublishUrlAndPublishMethod.isPresent()) {
             return "Lipa jak sto pindzisiont";
         }
@@ -40,8 +39,8 @@ public class NetIntegratorServerCoreRoute implements Route {
         // okres rodzaj mapowania
         UrlMappingReadDto urlMapping = byPublishUrlAndPublishMethod.get();
         String strategyKey = httpMethodMapKeyGenerator.genreate(urlMapping);
-        return "Hello " + strategyKey;
-/*        TargetMethodManager targetMethodManager = requestMethodManagerStrategyMap.get(strategyKey);
-        return targetMethodManager.manage(urlMapping, request.raw());*/
+
+        TargetMethodManager targetMethodManager = requestMethodManagerStrategyMap.get(strategyKey);
+        return targetMethodManager.manage(urlMapping, request.raw(), resp.raw());
     }
 }

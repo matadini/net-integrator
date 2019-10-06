@@ -1,10 +1,13 @@
 package pl.inzynier.netintegrator.server;
 
+import com.google.common.collect.Maps;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
+import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
+import pl.inzynier.netintegrator.loadbalancer.LoadBalancerServiceFactory;
 import pl.inzynier.netintegrator.mapping.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.UrlMappingServiceFactory;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingServiceException;
@@ -22,21 +25,28 @@ import pl.inzynier.netintegrator.script.dto.ScriptWriteDto;
 import pl.inzynier.netintegrator.server.configuration.Configuration;
 import pl.inzynier.netintegrator.server.configuration.ConfigurationRepository;
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
+import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeys;
+import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
+import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerException;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServer;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServerConfig;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServerCoreRoute;
+import spark.Response;
 import spark.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 
 public class Main {
 
     public static void main(String[] args) throws UrlMappingServiceException, ScriptServiceException {
 
-        // Serwisy
+        // Serwisy modulow
         ScriptService scriptService = ScriptServiceFactory.create(null);
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
+        LoadBalancerService loadBalancerService = LoadBalancerServiceFactory.create(null);
 
         // Dane dla dema
         DemoInitializer demoInitializer = new DemoInitializer(scriptService, urlMappingService);
@@ -46,9 +56,10 @@ public class Main {
         NetIntegratorServerConfig config = new NetIntegratorServerConfig();
         config.setPort(8080);
 
-
         HttpMethodMapKeyGenerator httpMethodMapKeyGenerator = HttpMethodMapKeyGenerator.create();
-        NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator);
+        Map<String, TargetMethodManager> requestMethodManagerStrategyMap = TargetMethodManager.create(scriptService, loadBalancerService);
+
+        NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator, requestMethodManagerStrategyMap);
         NetIntegratorServer netIntegratorServer = new NetIntegratorServer(scriptService, urlMappingService, config, route);
         netIntegratorServer.run();
 
