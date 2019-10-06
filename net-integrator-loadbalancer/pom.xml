@@ -9,23 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>net-integrator-server</artifactId>
-
+    <artifactId>net-integrator-loadbalancer</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>pl.inzynier</groupId>
-            <artifactId>net-integrator-mapping</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>pl.inzynier</groupId>
-            <artifactId>net-integrator-script</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>pl.inzynier</groupId>
-            <artifactId>net-integrator-loadbalancer</artifactId>
+            <artifactId>net-integrator-db-util</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

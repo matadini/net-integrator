@@ -17,7 +17,18 @@ class UrlMappingRepositoryImpl implements UrlMappingRepository {
 
     @Override
     public Optional<UrlMapping> findByPublishUrlAndPublishMethod(String url, RequestMethod mapping) {
-        return Optional.empty();
+
+        UrlMapping singleResult = null;
+        try {
+            String sql = "select u from UrlMapping u where u.endpoint.methodUrl = :url and u.endpoint.method = :mapping";
+            TypedQuery<UrlMapping> query = entityManager.createQuery(sql, UrlMapping.class);
+            query.setParameter("url", url);
+            query.setParameter("mapping", mapping);
+            singleResult = query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(singleResult);
     }
 
     @Override
