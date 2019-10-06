@@ -15,6 +15,12 @@ import pl.inzynier.netintegrator.script.ScriptService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -22,22 +28,16 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-class NetIntegratorAppResponse {
-
-}
-
 @RequiredArgsConstructor
 class TargetMethodManagerGet implements TargetMethodManager {
 
     private final Gson gson;
-    private final GroovyShell groovyShell;
-    private final ScriptService scriptService;
     private final LoadBalancerService loadBalancerService;
 
     @Override
     public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response) throws TargetMethodManagerException {
 
-        String message = "";
+        String message;
         int scInternalServerError = HttpServletResponse.SC_OK;
 
         try {
@@ -47,53 +47,37 @@ class TargetMethodManagerGet implements TargetMethodManager {
             LoadBalancerIpOutputData hostIp = loadBalancerService.getHostIp(urlMappingId);
             String addressIp = hostIp.getAddressIp();
 
-            // wykonaj skrypty na danych z body
-            String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            if(Objects.nonNull(body)) {
-                String bodyAfterScript = scriptService.executeScripts(urlMappingId, body);
-            }
             // wykonaj zapytanie do serwera targetowego
             TargetEndpointDto target = urlMapping.getTarget();
             String fullUrl = target.getFullUrl(addressIp);
 
-            URL url = new URL(fullUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod(RequestMethod.GET.toString());
 
-            // 1. przepisz parametry URL
-            Map<String, String> parameters = Maps.newHashMap();
-            Map<String, String[]> parameterMap = request.getParameterMap();
-            for (Map.Entry<String, String[]> item : parameterMap.entrySet()) {
-                parameters.put(item.getKey(), item.getValue()[0]);
+            // 1. przepisz query param URL
+            MultivaluedMap<String, String> queryParams = new MultivaluedHashMap();
+            for (Map.Entry<String, String[]> item : request.getParameterMap().entrySet()) {
+                queryParams.add(item.getKey(), item.getValue()[0]);
             }
 
-            connection.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-            out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
-            out.flush();
-            out.close();
+            Client client = ClientBuilder.newClient();
+            WebTarget target1 = client.target(fullUrl);
+            for (Map.Entry<String, String[]> item : request.getParameterMap().entrySet()) {
+                target1 = target1.queryParam(item.getKey(), item.getValue()[0]);
+            }
 
             // 2. przepisz dane z naglowka
-            Map<String, String> headerAsMap = HttpServletRequestUtil.getHeaderAsMap(request);
-            for (Map.Entry<String, String> item : headerAsMap.entrySet()) {
-                connection.setRequestProperty(item.getKey(), item.getValue()); //"Content-Type", "application/json");
+            MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
+            for (Map.Entry<String, String> item : HttpServletRequestUtil.getHeaderAsMap(request).entrySet()) {
+                headers.add(item.getKey(), item.getValue());
             }
-
-            // 3. odczytaj odpowiedz
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
-
-            // 4. zamknij polaczenie
-            connection.disconnect();
+            Invocation.Builder headers1 = target1.request().headers(headers);
+            message = headers1.get(String.class);
 
         } catch (Exception e) {
+            e.printStackTrace();
             scInternalServerError = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-            message = e.getMessage();
+            NetIntegratorAppResponse src = new NetIntegratorAppResponse();
+            src.setMessage(e.getMessage());
+            message = gson.toJson(src);
         }
 
         // przygotuj odpowiedz

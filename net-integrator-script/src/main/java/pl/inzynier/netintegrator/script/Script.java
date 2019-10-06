@@ -39,7 +39,7 @@ class Script {
     Integer execOrder;
 
     @Column(nullable = false)
-    Long urlMappingParentId;
+    Long urlMappingId;
 
 }
 

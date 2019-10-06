@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.db.util.JpaRepositoryUtil;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +15,11 @@ class ScriptRepositoryImpl implements ScriptRepository {
 
 
     @Override
-    public List<Script> findByUrlMappingId(Long parentId) {
-        return null;
+    public List<Script> findByUrlMappingId(Long urlMappingId) {
+        String sql = "select s from Script s where s.urlMappingId = :urlMappingId order by s.scriptId";
+        TypedQuery<Script> query = entityManager.createQuery(sql, Script.class);
+        query.setParameter("urlMappingId", urlMappingId);
+        return query.getResultList();
     }
 
     @Override

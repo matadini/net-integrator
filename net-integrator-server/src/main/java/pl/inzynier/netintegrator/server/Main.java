@@ -28,6 +28,7 @@ import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGen
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeys;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerException;
+import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerFactory;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServer;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServerConfig;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServerCoreRoute;
@@ -57,7 +58,7 @@ public class Main {
         config.setPort(8080);
 
         HttpMethodMapKeyGenerator httpMethodMapKeyGenerator = HttpMethodMapKeyGenerator.create();
-        Map<String, TargetMethodManager> requestMethodManagerStrategyMap = TargetMethodManager.create(scriptService, loadBalancerService);
+        Map<String, TargetMethodManager> requestMethodManagerStrategyMap = TargetMethodManagerFactory.create(loadBalancerService);
 
         NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator, requestMethodManagerStrategyMap);
         NetIntegratorServer netIntegratorServer = new NetIntegratorServer(scriptService, urlMappingService, config, route);

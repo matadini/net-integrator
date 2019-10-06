@@ -1,7 +1,11 @@
 package pl.inzynier.netintegrator.server.httpmethod.mapping;
 
 import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import groovy.lang.GroovyShell;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
 import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerIpOutputData;
@@ -26,14 +30,6 @@ public interface TargetMethodManager {
 
     Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response) throws TargetMethodManagerException;
 
-
-    static Map<String, TargetMethodManager> create(ScriptService scriptService, LoadBalancerService loadBalancerService) {
-        TargetMethodManagerGet value = new TargetMethodManagerGet(new GroovyShell(), scriptService, loadBalancerService);
-
-        Map<String, TargetMethodManager> requestMethodManagerStrategyMap = Maps.newHashMap();
-        requestMethodManagerStrategyMap.put(HttpMethodMapKeys.GET_TO_GET, value);
-        return requestMethodManagerStrategyMap;
-    }
 }
 
 
