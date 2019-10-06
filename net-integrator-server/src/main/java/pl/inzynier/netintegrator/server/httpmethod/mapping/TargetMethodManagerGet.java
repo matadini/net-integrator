@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 class TargetMethodManagerGet implements TargetMethodManager {
 
     private final Gson gson;
+    private final Client client;
     private final LoadBalancerService loadBalancerService;
 
     @Override
@@ -51,14 +52,7 @@ class TargetMethodManagerGet implements TargetMethodManager {
             TargetEndpointDto target = urlMapping.getTarget();
             String fullUrl = target.getFullUrl(addressIp);
 
-
             // 1. przepisz query param URL
-            MultivaluedMap<String, String> queryParams = new MultivaluedHashMap();
-            for (Map.Entry<String, String[]> item : request.getParameterMap().entrySet()) {
-                queryParams.add(item.getKey(), item.getValue()[0]);
-            }
-
-            Client client = ClientBuilder.newClient();
             WebTarget target1 = client.target(fullUrl);
             for (Map.Entry<String, String[]> item : request.getParameterMap().entrySet()) {
                 target1 = target1.queryParam(item.getKey(), item.getValue()[0]);
@@ -69,6 +63,7 @@ class TargetMethodManagerGet implements TargetMethodManager {
             for (Map.Entry<String, String> item : HttpServletRequestUtil.getHeaderAsMap(request).entrySet()) {
                 headers.add(item.getKey(), item.getValue());
             }
+
             Invocation.Builder headers1 = target1.request().headers(headers);
             message = headers1.get(String.class);
 
