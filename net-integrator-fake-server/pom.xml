@@ -38,8 +38,8 @@
                             <mainClass>pl.inzynier.netintegrator.fakeserver.Application</mainClass>
                         </manifest>
                     </archive>
-
                 </configuration>
+
                 <executions>
                     <execution>
                         <id>make-assembly</id>

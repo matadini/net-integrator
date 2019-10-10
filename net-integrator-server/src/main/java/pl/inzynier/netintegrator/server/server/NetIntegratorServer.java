@@ -50,9 +50,9 @@ public class NetIntegratorServer {
                 }
             }
 
-//            service.get("/test", (req, resp) -> {
-//                return "Hello test!";
-//            });
+            service.get("/test", (req, resp) -> {
+                return "Hello test from net-integrator-server!";
+            });
         } catch (Exception ex) {
             Logger.info(ex);
         }

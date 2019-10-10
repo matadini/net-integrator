@@ -1,0 +1,3 @@
+pl\inzynier\netintegrator\db\util\DatabaseConfiguration.class
+pl\inzynier\netintegrator\db\util\JpaRepository.class
+pl\inzynier\netintegrator\db\util\JpaRepositoryUtil.class

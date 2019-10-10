@@ -1,0 +1,15 @@
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\dto\UrlMappingReadDto.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\dto\UrlMappingWriteDto.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\UrlMappingServiceImpl.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\UrlMappingRepository.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\UrlMappingResponse.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\UrlMapping.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\dto\UrlMappingServiceException.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\UrlMappingService.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\EntityManagerFactoryProvider.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\PublishEndpoint.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\UrlMappingRepositoryImpl.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\UrlMappingServiceFactory.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\TargetEndpoint.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\dto\PublishEndpointDto.java
+D:\Projects\Java\net-integrator\net-integrator-mapping\src\main\java\pl\inzynier\netintegrator\mapping\dto\TargetEndpointDto.java

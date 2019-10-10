@@ -1,0 +1,16 @@
+pl\inzynier\netintegrator\mapping\UrlMappingServiceFactory.class
+pl\inzynier\netintegrator\mapping\UrlMappingServiceImpl.class
+pl\inzynier\netintegrator\mapping\dto\UrlMappingReadDto.class
+pl\inzynier\netintegrator\mapping\dto\PublishEndpointDto.class
+pl\inzynier\netintegrator\mapping\UrlMappingResponse.class
+pl\inzynier\netintegrator\mapping\UrlMapping.class
+pl\inzynier\netintegrator\mapping\PublishEndpoint.class
+pl\inzynier\netintegrator\mapping\UrlMappingResponse$UrlMappingResponseBuilder.class
+pl\inzynier\netintegrator\mapping\UrlMappingService.class
+pl\inzynier\netintegrator\mapping\dto\TargetEndpointDto.class
+pl\inzynier\netintegrator\mapping\EntityManagerFactoryProvider.class
+pl\inzynier\netintegrator\mapping\UrlMappingRepositoryImpl.class
+pl\inzynier\netintegrator\mapping\dto\UrlMappingWriteDto.class
+pl\inzynier\netintegrator\mapping\TargetEndpoint.class
+pl\inzynier\netintegrator\mapping\UrlMappingRepository.class
+pl\inzynier\netintegrator\mapping\dto\UrlMappingServiceException.class

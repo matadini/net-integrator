@@ -15,6 +15,7 @@ class FakeServerController {
     void initMapping(Service service) {
         service.get("/fake-get", this::getTest, gson::toJson);
         service.post("/fake-post", this::postTest, gson::toJson);
+        service.get("/test", this::test, gson::toJson);
     }
 
     private Object getTest(Request request, Response response) {
@@ -34,6 +35,10 @@ class FakeServerController {
                 .statusCode(HttpStatus.OK_200)
                 .build();
 
+    }
+
+    private Object test(Request request, Response response) {
+        return "Fake server dziala! ;)";
     }
 
 

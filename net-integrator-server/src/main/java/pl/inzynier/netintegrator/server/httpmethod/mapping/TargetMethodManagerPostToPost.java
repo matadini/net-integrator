@@ -32,7 +32,7 @@ class TargetMethodManagerPostToPost implements TargetMethodManager {
     private final LoadBalancerService loadBalancerService;
 
     @Override
-    public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response) throws TargetMethodManagerException {
+    public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response)  {
 
         String message;
         int scInternalServerError = HttpServletResponse.SC_OK;
