@@ -22,8 +22,8 @@ public class TargetMethodManagerFactory {
         Client client = ClientBuilder.newClient();
 
         Map<String, TargetMethodManager> requestMethodManagerStrategyMap = Maps.newHashMap();
-        requestMethodManagerStrategyMap.put(HttpMethodMapKeys.GET_TO_GET,  new TargetMethodManagerGet(gson, client, loadBalancerService));
-        requestMethodManagerStrategyMap.put(HttpMethodMapKeys.POST_TO_POST, new TargetMethodManagerPost(gson, client, scriptService, loadBalancerService));
+        requestMethodManagerStrategyMap.put(HttpMethodMapKeys.GET_TO_GET,  new TargetMethodManagerGetToGet(gson, client, loadBalancerService));
+        requestMethodManagerStrategyMap.put(HttpMethodMapKeys.POST_TO_POST, new TargetMethodManagerPostToPost(gson, client, scriptService, loadBalancerService));
 
         return requestMethodManagerStrategyMap;
     }

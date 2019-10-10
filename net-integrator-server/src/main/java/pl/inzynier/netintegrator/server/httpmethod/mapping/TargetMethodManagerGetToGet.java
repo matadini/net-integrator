@@ -1,42 +1,33 @@
 package pl.inzynier.netintegrator.server.httpmethod.mapping;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
-import groovy.lang.GroovyShell;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
-import pl.inzynier.netintegrator.http.util.ParameterStringBuilder;
-import pl.inzynier.netintegrator.http.util.RequestMethod;
 import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
 import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerIpOutputData;
 import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
-import pl.inzynier.netintegrator.script.ScriptService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-class TargetMethodManagerGet implements TargetMethodManager {
+class TargetMethodManagerGetToGet implements TargetMethodManager {
 
     private final Gson gson;
     private final Client client;
     private final LoadBalancerService loadBalancerService;
 
     @Override
-    public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response) throws TargetMethodManagerException {
+    public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response)  {
 
         String message;
         int scInternalServerError = HttpServletResponse.SC_OK;

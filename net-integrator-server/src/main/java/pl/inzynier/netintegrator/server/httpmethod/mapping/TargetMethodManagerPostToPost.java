@@ -1,23 +1,18 @@
 package pl.inzynier.netintegrator.server.httpmethod.mapping;
 
-import com.google.common.collect.Maps;
 import com.google.gson.Gson;
-import groovy.lang.GroovyShell;
 import lombok.RequiredArgsConstructor;
-import org.glassfish.jersey.client.ClientResponse;
 import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
 import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
 import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerIpOutputData;
 import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.script.ScriptService;
-import spark.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
@@ -28,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-class TargetMethodManagerPost implements TargetMethodManager {
+class TargetMethodManagerPostToPost implements TargetMethodManager {
 
     // private final GroovyShell groovyShell;
     private final Gson gson;

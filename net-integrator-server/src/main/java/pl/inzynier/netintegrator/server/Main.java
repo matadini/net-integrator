@@ -1,8 +1,5 @@
 package pl.inzynier.netintegrator.server;
 
-import com.google.common.collect.Maps;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
@@ -25,17 +22,12 @@ import pl.inzynier.netintegrator.script.dto.ScriptWriteDto;
 import pl.inzynier.netintegrator.server.configuration.Configuration;
 import pl.inzynier.netintegrator.server.configuration.ConfigurationRepository;
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
-import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeys;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
-import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerException;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerFactory;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServer;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServerConfig;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServerCoreRoute;
-import spark.Response;
-import spark.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
