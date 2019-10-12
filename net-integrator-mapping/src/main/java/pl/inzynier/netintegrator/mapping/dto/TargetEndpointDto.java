@@ -3,6 +3,7 @@ package pl.inzynier.netintegrator.mapping.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 
@@ -11,10 +12,16 @@ import pl.inzynier.netintegrator.http.util.RequestMethod;
 @AllArgsConstructor
 public class TargetEndpointDto {
 
+    @NonNull
     String methodUrl;
+
+    @NonNull
     RequestMethod method;
 
-    public String getFullUrl(String hostAddress) {
-        return hostAddress + this.getMethodUrl();
+    @NonNull
+    String hostAddress;
+
+    public String getFullUrl() {
+        return this.getHostAddress() + this.getMethodUrl();
     }
 }

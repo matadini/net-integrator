@@ -1,8 +1,0 @@
-pl\inzynier\netintegrator\loadbalancer\dto\LoadBalancerServiceException.class
-pl\inzynier\netintegrator\loadbalancer\dto\LoadBalancerIpInputData.class
-pl\inzynier\netintegrator\loadbalancer\dto\LoadBalancerIpInputData$LoadBalancerIpInputDataBuilder.class
-pl\inzynier\netintegrator\loadbalancer\LoadBalancerService.class
-pl\inzynier\netintegrator\loadbalancer\dto\LoadBalancerIpOutputData.class
-pl\inzynier\netintegrator\loadbalancer\LoadBalancerServiceImpl.class
-pl\inzynier\netintegrator\loadbalancer\LoadBalancerServiceFactory.class
-pl\inzynier\netintegrator\loadbalancer\dto\LoadBalancerIpOutputData$LoadBalancerIpOutputDataBuilder.class

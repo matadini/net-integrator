@@ -24,4 +24,7 @@ class TargetEndpoint {
     @Column(name = "target_method")
     @Enumerated(EnumType.STRING)
     RequestMethod method;
+
+    @Column(name = "target_host_address")
+    String hostAddress;
 }

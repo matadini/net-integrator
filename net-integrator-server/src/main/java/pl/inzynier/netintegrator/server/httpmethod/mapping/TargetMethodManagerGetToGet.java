@@ -3,8 +3,6 @@ package pl.inzynier.netintegrator.server.httpmethod.mapping;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
-import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
-import pl.inzynier.netintegrator.loadbalancer.dto.LoadBalancerIpOutputData;
 import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
 
@@ -24,7 +22,7 @@ class TargetMethodManagerGetToGet implements TargetMethodManager {
 
     private final Gson gson;
     private final Client client;
-    private final LoadBalancerService loadBalancerService;
+
 
     @Override
     public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response)  {
@@ -34,14 +32,9 @@ class TargetMethodManagerGetToGet implements TargetMethodManager {
 
         try {
 
-            // pobierz adres dla mappingu
-            Long urlMappingId = urlMapping.getUrlMappingId();
-            LoadBalancerIpOutputData hostIp = loadBalancerService.getHostIp(urlMappingId);
-            String addressIp = hostIp.getAddressIp();
-
             // wykonaj zapytanie do serwera targetowego
             TargetEndpointDto target = urlMapping.getTarget();
-            String fullUrl = target.getFullUrl(addressIp);
+            String fullUrl = target.getFullUrl();
 
             // 1. przepisz query param URL
             WebTarget target1 = client.target(fullUrl);

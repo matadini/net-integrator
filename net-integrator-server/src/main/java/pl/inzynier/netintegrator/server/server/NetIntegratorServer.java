@@ -7,16 +7,9 @@ import pl.inzynier.netintegrator.mapping.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.dto.PublishEndpointDto;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.script.ScriptService;
-import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
-import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
-import spark.Request;
-import spark.Response;
-import spark.Route;
 import spark.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class NetIntegratorServer {

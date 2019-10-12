@@ -4,6 +4,7 @@ package pl.inzynier.netintegrator.mapping.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 
@@ -12,6 +13,9 @@ import pl.inzynier.netintegrator.http.util.RequestMethod;
 @AllArgsConstructor
 public class PublishEndpointDto {
 
+    @NonNull
     String methodUrl;
+
+    @NonNull
     RequestMethod method;
 }

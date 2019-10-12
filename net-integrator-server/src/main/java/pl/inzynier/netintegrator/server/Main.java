@@ -3,15 +3,9 @@ package pl.inzynier.netintegrator.server;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
-import pl.inzynier.netintegrator.loadbalancer.LoadBalancerService;
-import pl.inzynier.netintegrator.loadbalancer.LoadBalancerServiceFactory;
 import pl.inzynier.netintegrator.mapping.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.UrlMappingServiceFactory;
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingServiceException;
-import pl.inzynier.netintegrator.mapping.dto.PublishEndpointDto;
-import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingWriteDto;
+import pl.inzynier.netintegrator.mapping.dto.*;
 import pl.inzynier.netintegrator.script.ExampleGroovyScript;
 import pl.inzynier.netintegrator.script.ScriptService;
 import pl.inzynier.netintegrator.script.ScriptServiceFactory;
@@ -35,11 +29,13 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) throws UrlMappingServiceException, ScriptServiceException {
+        runServer();
+    }
 
+    private static void runServer() {
         // Serwisy modulow
         ScriptService scriptService = ScriptServiceFactory.create(null);
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
-        LoadBalancerService loadBalancerService = LoadBalancerServiceFactory.create(null);
 
         // Dane dla dema
         DemoInitializer demoInitializer = new DemoInitializer(scriptService, urlMappingService);
@@ -50,18 +46,17 @@ public class Main {
         config.setPort(8080);
 
         HttpMethodMapKeyGenerator httpMethodMapKeyGenerator = HttpMethodMapKeyGenerator.create();
-        Map<String, TargetMethodManager> requestMethodManagerStrategyMap = TargetMethodManagerFactory.create(loadBalancerService, scriptService);
+        Map<String, TargetMethodManager> requestMethodManagerStrategyMap = TargetMethodManagerFactory.create(scriptService);
 
         NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator, requestMethodManagerStrategyMap);
         NetIntegratorServer netIntegratorServer = new NetIntegratorServer(scriptService, urlMappingService, config, route);
         netIntegratorServer.run();
-
     }
 
     private static void urlMappingWithScript() throws UrlMappingServiceException, ScriptServiceException {
         // dodaj mapping
         PublishEndpointDto publishEndpoint2 = new PublishEndpointDto("/api-post", RequestMethod.POST);
-        TargetEndpointDto targetEndpoint2 = new TargetEndpointDto("/fake-post", RequestMethod.POST);
+        TargetEndpointDto targetEndpoint2 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
 
         UrlMappingWriteDto mapping2 = new UrlMappingWriteDto(publishEndpoint2, targetEndpoint2);
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
@@ -86,7 +81,7 @@ public class Main {
         // urlmapping dodawanie
 
         PublishEndpointDto publishEndpoint0 = new PublishEndpointDto("/api-get", RequestMethod.GET);
-        TargetEndpointDto targetEndpoint0 = new TargetEndpointDto("/fake-get", RequestMethod.GET);
+        TargetEndpointDto targetEndpoint0 = new TargetEndpointDto("/fake-get", RequestMethod.GET, "http://localhost:9090");
         UrlMappingWriteDto mapping0 = new UrlMappingWriteDto(publishEndpoint0, targetEndpoint0);
 
 
