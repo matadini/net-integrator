@@ -17,6 +17,11 @@
             <artifactId>net-integrator-http-util</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>pl.inzynier</groupId>
+            <artifactId>net-integrator-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -31,7 +36,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>pl.inzynier.netintegrator.clientfx.Application</mainClass>
+                            <mainClass>pl.inzynier.netintegrator.desktop.Application</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>

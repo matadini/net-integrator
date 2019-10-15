@@ -11,5 +11,12 @@
 
     <artifactId>net-integrator-client</artifactId>
 
+    <dependencies>
 
+        <dependency>
+            <groupId>pl.inzynier</groupId>
+            <artifactId>net-integrator-http-util</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

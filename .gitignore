@@ -1,11 +1,12 @@
 *.iml
 *.ipr
 *.iws
-/net-integrator-client-fx/target
+/net-integrator-desktop/target
 /net-integrator-db-util/target
 /net-integrator-fake-server/target
 /net-integrator-http-util/target
 /net-integrator-mapping/target
 /net-integrator-script/target
 /net-integrator-server/target
+/net-integrator-client/target
 /.idea

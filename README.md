@@ -3,7 +3,8 @@
 ## Moduly
 
 
-* **net-integrator-client-fx** - klient JavaFX do zarzadzania aplikacja serwerowa
+* **net-integrator-desktop** - klient JavaFX do zarzadzania aplikacja serwerowa
+* **net-integrator-client** - zestaw klientow do integracji miedzy aplikacja desktop-fx a glownym serwerem aplikacji 
 * **net-integrator-fake-server** - aplikacja serwerowa sluzaca za atrape systemu trzeciego ktora otrzymuje przekierowane requesty, 
 powstała na potrzeby demostracji przekierowan
 * **net-integrator-server** - aplikacja serwerowa spinajaca wszystkie
