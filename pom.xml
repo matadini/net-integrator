@@ -8,13 +8,14 @@
     <artifactId>net-integrator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>net-integrator-client-fx</module>
+        <module>net-integrator-desktop</module>
         <module>net-integrator-fake-server</module>
         <module>net-integrator-db-util</module>
         <module>net-integrator-mapping</module>
         <module>net-integrator-server</module>
         <module>net-integrator-http-util</module>
         <module>net-integrator-script</module>
+        <module>net-integrator-client</module>
     </modules>
     <packaging>pom</packaging>
 
