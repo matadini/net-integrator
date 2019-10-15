@@ -1,7 +1,10 @@
 package pl.inzynier.netintegrator.desktop.gui.pane.main;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
@@ -20,23 +23,24 @@ public class MainPane extends BorderPane {
     private MenuItem menuItemAbout;
 
     @FXML
-    private GridPane mainGridPane;
+    private TabPane tabPane;
 
     @FXML
     private void initialize() {
         try {
 
-            UrlMappingClient managmentClient = UrlMappingClient.create("fake-adress");
 
             // view + controller
+            UrlMappingClient managmentClient = UrlMappingClient.create("fake-adress");
             URL resource = UrlMappingPane.class.getResource("UrlMappingPane.fxml");
             UrlMappingPane controller = UrlMappingPane.builder()
                     .managmentClient(managmentClient)
                     .build();
+            UrlMappingPane urlMappingPane = JavaFxUtil.loadFxml(controller, resource);
 
             // fx pane
-            UrlMappingPane urlMappingPane = JavaFxUtil.loadFxml(controller, resource);
-            mainGridPane.add(urlMappingPane, 0, 0);
+            ObservableList<Tab> tabs = tabPane.getTabs();
+            tabs.add(new Tab("UrlMapping", urlMappingPane));
 
         } catch (IOException e) {
             e.printStackTrace();
