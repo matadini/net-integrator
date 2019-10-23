@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.desktop.gui.pane.mapping.UrlMappingPane;
+import pl.inzynier.netintegrator.desktop.gui.pane.script.ScriptPane;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
 import java.io.IOException;
@@ -38,17 +39,21 @@ public class MainPane extends BorderPane {
         try {
 
 
-            // view + controller
+            // mapping view
             UrlMappingClient managmentClient = UrlMappingClient.create("fake-adress");
-            URL resource = UrlMappingPane.class.getResource("UrlMappingPane.fxml");
-            UrlMappingPane controller = UrlMappingPane.builder()
-                    .managmentClient(managmentClient)
-                    .build();
-            UrlMappingPane urlMappingPane = JavaFxUtil.loadFxml(controller, resource);
+            URL mappingFxmlUrl = UrlMappingPane.class.getResource("UrlMappingPane.fxml");
+            UrlMappingPane mappingController = new UrlMappingPane(managmentClient);
+            mappingController = JavaFxUtil.loadFxml(mappingController, mappingFxmlUrl);
+
+            // script view
+            URL scriptFxmlUrl = ScriptPane.class.getResource("ScriptPane.fxml");
+            ScriptPane scriptController = new ScriptPane(managmentClient);
+            scriptController = JavaFxUtil.loadFxml(scriptController, scriptFxmlUrl);
 
             // fx pane
             ObservableList<Tab> tabs = tabPane.getTabs();
-            tabs.add(new Tab("UrlMapping", urlMappingPane));
+            tabs.add(new Tab("Mapowania", mappingController));
+            tabs.add(new Tab("Skrypty", scriptController));
 
         } catch (IOException e) {
             e.printStackTrace();

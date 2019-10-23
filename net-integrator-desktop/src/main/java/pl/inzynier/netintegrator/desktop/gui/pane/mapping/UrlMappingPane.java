@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingClientException;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
@@ -14,14 +15,11 @@ import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 import java.util.List;
 
-
+@RequiredArgsConstructor
 public class UrlMappingPane extends BorderPane {
 
     @FXML
     private Button buttonAdd;
-
-    @FXML
-    private Button buttonSave;
 
     @FXML
     private Button buttonRemove;
@@ -49,10 +47,6 @@ public class UrlMappingPane extends BorderPane {
 
     private final UrlMappingClient managmentClient;
 
-    @Builder
-    UrlMappingPane(UrlMappingClient managmentClient) {
-        this.managmentClient = managmentClient;
-    }
 
     @FXML
     private void initialize() {

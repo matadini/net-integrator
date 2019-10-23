@@ -2,6 +2,7 @@ package pl.inzynier.netintegrator.desktop;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
@@ -16,6 +17,8 @@ import pl.inzynier.netintegrator.desktop.gui.pane.main.MainPane;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
 import java.net.URL;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,7 +33,7 @@ public class Application extends javafx.application.Application {
     }
 
     private final EventBus eventBus = new EventBus();
-    private final ExecutorService executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(4));
+    private final ListeningExecutorService executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(4));
     private static Application instance;
     private Stage loginStage;
 
@@ -46,15 +49,17 @@ public class Application extends javafx.application.Application {
         eventBus.register(instance);
 
         // pokaz ekran logowania
-        URL resource = LoginPane.class.getResource("LoginPane.fxml");
-        LoginClient loginClient = LoginClient.create("test");
-        LoginPane controller = new LoginPane(eventBus, loginClient);
-        controller = JavaFxUtil.loadFxml(controller, resource);
+//        URL resource = LoginPane.class.getResource("LoginPane.fxml");
+//        LoginClient loginClient = LoginClient.create("test");
+//        LoginPane controller = new LoginPane(eventBus, loginClient);
+//        controller = JavaFxUtil.loadFxml(controller, resource);
+//
+//        loginStage = new Stage();
+//        loginStage.setOnCloseRequest(this::onCloseRequest);
+//        loginStage.setScene(new Scene(controller));
+//        loginStage.show();
 
-        loginStage = new Stage();
-        loginStage.setOnCloseRequest(this::onCloseRequest);
-        loginStage.setScene(new Scene(controller));
-        loginStage.show();
+        eventBus.post(Command.LOGIN_SUCCESS);
 
     }
 
@@ -73,7 +78,8 @@ public class Application extends javafx.application.Application {
         if (Command.LOGIN_SUCCESS.equals(command)) {
             org.pmw.tinylog.Logger.info("Odpal aplikacje");
 
-            loginStage.close();
+            Optional.ofNullable(loginStage).ifPresent(Stage::close);
+
 
             URL resource = MainPane.class.getResource("MainPane.fxml");
 
@@ -81,6 +87,8 @@ public class Application extends javafx.application.Application {
             controller = JavaFxUtil.loadFxml(controller, resource);
 
             Stage stage = new Stage();
+            stage.setWidth(1024);
+            stage.setHeight(768);
             stage.setScene(new Scene(controller));
             stage.setOnCloseRequest(this::onCloseRequest);
             stage.show();

@@ -35,7 +35,7 @@
                <children>
                   <VBox alignment="CENTER" GridPane.columnSpan="4">
                      <children>
-                        <Label text="Details">
+                        <Label text="URL Mapping">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font></Label>
@@ -54,7 +54,6 @@
                   <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
                      <children>
                       <Button fx:id="buttonAdd" mnemonicParsing="false" prefWidth="75.0" text="Add" />
-                        <Button fx:id="buttonSave" mnemonicParsing="false" prefWidth="75.0" text="Edit" />
                         <Button fx:id="buttonRemove" mnemonicParsing="false" prefWidth="75.0" text="Remove" />
                      </children>
                   </HBox>
