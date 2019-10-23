@@ -2,11 +2,6 @@ package pl.inzynier.netintegrator.db.util;
 
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 public interface JpaRepository<T, PK> {
 
