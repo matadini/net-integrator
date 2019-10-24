@@ -10,7 +10,10 @@ import pl.inzynier.netintegrator.client.script.dto.ScriptWriteDto;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 class ScriptClientStub implements ScriptClient {
 
@@ -21,13 +24,13 @@ class ScriptClientStub implements ScriptClient {
 
     ScriptClientStub() {
         try {
-            this.addScript(
+            this.create(
                     new ScriptReadDto(
                             2L,
                             ExampleGroovyScript.createExampleGroovyScriptJsonToXml(),
                             ScriptType.POST_CALL,
                             sequence.getAndIncrement()));
-            this.addScript(
+            this.create(
                     new ScriptReadDto(
                             3L,
                             ExampleGroovyScript.createExampleGroovyScriptToUpperCase(),
@@ -39,7 +42,7 @@ class ScriptClientStub implements ScriptClient {
     }
 
     @Override
-    public Long addScript(ScriptWriteDto dto) throws ScriptClientException {
+    public Long create(ScriptWriteDto dto) throws ScriptClientException {
         @NonNull Long urlMappingId = dto.getUrlMappingId();
         if (!database.containsKey(urlMappingId)) {
             database.put(urlMappingId, Lists.newArrayList());
@@ -55,11 +58,47 @@ class ScriptClientStub implements ScriptClient {
     }
 
     @Override
+    public void update(ScriptReadDto dto) throws ScriptClientException {
+        if (Objects.isNull(dto.getScriptId())) {
+
+        } else {
+            @NonNull Long urlMappingId = dto.getUrlMappingId();
+            if (database.containsKey(urlMappingId)) {
+                List<ScriptReadDto> scriptReadDtos = database.get(urlMappingId);
+                Optional<ScriptReadDto> first = scriptReadDtos.stream()
+                        .filter(x -> x.getScriptId().equals(dto.getScriptId()))
+                        .findFirst();
+                if (first.isPresent()) {
+                    remove(urlMappingId, first.get().getScriptId());
+                    scriptReadDtos.add(dto);
+                }
+            }
+        }
+    }
+
+    @Override
     public List<ScriptReadDto> findByUrlMappingId(Long urlMappingId) throws ScriptClientException {
         if (database.containsKey(urlMappingId)) {
             return database.get(urlMappingId);
         }
         return Lists.newArrayList();
+    }
+
+    @Override
+    public void delete(ScriptReadDto dto) throws ScriptClientException {
+        @NonNull Long urlMappingId = dto.getUrlMappingId();
+        if (database.containsKey(urlMappingId)) {
+            @NonNull Long scriptId = dto.getScriptId();
+            remove(urlMappingId, scriptId);
+        }
+    }
+
+    private void remove(@NonNull Long urlMappingId, @NonNull Long scriptId) {
+        List<ScriptReadDto> scriptReadDtos = database.get(urlMappingId);
+        Optional<ScriptReadDto> first = scriptReadDtos.stream()
+                .filter(x -> x.getScriptId().equals(scriptId))
+                .findFirst();
+        first.ifPresent(scriptReadDtos::remove);
     }
 
 

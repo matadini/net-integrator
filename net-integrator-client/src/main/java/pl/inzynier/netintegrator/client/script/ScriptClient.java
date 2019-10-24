@@ -8,9 +8,13 @@ import java.util.List;
 
 public interface ScriptClient {
 
-    Long addScript(ScriptWriteDto dto) throws ScriptClientException;
+    Long create(ScriptWriteDto dto) throws ScriptClientException;
+
+    void update(ScriptReadDto dto) throws ScriptClientException;
 
     List<ScriptReadDto> findByUrlMappingId(Long urlMappingId) throws ScriptClientException;
+
+    void delete(ScriptReadDto dto) throws ScriptClientException;
 
     static ScriptClient create(String address) {
         return new ScriptClientStub();

@@ -3,6 +3,7 @@ package pl.inzynier.netintegrator.client.script.dto;
 import lombok.*;
 
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
