@@ -22,19 +22,19 @@ class UrlMappingClientStub implements UrlMappingClient {
     public List<UrlMappingReadDto> findAll() throws UrlMappingClientException {
 
         // mapowanie 1
-        PublishEndpointDto publishEndpoint0 = new PublishEndpointDto("/api-get", RequestMethod.GET);
-        TargetEndpointDto targetEndpoint0 = new TargetEndpointDto("/fake-get", RequestMethod.GET, "http://localhost:9090");
-        UrlMappingReadDto mapping1 = new UrlMappingReadDto(1l, publishEndpoint0, targetEndpoint0);
+        final PublishEndpointDto publishEndpoint0 = new PublishEndpointDto("/api-get", RequestMethod.GET);
+        final TargetEndpointDto targetEndpoint0 = new TargetEndpointDto("/fake-get", RequestMethod.GET, "http://localhost:9090");
+        final UrlMappingReadDto mapping1 = new UrlMappingReadDto(1L, publishEndpoint0, targetEndpoint0);
 
         // mapowanie 3
-        PublishEndpointDto publishEndpoint1 = new PublishEndpointDto("/api-post-xml", RequestMethod.POST);
-        TargetEndpointDto targetEndpoint1 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
-        UrlMappingReadDto mapping2 = new UrlMappingReadDto(2l, publishEndpoint1, targetEndpoint1);
+        final PublishEndpointDto publishEndpoint1 = new PublishEndpointDto("/api-post-xml", RequestMethod.POST);
+        final TargetEndpointDto targetEndpoint1 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
+        final UrlMappingReadDto mapping2 = new UrlMappingReadDto(2L, publishEndpoint1, targetEndpoint1);
 
         // mapowanie 3
-        PublishEndpointDto publishEndpoint2 = new PublishEndpointDto("/api-post", RequestMethod.POST);
-        TargetEndpointDto targetEndpoint2 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
-        UrlMappingReadDto mapping3 = new UrlMappingReadDto(3l, publishEndpoint2, targetEndpoint2);
+        final PublishEndpointDto publishEndpoint2 = new PublishEndpointDto("/api-post", RequestMethod.POST);
+        final TargetEndpointDto targetEndpoint2 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
+        final UrlMappingReadDto mapping3 = new UrlMappingReadDto(3L, publishEndpoint2, targetEndpoint2);
 
         return Lists.newArrayList(mapping1, mapping2, mapping3);
     }
