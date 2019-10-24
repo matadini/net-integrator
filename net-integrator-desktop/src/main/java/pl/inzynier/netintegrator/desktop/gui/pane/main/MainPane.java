@@ -1,6 +1,7 @@
 package pl.inzynier.netintegrator.desktop.gui.pane.main;
 
 import com.google.common.eventbus.EventBus;
+import com.sun.javafx.text.ScriptMapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -10,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
+import pl.inzynier.netintegrator.client.script.ScriptClient;
 import pl.inzynier.netintegrator.desktop.gui.pane.mapping.UrlMappingPane;
 import pl.inzynier.netintegrator.desktop.gui.pane.script.ScriptPane;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
@@ -38,16 +40,18 @@ public class MainPane extends BorderPane {
     private void initialize() {
         try {
 
+            // clients
+            UrlMappingClient managmentClient = UrlMappingClient.create("fake-adress");
+            ScriptClient scriptClient = ScriptClient.create("fake-address");
 
             // mapping view
-            UrlMappingClient managmentClient = UrlMappingClient.create("fake-adress");
             URL mappingFxmlUrl = UrlMappingPane.class.getResource("UrlMappingPane.fxml");
             UrlMappingPane mappingController = new UrlMappingPane(managmentClient);
             mappingController = JavaFxUtil.loadFxml(mappingController, mappingFxmlUrl);
 
             // script view
             URL scriptFxmlUrl = ScriptPane.class.getResource("ScriptPane.fxml");
-            ScriptPane scriptController = new ScriptPane(managmentClient);
+            ScriptPane scriptController = new ScriptPane(managmentClient, scriptClient);
             scriptController = JavaFxUtil.loadFxml(scriptController, scriptFxmlUrl);
 
             // fx pane
