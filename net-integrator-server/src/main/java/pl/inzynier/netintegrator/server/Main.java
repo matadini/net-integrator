@@ -1,7 +1,10 @@
 package pl.inzynier.netintegrator.server;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
+import pl.inzynier.netintegrator.http.spark.SparkController;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 import pl.inzynier.netintegrator.mapping.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.UrlMappingServiceFactory;
@@ -21,7 +24,9 @@ import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerFa
 import pl.inzynier.netintegrator.server.server.NetIntegratorServer;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServerConfig;
 import pl.inzynier.netintegrator.server.server.NetIntegratorServerCoreRoute;
+import pl.inzynier.netintegrator.server.server.controller.urlmapping.UrlMappingController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +38,10 @@ public class Main {
     }
 
     private static void runServer() {
+
+        // commonsy
+        Gson gson = new GsonBuilder().serializeNulls().create();
+
         // Serwisy modulow
         ScriptService scriptService = ScriptServiceFactory.create(null);
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
@@ -48,8 +57,11 @@ public class Main {
         HttpMethodMapKeyGenerator httpMethodMapKeyGenerator = HttpMethodMapKeyGenerator.create();
         Map<String, TargetMethodManager> requestMethodManagerStrategyMap = TargetMethodManagerFactory.create(scriptService);
 
+        List<SparkController> adminControllers = new ArrayList<>();
+        adminControllers.add(new UrlMappingController(gson, urlMappingService));
+
         NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator, requestMethodManagerStrategyMap);
-        NetIntegratorServer netIntegratorServer = new NetIntegratorServer( urlMappingService, config, route);
+        NetIntegratorServer netIntegratorServer = new NetIntegratorServer(urlMappingService, config, route, adminControllers);
         netIntegratorServer.run();
     }
 

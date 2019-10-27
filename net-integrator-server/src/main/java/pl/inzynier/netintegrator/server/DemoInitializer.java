@@ -26,7 +26,7 @@ class DemoInitializer {
             TargetEndpointDto targetEndpoint0 = new TargetEndpointDto("/fake-get", RequestMethod.GET, "http://localhost:9090");
 
             UrlMappingWriteDto mapping0 = new UrlMappingWriteDto(publishEndpoint0, targetEndpoint0);
-            urlMappingService.addUrlMapping(mapping0);
+            Long save0 = urlMappingService.addUrlMapping(mapping0);
 
             // 1 - mapowanie ze skryptem json to xml
             PublishEndpointDto publishEndpoint1 = new PublishEndpointDto("/api-post-xml", RequestMethod.POST);
@@ -35,12 +35,6 @@ class DemoInitializer {
             UrlMappingWriteDto mapping1 = new UrlMappingWriteDto(publishEndpoint1, targetEndpoint1);
             Long save1 = urlMappingService.addUrlMapping(mapping1);
 
-            ScriptWriteDto script1 = new ScriptWriteDto();
-            script1.setUrlMappingId(save1);
-            script1.setContent(ExampleGroovyScript.createExampleGroovyScriptJsonToXml());
-            script1.setScriptType(ScriptType.POST_CALL);
-
-            scriptService.addScript(script1);
 
             // 2 - mapowanie ze skryptem
             PublishEndpointDto publishEndpoint2 = new PublishEndpointDto("/api-post", RequestMethod.POST);
@@ -49,11 +43,19 @@ class DemoInitializer {
             UrlMappingWriteDto mapping2 = new UrlMappingWriteDto(publishEndpoint2, targetEndpoint2);
             Long save2 = urlMappingService.addUrlMapping(mapping2);
 
+
+            // skrypty do mapowan
+            ScriptWriteDto script1 = new ScriptWriteDto();
+            script1.setUrlMappingId(save1);
+            script1.setContent(ExampleGroovyScript.createExampleGroovyScriptJsonToXml());
+            script1.setScriptType(ScriptType.POST_CALL);
+
             ScriptWriteDto script2 = new ScriptWriteDto();
             script2.setUrlMappingId(save2);
             script2.setContent(ExampleGroovyScript.createExampleGroovyScriptToUpperCase());
             script2.setScriptType(ScriptType.POST_CALL);
 
+            scriptService.addScript(script1);
             scriptService.addScript(script2);
 
         } catch (Exception e) {

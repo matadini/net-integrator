@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.httpmethod.mapping;
+package pl.inzynier.netintegrator.server.server;
 
 import lombok.Data;
 
@@ -7,6 +7,6 @@ import lombok.Data;
  * to zamiast bledu dzikiego zwracany jest json z odpowiednim statusem
  */
 @Data
-class NetIntegratorAppResponse {
+public class NetIntegratorAppResponse {
     String message;
 }

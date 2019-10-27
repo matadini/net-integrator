@@ -39,8 +39,8 @@ public class MainPane extends BorderPane {
         try {
 
             // clients
-            UrlMappingClient managmentClient = UrlMappingClient.create("fake-adress");
-            ScriptClient scriptClient = ScriptClient.create("fake-address");
+            UrlMappingClient managmentClient = UrlMappingClient.create("http://localhost:8080");
+            ScriptClient scriptClient = ScriptClient.create();
 
             // mapping view
             URL mappingFxmlUrl = UrlMappingPane.class.getResource("UrlMappingPane.fxml");

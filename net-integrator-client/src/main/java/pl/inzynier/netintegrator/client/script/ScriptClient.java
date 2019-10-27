@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.client.script;
 
+import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.script.dto.ScriptClientException;
 import pl.inzynier.netintegrator.client.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.client.script.dto.ScriptWriteDto;
@@ -16,8 +17,11 @@ public interface ScriptClient {
 
     void delete(ScriptReadDto dto) throws ScriptClientException;
 
-    static ScriptClient create(String address) {
+    static ScriptClient create() {
         return new ScriptClientStub();
     }
+
 }
+
+
 
