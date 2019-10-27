@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import pl.inzynier.netintegrator.desktop.gui.main.MainPane;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
+import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 
 import java.net.URL;
 import java.util.Optional;
@@ -19,10 +22,10 @@ import java.util.concurrent.Executors;
 
 public class Application extends javafx.application.Application {
 
-    public enum Command {
-        LOGIN_SUCCESS,
-        EXIT
-    }
+//    public enum Command {
+//        LOGIN_SUCCESS,
+//        EXIT
+//    }
 
     private final EventBus eventBus = new EventBus();
     private final ListeningExecutorService executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(4));
@@ -51,23 +54,27 @@ public class Application extends javafx.application.Application {
 //        loginStage.setScene(new Scene(controller));
 //        loginStage.show();
 
-        eventBus.post(Command.LOGIN_SUCCESS);
+        SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.LOGIN_SUCCESS);
+        eventBus.post(signalOnly);
 
     }
 
     private void onCloseRequest(WindowEvent event) {
-        eventBus.post(Command.EXIT);
+        SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.EXIT);
+        eventBus.post(signalOnly);
     }
 
     @Subscribe
-    public void handle(Command command) throws Exception {
-        if (Command.EXIT.equals(command)) {
+    public void handle(ApplicationEvent command) throws Exception {
+
+        if (ApplicationEventSignal.EXIT.equals(command.getType())) {
             org.pmw.tinylog.Logger.info("Zamknij aplikacje");
 
             eventBus.unregister(instance);
             Platform.exit();
         }
-        if (Command.LOGIN_SUCCESS.equals(command)) {
+
+        if (ApplicationEventSignal.LOGIN_SUCCESS.equals(command.getType())) {
             org.pmw.tinylog.Logger.info("Odpal aplikacje");
 
             Optional.ofNullable(loginStage).ifPresent(Stage::close);

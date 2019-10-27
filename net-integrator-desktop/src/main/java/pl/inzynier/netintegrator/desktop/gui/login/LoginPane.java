@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.client.login.LoginClient;
 import pl.inzynier.netintegrator.desktop.Application;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
+import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 
 
 @RequiredArgsConstructor
@@ -50,7 +53,10 @@ public class LoginPane extends BorderPane {
 
         boolean authorization = loginClient.authorization(model.getLogin().get(), model.getPassword().get());
         if(authorization) {
-            eventBus.post(Application.Command.LOGIN_SUCCESS);
+
+            SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.LOGIN_SUCCESS);
+            eventBus.post(signalOnly);
+
         } else {
             Platform.runLater(this::showAlertNieprawidloweDaneLogowania);
         }
@@ -65,6 +71,7 @@ public class LoginPane extends BorderPane {
     }
 
     private void onClickButtonExit(ActionEvent event) {
-        eventBus.post(Application.Command.EXIT);
+        SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.EXIT);
+        eventBus.post(signalOnly);
     }
 }

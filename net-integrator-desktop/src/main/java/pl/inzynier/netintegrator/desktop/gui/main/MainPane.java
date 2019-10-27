@@ -49,7 +49,7 @@ public class MainPane extends BorderPane {
 
             // script view
             URL scriptFxmlUrl = ScriptPane.class.getResource("ScriptPane.fxml");
-            ScriptPane scriptController = new ScriptPane(managmentClient, scriptClient);
+            ScriptPane scriptController = new ScriptPane(managmentClient, scriptClient, eventBus);
             scriptController = JavaFxUtil.loadFxml(scriptController, scriptFxmlUrl);
             eventBus.register(scriptController);
 

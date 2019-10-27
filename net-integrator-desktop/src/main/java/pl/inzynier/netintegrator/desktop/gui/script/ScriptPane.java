@@ -69,7 +69,7 @@ public class ScriptPane extends BorderPane {
 
         Tab edit = JavaFxUtil.createNoClosableTab("Edit and remove");
         edit.setContent(paneEdit);
-        eventBus.post(edit);
+        eventBus.register(edit);
 
         ObservableList<Tab> tabs = tabPane.getTabs();
         tabs.add(add);
