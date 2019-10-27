@@ -46,7 +46,7 @@ public class MainPane extends BorderPane {
 
             // mapping view
             URL mappingFxmlUrl = UrlMappingPane.class.getResource("UrlMappingPane.fxml");
-            UrlMappingPane mappingController = new UrlMappingPane(managmentClient);
+            UrlMappingPane mappingController = new UrlMappingPane(managmentClient, eventBus);
             mappingController = JavaFxUtil.loadFxml(mappingController, mappingFxmlUrl);
 
             // script view

@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.desktop.gui.pane.mapping;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,7 +53,10 @@ class UrlMappingPaneEdit extends BorderPane {
 
     @FXML
     private void initialize() {
+        downloadUrlMappingList();
+    }
 
+    private void downloadUrlMappingList() {
         try {
             ObservableList<RequestMethod> httpMethods = FXCollections.observableArrayList(RequestMethod.values());
             comboboxTargetMethod.setItems(httpMethods);
@@ -66,6 +70,15 @@ class UrlMappingPaneEdit extends BorderPane {
 
         } catch (UrlMappingClientException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    @Subscribe
+    void handle(UrlMappingPaneEvent event) {
+        System.out.println("elo");
+        if (UrlMappingPaneEvent.URL_MAPPING_CREATE.equals(event)) {
+            downloadUrlMappingList();
         }
     }
 }

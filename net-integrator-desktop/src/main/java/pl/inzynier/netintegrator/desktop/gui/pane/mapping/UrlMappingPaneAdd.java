@@ -1,5 +1,7 @@
 package pl.inzynier.netintegrator.desktop.gui.pane.mapping;
 
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingClientException;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingWriteDto;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
+
 
 @RequiredArgsConstructor
 class UrlMappingPaneAdd extends BorderPane {
@@ -43,6 +46,8 @@ class UrlMappingPaneAdd extends BorderPane {
     private TextField textfieldTargetServer;
 
     private final UrlMappingClient managmentClient;
+
+    private final EventBus eventBus;
 
     private UrlMappingPaneAddModel model;
 
@@ -74,9 +79,7 @@ class UrlMappingPaneAdd extends BorderPane {
         try {
             UrlMappingWriteDto mappingDto = modelToWriteDto(model);
             managmentClient.create(mappingDto);
-
-            System.out.println(model.toString());
-
+            eventBus.post(UrlMappingPaneEvent.URL_MAPPING_CREATE);
             model = createNewModel();
         } catch (UrlMappingClientException e) {
             e.printStackTrace();
@@ -98,4 +101,5 @@ class UrlMappingPaneAdd extends BorderPane {
         mappingDto.setTarget(target);
         return mappingDto;
     }
+
 }
