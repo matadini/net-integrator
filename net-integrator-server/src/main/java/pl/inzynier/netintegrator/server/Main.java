@@ -49,7 +49,7 @@ public class Main {
         Map<String, TargetMethodManager> requestMethodManagerStrategyMap = TargetMethodManagerFactory.create(scriptService);
 
         NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator, requestMethodManagerStrategyMap);
-        NetIntegratorServer netIntegratorServer = new NetIntegratorServer(scriptService, urlMappingService, config, route);
+        NetIntegratorServer netIntegratorServer = new NetIntegratorServer( urlMappingService, config, route);
         netIntegratorServer.run();
     }
 

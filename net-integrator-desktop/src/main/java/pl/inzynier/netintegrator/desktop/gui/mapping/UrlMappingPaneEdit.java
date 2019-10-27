@@ -22,6 +22,7 @@ import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 class UrlMappingPaneEdit extends BorderPane {
@@ -63,7 +64,6 @@ class UrlMappingPaneEdit extends BorderPane {
 
         downloadUrlMappingList();
 
-
         listView.getSelectionModel().selectedItemProperty().addListener(this::onClickListView);
         buttonSave.setOnAction(this::onClickButtonSave);
         buttonRemove.setOnAction(this::onClickButtonRemove);
@@ -86,19 +86,30 @@ class UrlMappingPaneEdit extends BorderPane {
         UrlMappingReadDto selectedItem = selectionModel.getSelectedItem();
         if (Objects.nonNull(selectedItem)) {
 
-            try {
-                mappingClient.deactivate(selectedItem.getUrlMappingId());
-                listView.getItems().remove(selectedItem);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Look, a Confirmation Dialog");
+            alert.setContentText("Are you ok with this?");
 
-                SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.URL_MAPPING_REMOVE);
-                eventBus.post(signalOnly);
+            Optional<ButtonType> result = alert.showAndWait();
 
-            } catch (UrlMappingClientException e) {
-                e.printStackTrace();
+            if (result.isPresent() && result.get().equals(ButtonType.OK)) {
+                try {
+                    mappingClient.deactivate(selectedItem.getUrlMappingId());
+                    listView.getItems().remove(selectedItem);
+
+                    SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.URL_MAPPING_REMOVE);
+                    eventBus.post(signalOnly);
+
+                } catch (UrlMappingClientException e) {
+                    e.printStackTrace();
+                }
             }
 
         } else {
-
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Nie wybrano mappingu do usuniecia");
+            alert.showAndWait();
         }
     }
 
@@ -112,8 +123,6 @@ class UrlMappingPaneEdit extends BorderPane {
             ObservableList<UrlMappingReadDto> value = FXCollections.observableArrayList(all);
             listView.setItems(value);
 
-            //   tableColumnUrlMapping.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().toString()));
-
         } catch (UrlMappingClientException e) {
             e.printStackTrace();
         }
@@ -121,8 +130,6 @@ class UrlMappingPaneEdit extends BorderPane {
 
 
     private void fillModel(UrlMappingReadDto dto) {
-//        UrlMappingPaneEditModel newModel = createNewModel();
-//        System.out.println(dto);
         @NonNull TargetEndpointDto target = dto.getTarget();
         model.targetEndpointURL.set(target.getMethodUrl());
         model.targetEndpointMethod.set(target.getMethod());
@@ -133,10 +140,11 @@ class UrlMappingPaneEdit extends BorderPane {
         model.publishEndpointURL.set(endpoint.getMethodUrl());
 
         model.urlMappingId.set(dto.getUrlMappingId());
- }
+    }
 
     /**
      * Tworzy model powiazany z kontrolkami
+     *
      * @return
      */
     private UrlMappingPaneEditModel createNewModel() {
@@ -152,17 +160,6 @@ class UrlMappingPaneEdit extends BorderPane {
         Bindings.bindBidirectional(labelUrlMappingId.textProperty(), newModel.urlMappingId, new NumberStringConverter());
         return newModel;
     }
-
-
-//    private UrlMappingPaneEditModel createNewModel() {
-//        UrlMappingPaneEditModel newModel = new UrlMappingPaneEditModel();
-//        comboboxTargetMethod.valueProperty().bindBidirectional(newModel.targetEndpointMethod);
-//        textfieldTargetURL.textProperty().bindBidirectional(newModel.targetEndpointURL);
-//        textfieldTargetServer.textProperty().bindBidirectional(newModel.targetEndpointServer);
-//        comboboxPublishMethod.valueProperty().bindBidirectional(newModel.publishEndpointMethod);
-//        textfieldPublishURL.textProperty().bindBidirectional(newModel.publishEndpointURL);
-//        return newModel;
-//    }
 
     @Subscribe
     private void handle(ApplicationEvent event) {

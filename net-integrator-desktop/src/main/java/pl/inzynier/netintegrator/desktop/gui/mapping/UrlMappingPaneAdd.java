@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
@@ -83,6 +80,10 @@ class UrlMappingPaneAdd extends BorderPane {
             SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.URL_MAPPING_CREATE);
             eventBus.post(signalOnly);
             model = createNewModel();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Dodano nowy URL Mapping");
+            alert.showAndWait();
         } catch (UrlMappingClientException e) {
             e.printStackTrace();
         }

@@ -15,7 +15,7 @@ import java.util.List;
 public class NetIntegratorServer {
 
     private Service service;
-    private final ScriptService scriptService;
+    //private final ScriptService scriptService;
     private final UrlMappingService urlMappingService;
     private final NetIntegratorServerConfig config;
     private final NetIntegratorServerCoreRoute route;
@@ -26,28 +26,27 @@ public class NetIntegratorServer {
             // odpal sparka
             service = Service.ignite().port(config.port);
 
-
             // pobierz mappingi i zrob publish
             List<UrlMappingReadDto> mappingList = urlMappingService.findAll();
             for (UrlMappingReadDto mapping : mappingList) {
-                PublishEndpointDto endpoint = mapping.getEndpoint();
-                Logger.info(endpoint);
-
-                if (RequestMethod.GET.equals(endpoint.getMethod())) {
-                    String methodUrl = endpoint.getMethodUrl();
-                    service.get(methodUrl, route);
-                }
-                if (RequestMethod.POST.equals(endpoint.getMethod())) {
-                    String methodUrl = endpoint.getMethodUrl();
-                    service.post(methodUrl, route);
-                }
+                addRouting(mapping);
             }
 
-            service.get("/test", (req, resp) -> {
-                return "Hello test from net-integrator-server!";
-            });
+            service.get("/test", (req, resp) -> "Hello test from net-integrator-server!");
         } catch (Exception ex) {
             Logger.info(ex);
+        }
+    }
+
+    public void addRouting(UrlMappingReadDto mapping) {
+        PublishEndpointDto endpoint = mapping.getEndpoint();
+        if (RequestMethod.GET.equals(endpoint.getMethod())) {
+            String methodUrl = endpoint.getMethodUrl();
+            service.get(methodUrl, route);
+        }
+        if (RequestMethod.POST.equals(endpoint.getMethod())) {
+            String methodUrl = endpoint.getMethodUrl();
+            service.post(methodUrl, route);
         }
     }
 }
