@@ -1,19 +1,17 @@
-package pl.inzynier.netintegrator.desktop.gui.pane.main;
+package pl.inzynier.netintegrator.desktop.gui.main;
 
 import com.google.common.eventbus.EventBus;
-import com.sun.javafx.text.ScriptMapper;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
-import pl.inzynier.netintegrator.desktop.gui.pane.mapping.UrlMappingPane;
-import pl.inzynier.netintegrator.desktop.gui.pane.script.ScriptPane;
+import pl.inzynier.netintegrator.desktop.gui.mapping.UrlMappingPane;
+import pl.inzynier.netintegrator.desktop.gui.script.ScriptPane;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
 import java.io.IOException;

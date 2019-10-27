@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.desktop.gui.pane.mapping;
+package pl.inzynier.netintegrator.desktop.gui.mapping;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

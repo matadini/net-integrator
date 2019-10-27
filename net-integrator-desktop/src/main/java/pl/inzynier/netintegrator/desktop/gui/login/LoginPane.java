@@ -1,9 +1,7 @@
-package pl.inzynier.netintegrator.desktop.gui.pane.login;
+package pl.inzynier.netintegrator.desktop.gui.login;
 
 import com.google.common.eventbus.EventBus;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,16 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import lombok.Value;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.client.login.LoginClient;
 import pl.inzynier.netintegrator.desktop.Application;
-
-import java.beans.EventHandler;
-import java.util.concurrent.ExecutorService;
 
 
 @RequiredArgsConstructor

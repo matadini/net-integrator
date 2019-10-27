@@ -5,24 +5,16 @@ import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import javafx.application.Platform;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import javafx.stage.WindowEvent;
-import pl.inzynier.netintegrator.client.login.LoginClient;
-import pl.inzynier.netintegrator.desktop.gui.pane.login.LoginPane;
-import pl.inzynier.netintegrator.desktop.gui.pane.main.MainPane;
+import pl.inzynier.netintegrator.desktop.gui.main.MainPane;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Logger;
 
 
 public class Application extends javafx.application.Application {

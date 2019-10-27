@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.desktop.gui.pane.mapping;
+package pl.inzynier.netintegrator.desktop.gui.mapping;
 
 import com.google.common.eventbus.EventBus;
 import javafx.collections.ObservableList;

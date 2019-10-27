@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.desktop.gui.pane.login;
+package pl.inzynier.netintegrator.desktop.gui.login;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

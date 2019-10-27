@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.desktop.gui.pane.script;
+package pl.inzynier.netintegrator.desktop.gui.script;
 
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ObservableValue;
