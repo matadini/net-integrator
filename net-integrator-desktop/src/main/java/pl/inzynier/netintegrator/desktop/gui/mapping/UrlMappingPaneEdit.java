@@ -15,6 +15,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.mapping.dto.*;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
@@ -160,8 +161,8 @@ class UrlMappingPaneEdit extends BorderPane {
 //    }
 
     @Subscribe
-    private void handle(ApplicationEventSignal event) {
-        if (ApplicationEventSignal.URL_MAPPING_CREATE.equals(event)) {
+    private void handle(ApplicationEvent event) {
+        if (ApplicationEventSignal.URL_MAPPING_CREATE.equals(event.getType())) {
             downloadUrlMappingList();
         }
     }

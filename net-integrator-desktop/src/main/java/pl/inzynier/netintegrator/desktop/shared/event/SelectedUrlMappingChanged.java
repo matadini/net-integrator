@@ -6,11 +6,12 @@ import lombok.Value;
 @Value
 @AllArgsConstructor
 public class SelectedUrlMappingChanged implements ApplicationEvent {
-    Long script;
-    ApplicationEventSignal signal;
+
+    Long urlMappingId;
+
 
     @Override
     public ApplicationEventSignal getType() {
-        return ApplicationEventSignal.SCRIPT_SELECTED_CHANGED;
+        return ApplicationEventSignal.SELECTED_URL_MAPPING_CHANGED;
     }
 }

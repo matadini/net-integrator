@@ -1,6 +1,7 @@
 package pl.inzynier.netintegrator.desktop.gui.script;
 
 import com.google.common.eventbus.Subscribe;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -12,7 +13,11 @@ import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
 import pl.inzynier.netintegrator.client.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.client.script.dto.ScriptType;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
+import pl.inzynier.netintegrator.desktop.shared.event.SelectedUrlMappingChanged;
+
+import java.util.List;
 
 //class Event {
 //    Long scrip
@@ -46,22 +51,27 @@ class ScriptPaneEdit extends BorderPane {
 
     }
 
-    private void download() {
+    private void download(Long urlMappingId) {
 
 
         try {
 
-            //scriptClient.
+            List<ScriptReadDto> byUrlMappingId = scriptClient.findByUrlMappingId(urlMappingId);
+            listViewScripts.setItems(FXCollections.observableArrayList(byUrlMappingId));
+
         } catch (Exception ex) {
-         ex.printStackTrace();
+            ex.printStackTrace();
         }
     }
 
     @Subscribe
-    private void handle(ApplicationEventSignal event) {
+    private void handle(ApplicationEvent event) {
 
-        if(ApplicationEventSignal.SCRIPT_SELECTED_CHANGED.equals(event)) {
+        System.out.println("eloszka");
+        if (ApplicationEventSignal.SELECTED_URL_MAPPING_CHANGED.equals(event.getType())) {
 
+            SelectedUrlMappingChanged item = (SelectedUrlMappingChanged) event;
+            download(item.getUrlMappingId());
         }
 
     }

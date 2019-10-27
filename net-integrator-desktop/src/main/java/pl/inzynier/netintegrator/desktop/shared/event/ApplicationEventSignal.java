@@ -13,7 +13,7 @@ import java.util.Map;
 public enum ApplicationEventSignal {
     URL_MAPPING_CREATE,
     URL_MAPPING_REMOVE,
-    SCRIPT_SELECTED_CHANGED,
+    SELECTED_URL_MAPPING_CHANGED,
     SCRIPT_CREATE,
     LOGIN_SUCCESS,
     EXIT

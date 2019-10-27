@@ -9,15 +9,19 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
+import pl.inzynier.netintegrator.desktop.shared.event.SelectedUrlMappingChanged;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 public class ScriptPane extends BorderPane {
@@ -69,7 +73,7 @@ public class ScriptPane extends BorderPane {
 
         Tab edit = JavaFxUtil.createNoClosableTab("Edit and remove");
         edit.setContent(paneEdit);
-        eventBus.register(edit);
+        eventBus.register(paneEdit);
 
         ObservableList<Tab> tabs = tabPane.getTabs();
         tabs.add(add);
@@ -77,9 +81,10 @@ public class ScriptPane extends BorderPane {
     }
 
     @Subscribe
-    private void handle(ApplicationEventSignal event) {
+    private void handle(ApplicationEvent event) {
 
-        if (ApplicationEventSignal.URL_MAPPING_CREATE.equals(event) || ApplicationEventSignal.URL_MAPPING_REMOVE.equals(event)) {
+        if (ApplicationEventSignal.URL_MAPPING_CREATE.equals(event.getType())
+                || ApplicationEventSignal.URL_MAPPING_REMOVE.equals(event.getType())) {
             downloadUrlMappings();
         }
 
@@ -102,7 +107,13 @@ public class ScriptPane extends BorderPane {
     }
 
     private void onChangedComboboxUrlMapping(ObservableValue<? extends UrlMappingReadDto> observable, UrlMappingReadDto oldValue, UrlMappingReadDto newValue) {
-        System.out.println("onChangedComboboxUrlMapping");
+
+        if (Objects.nonNull(newValue)) {
+            System.out.println("onChangedComboboxUrlMapping");
+            @NonNull Long urlMappingId = newValue.getUrlMappingId();
+            SelectedUrlMappingChanged event = new SelectedUrlMappingChanged(urlMappingId);
+            eventBus.post(event);
+        }
 
     }
 
