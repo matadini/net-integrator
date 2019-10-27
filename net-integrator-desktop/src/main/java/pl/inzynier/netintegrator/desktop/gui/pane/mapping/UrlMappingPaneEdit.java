@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,6 +19,7 @@ import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 class UrlMappingPaneEdit extends BorderPane {
@@ -49,11 +51,36 @@ class UrlMappingPaneEdit extends BorderPane {
     @FXML
     private ComboBox<RequestMethod> comboboxTargetMethod;
 
-    private final UrlMappingClient managmentClient;
+    private final UrlMappingClient mappingClient;
 
     @FXML
     private void initialize() {
         downloadUrlMappingList();
+
+        buttonSave.setOnAction(this::onClickButtonSave);
+        buttonRemove.setOnAction(this::onClickButtonRemove);
+
+    }
+
+    private void onClickButtonSave(ActionEvent event) {
+
+    }
+
+    private void onClickButtonRemove(ActionEvent event) {
+        TableView.TableViewSelectionModel<UrlMappingReadDto> selectionModel = tableViewUrlMapping.getSelectionModel();
+        UrlMappingReadDto selectedItem = selectionModel.getSelectedItem();
+        if (Objects.nonNull(selectedItem)) {
+
+            try {
+                mappingClient.deactivate(selectedItem.getUrlMappingId());
+                tableViewUrlMapping.getItems().remove(selectedItem);
+            } catch (UrlMappingClientException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+
+        }
     }
 
     private void downloadUrlMappingList() {
@@ -62,7 +89,7 @@ class UrlMappingPaneEdit extends BorderPane {
             comboboxTargetMethod.setItems(httpMethods);
             comboboxPublishMethod.setItems(httpMethods);
 
-            List<UrlMappingReadDto> all = managmentClient.findAll();
+            List<UrlMappingReadDto> all = mappingClient.findAll();
             ObservableList<UrlMappingReadDto> value = FXCollections.observableArrayList(all);
             tableViewUrlMapping.setItems(value);
 
@@ -75,8 +102,7 @@ class UrlMappingPaneEdit extends BorderPane {
 
 
     @Subscribe
-    void handle(UrlMappingPaneEvent event) {
-        System.out.println("elo");
+    private void handle(UrlMappingPaneEvent event) {
         if (UrlMappingPaneEvent.URL_MAPPING_CREATE.equals(event)) {
             downloadUrlMappingList();
         }

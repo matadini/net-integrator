@@ -49,7 +49,7 @@ class UrlMappingClientStub implements UrlMappingClient {
     @Override
     public void update(UrlMappingReadDto dto) throws UrlMappingClientException {
 
-        if(!database.containsKey(dto.getUrlMappingId())) {
+        if (!database.containsKey(dto.getUrlMappingId())) {
             this.create(new UrlMappingWriteDto(dto.getEndpoint(), dto.getTarget()));
         } else {
             database.replace(dto.getUrlMappingId(), dto);
@@ -66,5 +66,8 @@ class UrlMappingClientStub implements UrlMappingClient {
     @Override
     public void deactivate(Long urlMappingId) throws UrlMappingClientException {
 
+        if (database.containsKey(urlMappingId)) {
+            database.remove(urlMappingId);
+        }
     }
 }
