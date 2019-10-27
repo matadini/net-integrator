@@ -37,8 +37,8 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="100.0" text="Button" />
-                        <Button mnemonicParsing="false" prefWidth="100.0" text="Button" />
+                        <Button fx:id="buttonSave" mnemonicParsing="false" prefWidth="100.0" text="Save" />
+                        <Button fx:id="buttonRemove" mnemonicParsing="false" prefWidth="100.0" text="Remove" />
                      </children>
                   </HBox>
                   <GridPane hgap="10.0" vgap="10.0" VBox.vgrow="ALWAYS">
@@ -60,11 +60,11 @@
                         <Label text="Target Endpoint URL:" GridPane.rowIndex="2" />
                         <Label text="Target Endpoint Method" GridPane.rowIndex="3" />
                         <Label text="Target Endpoint Server:" GridPane.rowIndex="4" />
-                        <TextField fx:id="textfieldPublishURL1" GridPane.columnIndex="1" />
-                        <ComboBox fx:id="comboboxPublishMethod1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="textfieldTargetURL1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="comboboxTargetMethod1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="textfieldTargetServer1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="textfieldPublishURL" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="comboboxPublishMethod" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="textfieldTargetURL" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="comboboxTargetMethod" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="textfieldTargetServer" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children>

@@ -57,21 +57,7 @@ public class UrlMappingPane extends BorderPane {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-//
-//        try {
-//            ObservableList<RequestMethod> httpMethods = FXCollections.observableArrayList(RequestMethod.values());
-//            comboboxTargetMethod.setItems(httpMethods);
-//            comboboxPublishMethod.setItems(httpMethods);
-//
-//            List<UrlMappingReadDto> all = managmentClient.findAll();
-//            ObservableList<UrlMappingReadDto> value = FXCollections.observableArrayList(all);
-//            tableViewUrlMapping.setItems(value);
-//
-//            tableColumnUrlMapping.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().toString()));
-//
-//        } catch (UrlMappingClientException e) {
-//            e.printStackTrace();
-//        }
+
 
     }
 
@@ -82,39 +68,3 @@ public class UrlMappingPane extends BorderPane {
     }
 }
 
-@RequiredArgsConstructor
-class UrlMappingPaneEdit extends BorderPane {
-
-    private final UrlMappingClient managmentClient;
-
-}
-
-@RequiredArgsConstructor
-class UrlMappingPaneAdd extends BorderPane {
-
-    @FXML
-    private Button buttonAdd;
-
-    @FXML
-    private ComboBox<RequestMethod> comboboxPublishMethod;
-
-    @FXML
-    private ComboBox<RequestMethod> comboboxTargetMethod;
-
-    @FXML
-    private TextField textfieldPublishURL;
-
-    @FXML
-    private TextField textfieldTargetURL;
-
-    @FXML
-    private TextField textfieldTargetServer;
-
-    private final UrlMappingClient managmentClient;
-
-
-    @FXML
-    private void initialize() {
-
-    }
-}
