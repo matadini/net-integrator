@@ -4,13 +4,13 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="SCRIPT_PERSISTANCE">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>pl.inzynier.netintegrator.script.Script</class>
         <shared-cache-mode>NONE</shared-cache-mode>
     </persistence-unit>
 
     <persistence-unit name="MAPPING_PERSISTANCE">
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>pl.inzynier.netintegrator.mapping.UrlMapping</class>
         <shared-cache-mode>NONE</shared-cache-mode>
     </persistence-unit>
