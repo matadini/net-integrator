@@ -37,21 +37,21 @@ class UrlMappingPaneEdit extends BorderPane {
     private TextField textfieldPublishURL;
 
     @FXML
-    private ComboBox<RequestMethod> comboboxPublishMethod;
-
-    @FXML
     private TextField textfieldTargetURL;
-
-    @FXML
-    private ComboBox<RequestMethod> comboboxTargetMethod;
 
     @FXML
     private TextField textfieldTargetServer;
 
+    @FXML
+    private ComboBox<RequestMethod> comboboxPublishMethod;
+
+    @FXML
+    private ComboBox<RequestMethod> comboboxTargetMethod;
+
     private final UrlMappingClient managmentClient;
 
     @FXML
-   private void initialize() {
+    private void initialize() {
 
         try {
             ObservableList<RequestMethod> httpMethods = FXCollections.observableArrayList(RequestMethod.values());

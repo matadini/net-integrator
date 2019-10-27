@@ -58,7 +58,7 @@
             </HBox>
             <HBox alignment="CENTER" GridPane.columnSpan="4" GridPane.rowIndex="4">
                <children>
-                  <Label text="..." />
+                  <Label fx:id="labelInfo" text="..." wrapText="true" />
                </children>
             </HBox>
          </children>

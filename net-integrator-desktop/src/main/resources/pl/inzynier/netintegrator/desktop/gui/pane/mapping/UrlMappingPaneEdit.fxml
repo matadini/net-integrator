@@ -52,6 +52,8 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                      <children>
@@ -65,6 +67,8 @@
                         <TextField fx:id="textfieldTargetURL" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <ComboBox fx:id="comboboxTargetMethod" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="textfieldTargetServer" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Create date:" GridPane.rowIndex="5" />
+                        <Label text="Created by:" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
                </children>
