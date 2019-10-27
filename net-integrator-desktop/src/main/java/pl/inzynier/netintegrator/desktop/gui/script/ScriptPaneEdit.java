@@ -19,9 +19,6 @@ import pl.inzynier.netintegrator.desktop.shared.event.SelectedUrlMappingChanged;
 
 import java.util.List;
 
-//class Event {
-//    Long scrip
-//}
 
 @RequiredArgsConstructor
 class ScriptPaneEdit extends BorderPane {
