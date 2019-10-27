@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.desktop.gui.script;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,6 +17,8 @@ import pl.inzynier.netintegrator.client.script.dto.ScriptClientException;
 import pl.inzynier.netintegrator.client.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.client.script.dto.ScriptType;
 import pl.inzynier.netintegrator.client.script.dto.ScriptWriteDto;
+import pl.inzynier.netintegrator.desktop.Application;
+import pl.inzynier.netintegrator.desktop.shared.ApplicationEvent;
 
 import java.util.List;
 
@@ -26,24 +29,6 @@ public class ScriptPane extends BorderPane {
     @FXML
     private ComboBox<UrlMappingReadDto> comboboxUrlMappings;
 
-    @FXML
-    private Button buttonNew;
-
-    @FXML
-    private Button buttonSave;
-
-    @FXML
-    private Button buttonRemove;
-
-    @FXML
-    private TextArea textFieldScriptContent;
-
-    @FXML
-    private ComboBox<ScriptType> comboboxScriptType;
-
-    @FXML
-    private ListView<ScriptReadDto> listViewScripts;
-
     private final UrlMappingClient managmentClient;
 
     private final ScriptClient scriptClient;
@@ -52,72 +37,45 @@ public class ScriptPane extends BorderPane {
     public void initialize() {
 
 
-        try {
-            List<UrlMappingReadDto> all = managmentClient.findAll();
-            ObservableList<UrlMappingReadDto> value = FXCollections.observableArrayList(all);
-            comboboxUrlMappings.setItems(value);
-
-        } catch (Exception ex) {
-
-        }
+        downloadUrlMappings();
 
         SingleSelectionModel<UrlMappingReadDto> selectionModel = comboboxUrlMappings.getSelectionModel();
         ReadOnlyObjectProperty<UrlMappingReadDto> selectedItemProperty = selectionModel.selectedItemProperty();
         selectedItemProperty.addListener(this::onChangedComboboxUrlMapping);
 
-        MultipleSelectionModel<ScriptReadDto> selectionModel1 = listViewScripts.getSelectionModel();
-        ReadOnlyObjectProperty<ScriptReadDto> scriptReadDtoReadOnlyObjectProperty = selectionModel1.selectedItemProperty();
-        scriptReadDtoReadOnlyObjectProperty.addListener(this::onChangedListViewScript);
-
-
-        comboboxScriptType.setItems(FXCollections.observableArrayList(ScriptType.values()));
-
-
-        buttonNew.setOnAction(this::onClickButtonNew);
-        buttonSave.setOnAction(this::onClickButtonSave);
-        buttonRemove.setOnAction(this::onClickButtonRemove);
+//        MultipleSelectionModel<ScriptReadDto> selectionModel1 = listViewScripts.getSelectionModel();
+//        ReadOnlyObjectProperty<ScriptReadDto> scriptReadDtoReadOnlyObjectProperty = selectionModel1.selectedItemProperty();
+//        scriptReadDtoReadOnlyObjectProperty.addListener(this::onChangedListViewScript);
+//
+//
+//        comboboxScriptType.setItems(FXCollections.observableArrayList(ScriptType.values()));
+//
+//
+//        buttonNew.setOnAction(this::onClickButtonNew);
+//        buttonSave.setOnAction(this::onClickButtonSave);
+//        buttonRemove.setOnAction(this::onClickButtonRemove);
 
     }
 
-    private void onChangedListViewScript(ObservableValue<? extends ScriptReadDto> observable, ScriptReadDto oldValue, ScriptReadDto newValue) {
+    @Subscribe
+    private void handle(ApplicationEvent event) {
 
-        System.out.println("elo 2");
+        if(ApplicationEvent.URL_MAPPING_CREATE.equals(event) || ApplicationEvent.URL_MAPPING_REMOVE.equals(event)) {
+            downloadUrlMappings();
+        }
+
     }
 
-    private void onClickButtonRemove(ActionEvent event) {
-
+    private void downloadUrlMappings() {
         try {
-            ScriptReadDto selectedItem = listViewScripts.getSelectionModel().getSelectedItem();
-            scriptClient.delete(selectedItem);
-
-            UrlMappingReadDto selectedUrlMappingReadDto = getSelectedUrlMappingReadDto();
-            onChangedComboboxUrlMapping(null, null, selectedUrlMappingReadDto);
-
+            List<UrlMappingReadDto> all = managmentClient.findAll();
+            ObservableList<UrlMappingReadDto> value = FXCollections.observableArrayList(all);
+            comboboxUrlMappings.setItems(value);
         } catch (Exception ex) {
-
+            ex.printStackTrace();
         }
-
     }
 
-    private void onClickButtonSave(ActionEvent event) {
-
-    }
-
-    private void onClickButtonNew(ActionEvent event) {
-
-        try {
-            UrlMappingReadDto selectedUrlMappingReadDto = getSelectedUrlMappingReadDto();
-            Long urlMappingId = selectedUrlMappingReadDto.getUrlMappingId();
-            ScriptWriteDto dto = new ScriptWriteDto(urlMappingId, "placeholder", ScriptType.NONE);
-            scriptClient.create(dto);
-
-            onChangedComboboxUrlMapping(null, null, selectedUrlMappingReadDto);
-
-        } catch (ScriptClientException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private UrlMappingReadDto getSelectedUrlMappingReadDto() {
         SingleSelectionModel<UrlMappingReadDto> selectionModel = comboboxUrlMappings.getSelectionModel();
@@ -125,19 +83,134 @@ public class ScriptPane extends BorderPane {
     }
 
     private void onChangedComboboxUrlMapping(ObservableValue<? extends UrlMappingReadDto> observable, UrlMappingReadDto oldValue, UrlMappingReadDto newValue) {
-        System.out.println("elo");
-        //  labelDebug.setText(newValue.toString());
-
-        try {
-            Long urlMappingId = newValue.getUrlMappingId();
-            List<ScriptReadDto> byUrlMappingId = scriptClient.findByUrlMappingId(urlMappingId);
-            listViewScripts.setItems(FXCollections.observableArrayList(byUrlMappingId));
-
-        } catch (Exception ex) {
-
-        }
+        System.out.println("onChangedComboboxUrlMapping");
 
     }
 
 
 }
+
+
+//
+//@RequiredArgsConstructor
+//public class ScriptPane extends BorderPane {
+//
+//
+//    @FXML
+//    private ComboBox<UrlMappingReadDto> comboboxUrlMappings;
+//
+//    @FXML
+//    private Button buttonNew;
+//
+//    @FXML
+//    private Button buttonSave;
+//
+//    @FXML
+//    private Button buttonRemove;
+//
+//    @FXML
+//    private TextArea textFieldScriptContent;
+//
+//    @FXML
+//    private ComboBox<ScriptType> comboboxScriptType;
+//
+//    @FXML
+//    private ListView<ScriptReadDto> listViewScripts;
+//
+//    private final UrlMappingClient managmentClient;
+//
+//    private final ScriptClient scriptClient;
+//
+//    @FXML
+//    public void initialize() {
+//
+//
+//        try {
+//            List<UrlMappingReadDto> all = managmentClient.findAll();
+//            ObservableList<UrlMappingReadDto> value = FXCollections.observableArrayList(all);
+//            comboboxUrlMappings.setItems(value);
+//
+//        } catch (Exception ex) {
+//
+//        }
+//
+//        SingleSelectionModel<UrlMappingReadDto> selectionModel = comboboxUrlMappings.getSelectionModel();
+//        ReadOnlyObjectProperty<UrlMappingReadDto> selectedItemProperty = selectionModel.selectedItemProperty();
+//        selectedItemProperty.addListener(this::onChangedComboboxUrlMapping);
+//
+//        MultipleSelectionModel<ScriptReadDto> selectionModel1 = listViewScripts.getSelectionModel();
+//        ReadOnlyObjectProperty<ScriptReadDto> scriptReadDtoReadOnlyObjectProperty = selectionModel1.selectedItemProperty();
+//        scriptReadDtoReadOnlyObjectProperty.addListener(this::onChangedListViewScript);
+//
+//
+//        comboboxScriptType.setItems(FXCollections.observableArrayList(ScriptType.values()));
+//
+//
+//        buttonNew.setOnAction(this::onClickButtonNew);
+//        buttonSave.setOnAction(this::onClickButtonSave);
+//        buttonRemove.setOnAction(this::onClickButtonRemove);
+//
+//    }
+//
+//    private void onChangedListViewScript(ObservableValue<? extends ScriptReadDto> observable, ScriptReadDto oldValue, ScriptReadDto newValue) {
+//
+//        System.out.println("elo 2");
+//    }
+//
+//    private void onClickButtonRemove(ActionEvent event) {
+//
+//        try {
+//            ScriptReadDto selectedItem = listViewScripts.getSelectionModel().getSelectedItem();
+//            scriptClient.delete(selectedItem);
+//
+//            UrlMappingReadDto selectedUrlMappingReadDto = getSelectedUrlMappingReadDto();
+//            onChangedComboboxUrlMapping(null, null, selectedUrlMappingReadDto);
+//
+//        } catch (Exception ex) {
+//
+//        }
+//
+//    }
+//
+//    private void onClickButtonSave(ActionEvent event) {
+//
+//    }
+//
+//    private void onClickButtonNew(ActionEvent event) {
+//
+//        try {
+//            UrlMappingReadDto selectedUrlMappingReadDto = getSelectedUrlMappingReadDto();
+//            Long urlMappingId = selectedUrlMappingReadDto.getUrlMappingId();
+//            ScriptWriteDto dto = new ScriptWriteDto(urlMappingId, "placeholder", ScriptType.NONE);
+//            scriptClient.create(dto);
+//
+//            onChangedComboboxUrlMapping(null, null, selectedUrlMappingReadDto);
+//
+//        } catch (ScriptClientException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//
+//    private UrlMappingReadDto getSelectedUrlMappingReadDto() {
+//        SingleSelectionModel<UrlMappingReadDto> selectionModel = comboboxUrlMappings.getSelectionModel();
+//        return selectionModel.getSelectedItem();
+//    }
+//
+//    private void onChangedComboboxUrlMapping(ObservableValue<? extends UrlMappingReadDto> observable, UrlMappingReadDto oldValue, UrlMappingReadDto newValue) {
+//        System.out.println("elo");
+//        //  labelDebug.setText(newValue.toString());
+//
+//        try {
+//            Long urlMappingId = newValue.getUrlMappingId();
+//            List<ScriptReadDto> byUrlMappingId = scriptClient.findByUrlMappingId(urlMappingId);
+//            listViewScripts.setItems(FXCollections.observableArrayList(byUrlMappingId));
+//
+//        } catch (Exception ex) {
+//
+//        }
+//
+//    }
+//
+//
+//}

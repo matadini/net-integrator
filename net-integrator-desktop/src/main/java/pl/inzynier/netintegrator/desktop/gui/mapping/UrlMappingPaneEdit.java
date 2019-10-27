@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.desktop.gui.mapping;
 
+import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
@@ -52,7 +53,7 @@ class UrlMappingPaneEdit extends BorderPane {
     private ComboBox<RequestMethod> comboboxTargetMethod;
 
     private final UrlMappingClient mappingClient;
-
+    private final EventBus eventBus;
     private UrlMappingPaneEditModel model;
 
     @FXML
@@ -85,6 +86,7 @@ class UrlMappingPaneEdit extends BorderPane {
             try {
                 mappingClient.deactivate(selectedItem.getUrlMappingId());
                 listView.getItems().remove(selectedItem);
+                eventBus.post(ApplicationEvent.URL_MAPPING_REMOVE);
 
             } catch (UrlMappingClientException e) {
                 e.printStackTrace();

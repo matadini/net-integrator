@@ -51,6 +51,7 @@ public class MainPane extends BorderPane {
             URL scriptFxmlUrl = ScriptPane.class.getResource("ScriptPane.fxml");
             ScriptPane scriptController = new ScriptPane(managmentClient, scriptClient);
             scriptController = JavaFxUtil.loadFxml(scriptController, scriptFxmlUrl);
+            eventBus.register(scriptController);
 
             // fx pane
             ObservableList<Tab> tabs = tabPane.getTabs();

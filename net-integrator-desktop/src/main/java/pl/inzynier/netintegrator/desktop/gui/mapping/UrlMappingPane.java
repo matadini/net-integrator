@@ -36,7 +36,7 @@ public class UrlMappingPane extends BorderPane {
             tabAdd.setContent(paneAdd);
 
             // edycja i usuwanie
-            paneEdit = new UrlMappingPaneEdit(managmentClient);
+            paneEdit = new UrlMappingPaneEdit(managmentClient,eventBus);
             paneEdit = JavaFxUtil.loadFxml(paneEdit, UrlMappingPaneEdit.class.getResource("UrlMappingPaneEdit.fxml"));
             eventBus.register(paneEdit);
 
