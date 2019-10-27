@@ -16,7 +16,7 @@ import pl.inzynier.netintegrator.client.mapping.dto.PublishEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingClientException;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingWriteDto;
-import pl.inzynier.netintegrator.desktop.shared.ApplicationEvent;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 
@@ -79,7 +79,7 @@ class UrlMappingPaneAdd extends BorderPane {
         try {
             UrlMappingWriteDto mappingDto = modelToWriteDto(model);
             managmentClient.create(mappingDto);
-            eventBus.post(ApplicationEvent.URL_MAPPING_CREATE);
+            eventBus.post(ApplicationEventSignal.URL_MAPPING_CREATE);
             model = createNewModel();
         } catch (UrlMappingClientException e) {
             e.printStackTrace();

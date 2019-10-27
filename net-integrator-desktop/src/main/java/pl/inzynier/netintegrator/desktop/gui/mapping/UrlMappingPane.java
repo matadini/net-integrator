@@ -32,7 +32,7 @@ public class UrlMappingPane extends BorderPane {
             paneAdd = JavaFxUtil.loadFxml(paneAdd, UrlMappingPaneAdd.class.getResource("UrlMappingPaneAdd.fxml"));
 
 
-            Tab tabAdd = createNoClosableTab("       Add       ");
+            Tab tabAdd = JavaFxUtil.createNoClosableTab("       Add       ");
             tabAdd.setContent(paneAdd);
 
             // edycja i usuwanie
@@ -40,7 +40,7 @@ public class UrlMappingPane extends BorderPane {
             paneEdit = JavaFxUtil.loadFxml(paneEdit, UrlMappingPaneEdit.class.getResource("UrlMappingPaneEdit.fxml"));
             eventBus.register(paneEdit);
 
-            Tab tabEdit = createNoClosableTab(" Edit and remove ");
+            Tab tabEdit = JavaFxUtil.createNoClosableTab(" Edit and remove ");
             tabEdit.setContent(paneEdit);
 
             // dodaj tabsy do widoku
@@ -55,10 +55,5 @@ public class UrlMappingPane extends BorderPane {
 
     }
 
-    private Tab createNoClosableTab(String test) {
-        Tab tabAdd = new Tab(test);
-        tabAdd.setClosable(false);
-        return tabAdd;
-    }
 }
 

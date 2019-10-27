@@ -1,6 +1,7 @@
 package pl.inzynier.netintegrator.desktop.shared;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Tab;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -18,5 +19,11 @@ public class JavaFxUtil {
         loader.setController(controller);
         loader.load();
         return controller;
+    }
+
+    public static Tab createNoClosableTab(String test) {
+        Tab tabAdd = new Tab(test);
+        tabAdd.setClosable(false);
+        return tabAdd;
     }
 }

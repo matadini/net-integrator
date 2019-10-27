@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
 <fx:root prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
@@ -21,23 +20,10 @@
           <ColumnConstraints hgrow="ALWAYS" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints vgrow="NEVER" />
-          <RowConstraints vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER" GridPane.columnSpan="2">
-               <children>
-                  <Label text="Script">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <Label text="Avaible URL Mappings:" GridPane.rowIndex="1" />
-            <ComboBox fx:id="comboboxUrlMappings" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <GridPane hgap="5.0" vgap="5.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <GridPane hgap="5.0" vgap="5.0" GridPane.columnSpan="2">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
                   <ColumnConstraints hgrow="ALWAYS" />
@@ -53,7 +39,6 @@
                      <children>
                         <Label text="Type" />
                         <HBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="buttonNew" mnemonicParsing="false" prefWidth="75.0" text="New" />
                         <Button fx:id="buttonSave" mnemonicParsing="false" prefWidth="75.0" text="Save" />
                         <Button fx:id="buttonRemove" mnemonicParsing="false" prefWidth="75.0" text="Remove" />
                      </children>

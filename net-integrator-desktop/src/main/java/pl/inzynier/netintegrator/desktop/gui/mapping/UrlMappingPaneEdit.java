@@ -15,7 +15,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.mapping.dto.*;
-import pl.inzynier.netintegrator.desktop.shared.ApplicationEvent;
+import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 import java.util.List;
@@ -86,7 +86,7 @@ class UrlMappingPaneEdit extends BorderPane {
             try {
                 mappingClient.deactivate(selectedItem.getUrlMappingId());
                 listView.getItems().remove(selectedItem);
-                eventBus.post(ApplicationEvent.URL_MAPPING_REMOVE);
+                eventBus.post(ApplicationEventSignal.URL_MAPPING_REMOVE);
 
             } catch (UrlMappingClientException e) {
                 e.printStackTrace();
@@ -157,8 +157,8 @@ class UrlMappingPaneEdit extends BorderPane {
 //    }
 
     @Subscribe
-    private void handle(ApplicationEvent event) {
-        if (ApplicationEvent.URL_MAPPING_CREATE.equals(event)) {
+    private void handle(ApplicationEventSignal event) {
+        if (ApplicationEventSignal.URL_MAPPING_CREATE.equals(event)) {
             downloadUrlMappingList();
         }
     }
