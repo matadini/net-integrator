@@ -1,13 +1,14 @@
 package pl.inzynier.netintegrator.client.mapping.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class UrlMappingReadDto extends UrlMappingWriteDto {
+
+    @NonNull
     Long urlMappingId;
 
     public UrlMappingReadDto(Long urlMappingId, PublishEndpointDto endpoint, TargetEndpointDto target) {

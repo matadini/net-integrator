@@ -19,7 +19,6 @@ class ScriptClientStub implements ScriptClient {
 
     private final AtomicLong sequence = new AtomicLong(0);
 
-
     private final Map<Long, List<ScriptReadDto>> database = Maps.newHashMap();
 
     ScriptClientStub() {
@@ -37,7 +36,7 @@ class ScriptClientStub implements ScriptClient {
                             ScriptType.POST_CALL,
                             sequence.getAndIncrement()));
         } catch (Exception ex) {
-
+            ex.printStackTrace();
         }
     }
 
@@ -47,7 +46,7 @@ class ScriptClientStub implements ScriptClient {
         if (!database.containsKey(urlMappingId)) {
             database.put(urlMappingId, Lists.newArrayList());
         }
-        long andIncrement = sequence.getAndIncrement();
+        long andIncrement = sequence.get();
         List<ScriptReadDto> scriptReadDtos = database.get(urlMappingId);
         scriptReadDtos.add(new ScriptReadDto(
                 urlMappingId,

@@ -9,11 +9,13 @@ import java.util.List;
 
 public interface UrlMappingClient {
 
-    Long addUrlMapping(UrlMappingWriteDto mappingDto) throws UrlMappingClientException;
+    Long create(UrlMappingWriteDto dto) throws UrlMappingClientException;
 
-    void deactivateUrlMapping(Long urlMappingId) throws UrlMappingClientException;
+    void update(UrlMappingReadDto dto) throws UrlMappingClientException;
 
     List<UrlMappingReadDto> findAll() throws UrlMappingClientException;
+
+    void deactivate(Long urlMappingId) throws UrlMappingClientException;
 
 
     static UrlMappingClient create(String address) {

@@ -20,8 +20,4 @@ public class TargetEndpointDto {
 
     @NonNull
     String hostAddress;
-
-    public String getFullUrl() {
-        return this.getHostAddress() + this.getMethodUrl();
-    }
 }

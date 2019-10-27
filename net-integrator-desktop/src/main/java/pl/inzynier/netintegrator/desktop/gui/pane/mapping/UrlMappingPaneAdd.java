@@ -1,9 +1,5 @@
 package pl.inzynier.netintegrator.desktop.gui.pane.mapping;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,8 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
+import pl.inzynier.netintegrator.client.mapping.dto.PublishEndpointDto;
+import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
+import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingClientException;
+import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingWriteDto;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 @RequiredArgsConstructor
@@ -72,7 +71,31 @@ class UrlMappingPaneAdd extends BorderPane {
 
     private void onClickButtonAdd(ActionEvent event) {
 
-        System.out.println(model.toString());
-        model = createNewModel();
+        try {
+            UrlMappingWriteDto mappingDto = modelToWriteDto(model);
+            managmentClient.create(mappingDto);
+
+            System.out.println(model.toString());
+
+            model = createNewModel();
+        } catch (UrlMappingClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static UrlMappingWriteDto modelToWriteDto(UrlMappingPaneAddModel model) {
+        TargetEndpointDto target = new TargetEndpointDto();
+        target.setHostAddress(model.targetEndpointServer.get());
+        target.setMethod(model.targetEndpointMethod.get());
+        target.setMethodUrl(model.targetEndpointURL.get());
+
+        PublishEndpointDto endpoint = new PublishEndpointDto();
+        endpoint.setMethod(model.publishEndpointMethod.get());
+        endpoint.setMethodUrl(model.publishEndpointURL.get());
+
+        UrlMappingWriteDto mappingDto = new UrlMappingWriteDto();
+        mappingDto.setEndpoint(endpoint);
+        mappingDto.setTarget(target);
+        return mappingDto;
     }
 }
