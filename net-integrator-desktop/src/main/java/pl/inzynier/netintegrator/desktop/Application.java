@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javafx.stage.WindowEvent;
+import pl.inzynier.netintegrator.client.login.LoginClient;
+import pl.inzynier.netintegrator.desktop.gui.login.LoginPane;
 import pl.inzynier.netintegrator.desktop.gui.main.MainPane;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
@@ -16,23 +18,26 @@ import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 
 
 public class Application extends javafx.application.Application {
 
-//    public enum Command {
-//        LOGIN_SUCCESS,
-//        EXIT
-//    }
-
     private final EventBus eventBus = new EventBus();
     private final ListeningExecutorService executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(4));
     private static Application instance;
     private Stage loginStage;
-
+    private static boolean loginOff = false;
     public static void main(String[] args) {
+
+        List<String> arrayList = new ArrayList<String>(Arrays.asList(args));
+        if (arrayList.contains("login-off")) {
+            loginOff = true;
+        }
         launch(args);
     }
 
@@ -43,20 +48,21 @@ public class Application extends javafx.application.Application {
         instance = this;
         eventBus.register(instance);
 
-        // pokaz ekran logowania
-//        URL resource = LoginPane.class.getResource("LoginPane.fxml");
-//        LoginClient loginClient = LoginClient.create("test");
-//        LoginPane controller = new LoginPane(eventBus, loginClient);
-//        controller = JavaFxUtil.loadFxml(controller, resource);
-//
-//        loginStage = new Stage();
-//        loginStage.setOnCloseRequest(this::onCloseRequest);
-//        loginStage.setScene(new Scene(controller));
-//        loginStage.show();
+        if(loginOff) {
+            SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.LOGIN_SUCCESS);
+            eventBus.post(signalOnly);
+        } else {
 
-        SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.LOGIN_SUCCESS);
-        eventBus.post(signalOnly);
+            URL resource = LoginPane.class.getResource("LoginPane.fxml");
+            LoginClient loginClient = LoginClient.create("test");
+            LoginPane controller = new LoginPane(eventBus, loginClient);
+            controller = JavaFxUtil.loadFxml(controller, resource);
 
+            loginStage = new Stage();
+            loginStage.setOnCloseRequest(this::onCloseRequest);
+            loginStage.setScene(new Scene(controller));
+            loginStage.show();
+        }
     }
 
     private void onCloseRequest(WindowEvent event) {

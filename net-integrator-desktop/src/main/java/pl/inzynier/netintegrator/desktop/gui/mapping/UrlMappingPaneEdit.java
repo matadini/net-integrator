@@ -67,6 +67,7 @@ class UrlMappingPaneEdit extends BorderPane {
         listView.getSelectionModel().selectedItemProperty().addListener(this::onClickListView);
         buttonSave.setOnAction(this::onClickButtonSave);
         buttonRemove.setOnAction(this::onClickButtonRemove);
+        model = createNewModel();
 
     }
 
@@ -76,7 +77,7 @@ class UrlMappingPaneEdit extends BorderPane {
 
     private void onClickListView(ObservableValue<? extends UrlMappingReadDto> observable, UrlMappingReadDto oldValue, UrlMappingReadDto newValue) {
         if (Objects.nonNull(newValue)) {
-            model = createNewModel(newValue);
+            fillModel(newValue);
         }
     }
 
@@ -119,22 +120,25 @@ class UrlMappingPaneEdit extends BorderPane {
     }
 
 
-    private UrlMappingPaneEditModel createNewModel(UrlMappingReadDto dto) {
-        UrlMappingPaneEditModel newModel = createNewModel();
-        System.out.println(dto);
+    private void fillModel(UrlMappingReadDto dto) {
+//        UrlMappingPaneEditModel newModel = createNewModel();
+//        System.out.println(dto);
         @NonNull TargetEndpointDto target = dto.getTarget();
-        newModel.targetEndpointURL.set(target.getMethodUrl());
-        newModel.targetEndpointMethod.set(target.getMethod());
-        newModel.targetEndpointServer.set(target.getHostAddress());
+        model.targetEndpointURL.set(target.getMethodUrl());
+        model.targetEndpointMethod.set(target.getMethod());
+        model.targetEndpointServer.set(target.getHostAddress());
 
         @NonNull PublishEndpointDto endpoint = dto.getEndpoint();
-        newModel.publishEndpointMethod.set(endpoint.getMethod());
-        newModel.publishEndpointURL.set(endpoint.getMethodUrl());
+        model.publishEndpointMethod.set(endpoint.getMethod());
+        model.publishEndpointURL.set(endpoint.getMethodUrl());
 
-        newModel.urlMappingId.set(dto.getUrlMappingId());
-        return newModel;
-    }
+        model.urlMappingId.set(dto.getUrlMappingId());
+ }
 
+    /**
+     * Tworzy model powiazany z kontrolkami
+     * @return
+     */
     private UrlMappingPaneEditModel createNewModel() {
         UrlMappingPaneEditModel newModel = new UrlMappingPaneEditModel();
         Bindings.bindBidirectional(comboboxTargetMethod.valueProperty(), newModel.targetEndpointMethod);

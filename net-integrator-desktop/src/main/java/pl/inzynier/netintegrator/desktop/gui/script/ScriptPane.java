@@ -2,16 +2,21 @@ package pl.inzynier.netintegrator.desktop.gui.script;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import javafx.beans.property.ReadOnlyObjectProperty;
+
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.util.converter.NumberStringConverter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
+import pl.inzynier.netintegrator.client.mapping.dto.PublishEndpointDto;
+import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
@@ -23,15 +28,37 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+
 @RequiredArgsConstructor
 public class ScriptPane extends BorderPane {
 
+    @FXML
+    private Label labelId;
+
+    @FXML
+    private Label labelPublishMethod;
+
+    @FXML
+    private Label labelPublishURL;
+
+    @FXML
+    private Label labelTargetAddress;
+
+    @FXML
+    private Label labelTargetMethod;
+
+    @FXML
+    private Label labelTargetURL;
+
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private ComboBox<UrlMappingReadDto> comboboxUrlMappings;
 
-    @FXML
-    private TabPane tabPane;
+    private ScriptPaneAdd paneAdd;
+
+    private ScriptPaneEdit paneEdit;
 
     private final UrlMappingClient managmentClient;
 
@@ -39,14 +66,25 @@ public class ScriptPane extends BorderPane {
 
     private final EventBus eventBus;
 
-    private ScriptPaneAdd paneAdd;
+    private final RequestMethodStringConverter converter = new RequestMethodStringConverter();
 
-    private ScriptPaneEdit paneEdit;
+    private ScriptPaneModel model;
+
+    private ScriptPaneModel createModel() {
+        ScriptPaneModel model = new ScriptPaneModel();
+        Bindings.bindBidirectional(labelId.textProperty(), model.urlMappingId, new NumberStringConverter());
+        Bindings.bindBidirectional(labelPublishURL.textProperty(), model.publishEndpointURL);
+        Bindings.bindBidirectional(labelPublishMethod.textProperty(), model.publishEndpointMethod, converter);
+        Bindings.bindBidirectional(labelTargetURL.textProperty(), model.targetEndpointURL);
+        Bindings.bindBidirectional(labelTargetMethod.textProperty(), model.targetEndpointMethod, converter);
+        Bindings.bindBidirectional(labelTargetAddress.textProperty(), model.targetEndpointServer);
+        return model;
+    }
 
     @FXML
     public void initialize() {
 
-
+        model = createModel();
         downloadUrlMappings();
 
         SingleSelectionModel<UrlMappingReadDto> selectionModel = comboboxUrlMappings.getSelectionModel();
@@ -100,12 +138,6 @@ public class ScriptPane extends BorderPane {
         }
     }
 
-
-    private UrlMappingReadDto getSelectedUrlMappingReadDto() {
-        SingleSelectionModel<UrlMappingReadDto> selectionModel = comboboxUrlMappings.getSelectionModel();
-        return selectionModel.getSelectedItem();
-    }
-
     private void onChangedComboboxUrlMapping(ObservableValue<? extends UrlMappingReadDto> observable, UrlMappingReadDto oldValue, UrlMappingReadDto newValue) {
 
         if (Objects.nonNull(newValue)) {
@@ -113,8 +145,24 @@ public class ScriptPane extends BorderPane {
             @NonNull Long urlMappingId = newValue.getUrlMappingId();
             SelectedUrlMappingChanged event = new SelectedUrlMappingChanged(urlMappingId);
             eventBus.post(event);
+
+            fillModel(newValue);
         }
 
+    }
+
+    private void fillModel(UrlMappingReadDto newValue) {
+
+        model.urlMappingId.set(newValue.getUrlMappingId());
+
+        @NonNull PublishEndpointDto endpoint = newValue.getEndpoint();
+        model.publishEndpointURL.set(endpoint.getMethodUrl());
+        model.publishEndpointMethod.set(endpoint.getMethod());
+
+        @NonNull TargetEndpointDto target = newValue.getTarget();
+        model.targetEndpointURL.set(target.getMethodUrl());
+        model.targetEndpointMethod.set(target.getMethod());
+        model.targetEndpointServer.set(target.getHostAddress());
     }
 
 

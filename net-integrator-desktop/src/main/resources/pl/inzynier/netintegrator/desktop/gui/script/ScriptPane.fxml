@@ -21,7 +21,8 @@
         <rowConstraints>
           <RowConstraints vgrow="NEVER" />
           <RowConstraints vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints vgrow="ALWAYS" />
         </rowConstraints>
          <children>
             <HBox alignment="CENTER">
@@ -39,7 +40,34 @@
                   <ComboBox fx:id="comboboxUrlMappings" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <GridPane hgap="5.0" vgap="5.0" GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="ID:" />
+                  <Label text="Target URL" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Publish method" GridPane.rowIndex="1" />
+                  <Label text="Target method" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label text="Publish URL" GridPane.rowIndex="2" />
+                  <Label text="Target address:" GridPane.columnIndex="2" />
+                  <Label fx:id="labelId" text="..." GridPane.columnIndex="1" />
+                  <Label fx:id="labelPublishMethod" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="labelPublishURL" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="labelTargetAddress" text="..." GridPane.columnIndex="3" />
+                  <Label fx:id="labelTargetMethod" text="..." GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Label fx:id="labelTargetURL" text="..." GridPane.columnIndex="3" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
