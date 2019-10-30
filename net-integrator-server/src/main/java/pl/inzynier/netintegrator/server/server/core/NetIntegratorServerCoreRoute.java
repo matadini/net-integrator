@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.server;
+package pl.inzynier.netintegrator.server.server.core;
 
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.http.util.RequestMethod;

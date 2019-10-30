@@ -21,9 +21,10 @@ import pl.inzynier.netintegrator.server.configuration.ConfigurationRepository;
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerFactory;
-import pl.inzynier.netintegrator.server.server.NetIntegratorServer;
-import pl.inzynier.netintegrator.server.server.NetIntegratorServerConfig;
-import pl.inzynier.netintegrator.server.server.NetIntegratorServerCoreRoute;
+import pl.inzynier.netintegrator.server.server.core.NetIntegratorContext;
+import pl.inzynier.netintegrator.server.server.core.NetIntegratorServerImpl;
+import pl.inzynier.netintegrator.server.server.core.NetIntegratorServerConfig;
+import pl.inzynier.netintegrator.server.server.core.NetIntegratorServerCoreRoute;
 import pl.inzynier.netintegrator.server.server.controller.urlmapping.UrlMappingController;
 
 import java.util.ArrayList;
@@ -61,8 +62,12 @@ public class Main {
         adminControllers.add(new UrlMappingController(gson, urlMappingService));
 
         NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator, requestMethodManagerStrategyMap);
-        NetIntegratorServer netIntegratorServer = new NetIntegratorServer(urlMappingService, config, route, adminControllers);
+        NetIntegratorServerImpl netIntegratorServer = new NetIntegratorServerImpl(urlMappingService, config, route, adminControllers);
         netIntegratorServer.run();
+
+        // instancje serwera wrzuc do kontekstu aby byl dostepny w kontrolerach administracyjnych
+        NetIntegratorContext context = NetIntegratorContext.getContext();
+        context.setNetIntegratorServer(netIntegratorServer);
     }
 
     private static void urlMappingWithScript() throws UrlMappingServiceException, ScriptServiceException {
@@ -72,7 +77,7 @@ public class Main {
 
         UrlMappingWriteDto mapping2 = new UrlMappingWriteDto(publishEndpoint2, targetEndpoint2);
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
-        Long aLong = urlMappingService.addUrlMapping(mapping2);
+        Long aLong = urlMappingService.create(mapping2);
         List<UrlMappingReadDto> mappings = urlMappingService.findAll();
         mappings.forEach(System.out::println);
 
@@ -98,7 +103,7 @@ public class Main {
 
 
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
-        urlMappingService.addUrlMapping(mapping0);
+        urlMappingService.create(mapping0);
 
 
         List<UrlMappingReadDto> all = urlMappingService.findAll();

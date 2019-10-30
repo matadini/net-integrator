@@ -11,7 +11,9 @@ import java.util.Optional;
 
 public interface UrlMappingService {
 
-    Long addUrlMapping(UrlMappingWriteDto mappingDto) throws UrlMappingServiceException;
+    Long create(UrlMappingWriteDto mappingDto) throws UrlMappingServiceException;
+
+    void update(UrlMappingReadDto mappingDto) throws UrlMappingServiceException;
 
     Optional<UrlMappingReadDto> findByPublishUrlAndPublishMethod(String url, RequestMethod mapping) throws UrlMappingServiceException;
 
@@ -19,5 +21,6 @@ public interface UrlMappingService {
 
     List<UrlMappingReadDto> findAll() throws UrlMappingServiceException;
 
+    UrlMappingReadDto findById(Long urlMappingId) throws UrlMappingServiceException;
 
 }

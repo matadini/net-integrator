@@ -9,8 +9,10 @@ import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingWriteDto;
 
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,12 +24,19 @@ class UrlMappingClientHttp implements UrlMappingClient {
 
     @Override
     public Long create(UrlMappingWriteDto dto) throws UrlMappingClientException {
-        return null;
+        String target = address + "/admin/url-mapping/create";
+        String jsonToSend = gson.toJson(dto);
+        Entity<String> entity = Entity.entity(jsonToSend, MediaType.TEXT_PLAIN);
+        String post = client.target(target).request().post(entity, String.class);
+        System.out.println(post);
+        return 0L;
     }
 
     @Override
     public void update(UrlMappingReadDto dto) throws UrlMappingClientException {
-
+        String target = address + "/admin/url-mapping/update";
+        String jsonToSend = gson.toJson(dto);
+        client.target(target).request().post(Entity.entity(jsonToSend, MediaType.TEXT_PLAIN));
     }
 
     @Override
@@ -37,7 +46,6 @@ class UrlMappingClientHttp implements UrlMappingClient {
         String s = client.target(target).request().get(String.class);
         return gson.fromJson(s, new TypeToken<List<UrlMappingReadDto>>() {
         }.getType());
-        // return Lists.newArrayList();
 
     }
 

@@ -26,14 +26,14 @@ class DemoInitializer {
             TargetEndpointDto targetEndpoint0 = new TargetEndpointDto("/fake-get", RequestMethod.GET, "http://localhost:9090");
 
             UrlMappingWriteDto mapping0 = new UrlMappingWriteDto(publishEndpoint0, targetEndpoint0);
-            Long save0 = urlMappingService.addUrlMapping(mapping0);
+            Long save0 = urlMappingService.create(mapping0);
 
             // 1 - mapowanie ze skryptem json to xml
             PublishEndpointDto publishEndpoint1 = new PublishEndpointDto("/api-post-xml", RequestMethod.POST);
             TargetEndpointDto targetEndpoint1 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
 
             UrlMappingWriteDto mapping1 = new UrlMappingWriteDto(publishEndpoint1, targetEndpoint1);
-            Long save1 = urlMappingService.addUrlMapping(mapping1);
+            Long save1 = urlMappingService.create(mapping1);
 
 
             // 2 - mapowanie ze skryptem
@@ -41,7 +41,7 @@ class DemoInitializer {
             TargetEndpointDto targetEndpoint2 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
 
             UrlMappingWriteDto mapping2 = new UrlMappingWriteDto(publishEndpoint2, targetEndpoint2);
-            Long save2 = urlMappingService.addUrlMapping(mapping2);
+            Long save2 = urlMappingService.create(mapping2);
 
 
             // skrypty do mapowan

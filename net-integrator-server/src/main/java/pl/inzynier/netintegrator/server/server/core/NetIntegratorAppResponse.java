@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.server.server;
+package pl.inzynier.netintegrator.server.server.core;
 
 import lombok.Data;
 

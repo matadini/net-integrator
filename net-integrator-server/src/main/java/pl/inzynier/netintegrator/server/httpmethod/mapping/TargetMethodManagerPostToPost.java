@@ -6,7 +6,7 @@ import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
 import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.script.ScriptService;
-import pl.inzynier.netintegrator.server.server.NetIntegratorAppResponse;
+import pl.inzynier.netintegrator.server.server.core.NetIntegratorAppResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
