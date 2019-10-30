@@ -45,12 +45,12 @@ class DemoInitializer {
             Long save2 = urlMappingService.create(mapping2);
 
 // internetowe mappowanie
-            PublishEndpointDto publishEndpoint3 = new PublishEndpointDto("/internet", RequestMethod.GET);
-            TargetEndpointDto targetEndpoint3 = new TargetEndpointDto("/posts/1", RequestMethod.GET,
-                    "http://jsonplaceholder.typicode.com");
-
-            UrlMappingWriteDto mapping3 = new UrlMappingWriteDto(publishEndpoint3, targetEndpoint3);
-            Long save3 = urlMappingService.create(mapping3);
+//            PublishEndpointDto publishEndpoint3 = new PublishEndpointDto("/internet", RequestMethod.GET);
+//            TargetEndpointDto targetEndpoint3 = new TargetEndpointDto("/posts/1", RequestMethod.GET,
+//                    "http://jsonplaceholder.typicode.com");
+//
+//            UrlMappingWriteDto mapping3 = new UrlMappingWriteDto(publishEndpoint3, targetEndpoint3);
+//            Long save3 = urlMappingService.create(mapping3);
 
             // skrypty do mapowan
             ScriptWriteDto script1 = new ScriptWriteDto();

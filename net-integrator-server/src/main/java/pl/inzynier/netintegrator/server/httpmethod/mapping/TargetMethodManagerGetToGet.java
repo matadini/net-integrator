@@ -12,12 +12,6 @@ import pl.inzynier.netintegrator.server.server.core.NetIntegratorAppResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -26,8 +20,6 @@ import java.util.Map;
 class TargetMethodManagerGetToGet implements TargetMethodManager {
 
     private final Gson gson;
-    private final Client client;
-
 
     @Override
     public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response) {
