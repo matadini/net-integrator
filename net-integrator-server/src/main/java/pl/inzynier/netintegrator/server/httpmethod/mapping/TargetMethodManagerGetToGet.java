@@ -1,6 +1,9 @@
 package pl.inzynier.netintegrator.server.httpmethod.mapping;
 
 import com.google.gson.Gson;
+import kong.unirest.GetRequest;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
 import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
@@ -26,31 +30,39 @@ class TargetMethodManagerGetToGet implements TargetMethodManager {
 
 
     @Override
-    public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response)  {
+    public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response) {
 
         String message;
         int scInternalServerError = HttpServletResponse.SC_OK;
 
         try {
 
-            // wykonaj zapytanie do serwera targetowego
+            // uzyskaj adres targetu
             TargetEndpointDto target = urlMapping.getTarget();
             String fullUrl = target.getFullUrl();
+            GetRequest getRequest = Unirest.get(fullUrl);
 
             // 1. przepisz query param URL
-            WebTarget target1 = client.target(fullUrl);
             for (Map.Entry<String, String[]> item : request.getParameterMap().entrySet()) {
-                target1 = target1.queryParam(item.getKey(), item.getValue()[0]);
+                getRequest = getRequest.queryString(item.getKey(), item.getValue()[0]);
             }
 
             // 2. przepisz dane z naglowka
-            MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
             for (Map.Entry<String, String> item : HttpServletRequestUtil.getHeaderAsMap(request).entrySet()) {
-                headers.add(item.getKey(), item.getValue());
+
+                String key = item.getKey();
+                String value = item.getValue();
+
+                if("Host".equals(key)) {
+                    value = target.getHostAddress().replace("http://", "");
+                }
+                getRequest = getRequest.header(key, value);
             }
 
-            Invocation.Builder headers1 = target1.request().headers(headers);
-            message = headers1.get(String.class);
+
+            HttpResponse<String> stringHttpResponse = getRequest.asString();
+            message = stringHttpResponse.getBody();
+
 
         } catch (Exception e) {
             e.printStackTrace();

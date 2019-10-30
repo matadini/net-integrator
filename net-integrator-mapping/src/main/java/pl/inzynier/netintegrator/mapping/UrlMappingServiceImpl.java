@@ -71,4 +71,11 @@ class UrlMappingServiceImpl implements UrlMappingService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public UrlMappingReadDto findById(Long urlMappingId) throws UrlMappingServiceException {
+        return repository.findById(urlMappingId)
+                .map(item -> modelMapper.map(item, UrlMappingReadDto.class))
+                .orElse(null);
+    }
+
 }

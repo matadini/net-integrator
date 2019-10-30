@@ -38,7 +38,15 @@ class UrlMappingRepositoryImpl implements UrlMappingRepository {
 
     @Override
     public Optional<UrlMapping> findById(Long id) {
-        return Optional.empty();
+        try {
+            String sql = "select u from UrlMapping u where u.urlMappingId = :id";
+            TypedQuery<UrlMapping> query = entityManager.createQuery(sql, UrlMapping.class);
+            query.setParameter("id", id);
+            return Optional.ofNullable(query.getSingleResult());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     @Override

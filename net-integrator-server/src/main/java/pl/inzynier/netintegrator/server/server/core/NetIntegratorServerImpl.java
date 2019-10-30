@@ -48,7 +48,7 @@ public class NetIntegratorServerImpl implements NetIntegratorServer {
     @Override
     public void addRouting(UrlMappingReadDto mapping) {
 
-
+        System.out.println("Publish: " + mapping);
         PublishEndpointDto endpoint = mapping.getEndpoint();
         if (RequestMethod.GET.equals(endpoint.getMethod())) {
             String methodUrl = endpoint.getMethodUrl();
