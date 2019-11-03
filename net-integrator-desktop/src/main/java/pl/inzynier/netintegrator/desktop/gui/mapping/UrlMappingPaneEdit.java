@@ -95,7 +95,7 @@ class UrlMappingPaneEdit extends BorderPane {
 
             if (result.isPresent() && result.get().equals(ButtonType.OK)) {
                 try {
-                    mappingClient.deactivate(selectedItem.getUrlMappingId());
+                    mappingClient.delete(selectedItem.getUrlMappingId());
                     listView.getItems().remove(selectedItem);
 
                     SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.URL_MAPPING_REMOVE);

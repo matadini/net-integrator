@@ -28,16 +28,32 @@ public class UrlMappingController implements SparkController {
         service.get("/admin/url-mapping/find-all", this::findAll);
         service.post("/admin/url-mapping/create", this::create);
         service.post("/admin/url-mapping/update", this::update);
+        service.delete("/admin/url-mapping/delete/:id", this::delete);
+
+    }
+
+    private Object delete(Request request, Response response) {
+        try {
+            String id = request.params("id");
+            Long aLong = Long.valueOf(id);
+            urlMappingService.delete(aLong);
+
+            response.status(HttpStatus.OK_200);
+            return response;
+
+        } catch (Exception ex) {
+            return "error";
+        }
 
     }
 
 
-    private Object create(Request var1, Response var2) {
+    private Object create(Request request, Response response) {
 
         try {
 
             // zapisz nowy mapping do bazy
-            String body = var1.body();
+            String body = request.body();
             UrlMappingWriteDto urlMappingWriteDto = gson.fromJson(body, UrlMappingWriteDto.class);
             Long aLong = urlMappingService.create(urlMappingWriteDto);
 
@@ -54,35 +70,28 @@ public class UrlMappingController implements SparkController {
         }
     }
 
-    private Object update(Request var1, Response var2) {
+    private Object update(Request request, Response response) {
         try {
-            String body = var1.body();
+            String body = request.body();
             UrlMappingReadDto urlMappingWriteDto = gson.fromJson(body, UrlMappingReadDto.class);
             urlMappingService.update(urlMappingWriteDto);
-            var2.status(HttpStatus.OK_200);
+            response.status(HttpStatus.OK_200);
         } catch (Exception e) {
             return "Error";
         }
-        return var2;
+        return response;
     }
 
-    private Object findAll(Request var1, Response var2) {
-
+    private Object findAll(Request request, Response response) {
 
         try {
             List<UrlMappingReadDto> all = urlMappingService.findAll();
             return gson.toJson(all);
 
         } catch (UrlMappingServiceException e) {
-
-
             return "Error";
         }
 
-    }
-
-    Object deactivate(Request var1, Response var2) {
-        return null;
     }
 }
 

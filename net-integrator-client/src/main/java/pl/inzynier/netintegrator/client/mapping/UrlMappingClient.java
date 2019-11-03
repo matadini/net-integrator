@@ -17,7 +17,7 @@ public interface UrlMappingClient {
 
     List<UrlMappingReadDto> findAll() throws UrlMappingClientException;
 
-    void deactivate(Long urlMappingId) throws UrlMappingClientException;
+    void delete(Long urlMappingId) throws UrlMappingClientException;
 
 
     static UrlMappingClient create() {

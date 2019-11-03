@@ -58,7 +58,11 @@ class UrlMappingServiceImpl implements UrlMappingService {
     }
 
     @Override
-    public void deactivateUrlMapping(Long urlMappingId) throws UrlMappingServiceException {
+    public void delete(Long urlMappingId) throws UrlMappingServiceException {
+
+        Optional<UrlMapping> byId = repository.findById(urlMappingId);
+        byId.ifPresent(repository::delete);
+
 
     }
 

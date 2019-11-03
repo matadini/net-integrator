@@ -24,15 +24,14 @@ class UrlMappingClientHttp implements UrlMappingClient {
 
         HttpResponse<String> stringHttpResponse = Unirest.post(target).body(jsonToSend).asString();
         System.out.println(stringHttpResponse.getBody());
-        return 0L;
+        return Long.valueOf(stringHttpResponse.getBody());
     }
 
     @Override
     public void update(UrlMappingReadDto dto) throws UrlMappingClientException {
         String target = address + "/admin/url-mapping/update";
         String jsonToSend = gson.toJson(dto);
-        Unirest.post(target).body(jsonToSend);
-        //client.target(target).request().post(Entity.entity(jsonToSend, MediaType.TEXT_PLAIN));
+        HttpResponse httpResponse = Unirest.post(target).body(jsonToSend).asEmpty();
     }
 
     @Override
@@ -47,7 +46,11 @@ class UrlMappingClientHttp implements UrlMappingClient {
     }
 
     @Override
-    public void deactivate(Long urlMappingId) throws UrlMappingClientException {
+    public void delete(Long urlMappingId) throws UrlMappingClientException {
 
+
+        String target = address + "/admin/url-mapping/delete/"+urlMappingId;
+        HttpResponse httpResponse = Unirest.delete(target).asEmpty();
+        System.out.println(httpResponse.getStatus());
     }
 }

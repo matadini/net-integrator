@@ -51,7 +51,11 @@ class UrlMappingRepositoryImpl implements UrlMappingRepository {
 
     @Override
     public void delete(UrlMapping entity) {
-
+        try {
+            JpaRepositoryUtil.delete(entity, entityManager);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

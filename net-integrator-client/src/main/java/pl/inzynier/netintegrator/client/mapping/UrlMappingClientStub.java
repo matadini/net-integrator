@@ -64,7 +64,7 @@ class UrlMappingClientStub implements UrlMappingClient {
     }
 
     @Override
-    public void deactivate(Long urlMappingId) throws UrlMappingClientException {
+    public void delete(Long urlMappingId) throws UrlMappingClientException {
 
         if (database.containsKey(urlMappingId)) {
             database.remove(urlMappingId);

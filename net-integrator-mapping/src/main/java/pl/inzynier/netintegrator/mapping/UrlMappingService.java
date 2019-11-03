@@ -17,7 +17,7 @@ public interface UrlMappingService {
 
     Optional<UrlMappingReadDto> findByPublishUrlAndPublishMethod(String url, RequestMethod mapping) throws UrlMappingServiceException;
 
-    void deactivateUrlMapping(Long urlMappingId) throws UrlMappingServiceException;
+    void delete(Long urlMappingId) throws UrlMappingServiceException;
 
     List<UrlMappingReadDto> findAll() throws UrlMappingServiceException;
 

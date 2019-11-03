@@ -64,9 +64,7 @@ class ScriptPaneEdit extends BorderPane {
     @Subscribe
     private void handle(ApplicationEvent event) {
 
-        System.out.println("eloszka");
         if (ApplicationEventSignal.SELECTED_URL_MAPPING_CHANGED.equals(event.getType())) {
-
             SelectedUrlMappingChanged item = (SelectedUrlMappingChanged) event;
             download(item.getUrlMappingId());
         }
