@@ -64,15 +64,15 @@ public class UrlMappingController implements SparkController {
             netIntegratorServer.addRouting(byId);
 
             // zwroc dane o utworzonym mappingu
-            response.body(String.valueOf(aLong));
+            return aLong;
 
         } catch (Exception ex) {
             ex.printStackTrace();
             response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
             response.body(ex.getMessage());
+            return response;
         }
 
-        return response;
     }
 
     private Object update(Request request, Response response) {
@@ -97,15 +97,14 @@ public class UrlMappingController implements SparkController {
         try {
 
             List<UrlMappingReadDto> all = urlMappingService.findAll();
-            String body = gson.toJson(all);
-            response.body(body);
+            return gson.toJson(all);
 
         } catch (UrlMappingServiceException ex) {
             ex.printStackTrace();
             response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
             response.body(ex.getMessage());
+            return response;
         }
-        return response;
 
     }
 }

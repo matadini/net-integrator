@@ -64,14 +64,17 @@ public class Main {
         DatabaseConfiguration configuration = read.getDatabaseConfiguration();
 
         // Serwisy modulow
-        EntityManagerFactoryProvider scriptProvider = argList.contains(NetIntegratorServerArgs.H2DB) ?
-                ScriptEntityManagerFactoryProviders.providerPostgres(configuration) :
-                ScriptEntityManagerFactoryProviders.providerH2();
+        boolean useH2 = argList.contains(NetIntegratorServerArgs.H2DB);
+        System.out.println(useH2);
+
+        EntityManagerFactoryProvider scriptProvider = useH2 ?
+                ScriptEntityManagerFactoryProviders.providerH2() :
+                ScriptEntityManagerFactoryProviders.providerPostgres(configuration);
         ScriptService scriptService = ScriptServiceFactory.create(scriptProvider);
 
-        EntityManagerFactoryProvider urlMappingProvider = argList.contains(NetIntegratorServerArgs.H2DB) ?
-                UrlMappingEntityManagerFactoryProviders.providerPostgres(configuration) :
-                UrlMappingEntityManagerFactoryProviders.providerH2();
+        EntityManagerFactoryProvider urlMappingProvider = useH2 ?
+                UrlMappingEntityManagerFactoryProviders.providerH2() :
+                UrlMappingEntityManagerFactoryProviders.providerPostgres(configuration);
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(urlMappingProvider);
 
         // Dane dla dema
