@@ -42,7 +42,7 @@ ktorzy korzystaja z aplikacji
     jako proces w tle
     * uruchom **net-integrator-server**
         * przejdz do katalogu `net-integrator-server/target`
-        * uruchom aplikacje w konsoli `java -jar <nazwa_jara> np. net-integrator-server-1.0-snapshot-jar-with-dependencies.jar>`
+        * uruchom aplikacje w konsoli `java -jar <nazwa_jara> np. net-integrator-server-1.0-snapshot-jar-with-dependencies.jar> h2db`
         * uruchom przegladarke i sprawdz: `localhost:8080/test`
         * powinno byc git 
     * Zainstaluj i uruchom postmana: https://www.getpostman.com/
@@ -50,4 +50,8 @@ ktorzy korzystaja z aplikacji
         `net-integrator/resources/postman/Inzynierka...json`
         * przetestuj demo w postmanie
         
-        
+## uruchomienie: net-integrator-server
+
+Aplikacje *net-integrator-server* mozna uruchomić w dwóch trybach działania
+* H2DB - aplikacja serwera generuje baze w pamieci + generuje przykladowe rekordy
+* Postgres - aplikacja serwera dziala w oparciu o polczenie do bazy + generuje przykladowe rekordy

@@ -12,8 +12,6 @@ import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.client.login.LoginClient;
-import pl.inzynier.netintegrator.desktop.Application;
-import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 

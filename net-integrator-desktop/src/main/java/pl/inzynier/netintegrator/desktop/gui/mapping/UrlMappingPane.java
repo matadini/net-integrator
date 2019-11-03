@@ -3,14 +3,15 @@ package pl.inzynier.netintegrator.desktop.gui.mapping;
 import com.google.common.eventbus.EventBus;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
 @RequiredArgsConstructor
-public class UrlMappingPane extends BorderPane {
+class UrlMappingPane extends BorderPane {
 
     @FXML
     private TabPane tabPane;
@@ -21,13 +22,13 @@ public class UrlMappingPane extends BorderPane {
     private UrlMappingPaneAdd paneAdd;
     private UrlMappingPaneEdit paneEdit;
 
+    private final UrlMappingPaneAddModelToUrlMappingWriteDto mapper;
+
     @FXML
     private void initialize() {
 
 
         try {
-
-            UrlMappingPaneAddModelToUrlMappingWriteDto mapper = new UrlMappingPaneAddModelToUrlMappingWriteDto();
 
             // dodawanie
             paneAdd = new UrlMappingPaneAdd(managmentClient, eventBus, mapper);
@@ -38,7 +39,7 @@ public class UrlMappingPane extends BorderPane {
             tabAdd.setContent(paneAdd);
 
             // edycja i usuwanie
-            paneEdit = new UrlMappingPaneEdit(managmentClient,eventBus, mapper);
+            paneEdit = new UrlMappingPaneEdit(managmentClient, eventBus, mapper);
             paneEdit = JavaFxUtil.loadFxml(paneEdit, UrlMappingPaneEdit.class.getResource("UrlMappingPaneEdit.fxml"));
             eventBus.register(paneEdit);
 

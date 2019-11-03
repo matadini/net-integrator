@@ -2,9 +2,8 @@ package pl.inzynier.netintegrator.desktop.gui.script;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.*;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,9 +18,9 @@ import pl.inzynier.netintegrator.client.mapping.dto.PublishEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
+import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
-import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 import pl.inzynier.netintegrator.desktop.shared.event.SelectedUrlMappingChanged;
 
 import java.io.IOException;
@@ -30,7 +29,7 @@ import java.util.Objects;
 
 
 @RequiredArgsConstructor
-public class ScriptPane extends BorderPane {
+class ScriptPane extends BorderPane {
 
     @FXML
     private Label labelId;

@@ -1,11 +1,6 @@
 package pl.inzynier.netintegrator.desktop.shared.event;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Value;
-
-import java.util.Map;
-
 /**
  * Nie uzywaj enuma do bezposredniego wysylania na eventBusa,
  * uzywaj klas aby utrzymac spojnosc

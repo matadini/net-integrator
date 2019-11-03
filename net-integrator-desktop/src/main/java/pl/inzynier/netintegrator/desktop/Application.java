@@ -7,7 +7,6 @@ import com.google.common.util.concurrent.MoreExecutors;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import javafx.stage.WindowEvent;
 import pl.inzynier.netintegrator.client.login.LoginClient;
 import pl.inzynier.netintegrator.desktop.gui.login.LoginPane;
