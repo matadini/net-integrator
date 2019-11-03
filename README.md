@@ -53,5 +53,9 @@ ktorzy korzystaja z aplikacji
 ## uruchomienie: net-integrator-server
 
 Aplikacje *net-integrator-server* mozna uruchomić w dwóch trybach działania
-* H2DB - aplikacja serwera generuje baze w pamieci + generuje przykladowe rekordy
-* Postgres - aplikacja serwera dziala w oparciu o polczenie do bazy + generuje przykladowe rekordy
+* H2DB - aplikacja serwera generuje baze danych w pamieci + generuje przykladowe rekordy
+* Postgres - aplikacja serwera dziala w oparciu o polczenie do bazy + generuje przykladowe rekordy,
+połączenie do bazy brane jest z `config.json` - domyslne dane polaczenia sa w kodzie
+
+Aby wybrac tryb, przy w uruchamianiu aplikacji nalezy dodac parametr `h2db` dla dzialania w H2, 
+nie dodawac nic jezeli odpalamy w oparciu o Postgresa.
