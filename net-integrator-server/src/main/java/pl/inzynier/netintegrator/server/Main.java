@@ -43,11 +43,19 @@ public class Main {
         // commonsy
         Gson gson = new GsonBuilder().serializeNulls().create();
 
+
+
         // Serwisy modulow
-        EntityManagerFactoryProvider scriptProvider = ScriptEntityManagerFactoryProviders.providerH2();
+        DatabaseConfiguration configuration = new DatabaseConfiguration();
+        configuration.setUser("postgres");
+        configuration.setPassword("admin");
+        configuration.setAddress("localhost:5432");
+
+
+        EntityManagerFactoryProvider scriptProvider = ScriptEntityManagerFactoryProviders.providerPostgres(configuration);
         ScriptService scriptService = ScriptServiceFactory.create(scriptProvider);
 
-        EntityManagerFactoryProvider urlMappingProvider = UrlMappingEntityManagerFactoryProviders.providerH2();
+        EntityManagerFactoryProvider urlMappingProvider = UrlMappingEntityManagerFactoryProviders.providerPostgres(configuration);
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(urlMappingProvider);
 
         // Dane dla dema

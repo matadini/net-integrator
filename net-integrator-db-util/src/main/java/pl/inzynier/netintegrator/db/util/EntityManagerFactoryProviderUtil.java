@@ -28,7 +28,7 @@ public class EntityManagerFactoryProviderUtil {
         String user = configuration.getUser();
 
         Map<String, String> prop = new HashMap<>();
-        prop.put("javax.persistence.jdbc.url", "jdbc:postgresql://" + address + "/archiwum");
+        prop.put("javax.persistence.jdbc.url", "jdbc:postgresql://" + address + "/net-integrator");
         prop.put("javax.persistence.jdbc.password", password);
         prop.put("javax.persistence.jdbc.user", user);
         prop.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");

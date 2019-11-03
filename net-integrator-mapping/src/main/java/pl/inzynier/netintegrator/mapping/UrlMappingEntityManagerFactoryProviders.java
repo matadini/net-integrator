@@ -9,8 +9,8 @@ public class UrlMappingEntityManagerFactoryProviders {
         return new UrlMappingEntityManagerFactoryProviderH2();
     }
 
-    public static EntityManagerFactoryProvider providerPostreSql(DatabaseConfiguration configuration) {
-        return new UrlMappingEntityManagerFactoryProviderPostgreSql(configuration);
+    public static EntityManagerFactoryProvider providerPostgres(DatabaseConfiguration configuration) {
+        return new UrlMappingEntityManagerFactoryProviderPostgres(configuration);
     }
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 import java.util.Map;
 
 @RequiredArgsConstructor
-class UrlMappingEntityManagerFactoryProviderPostgreSql implements EntityManagerFactoryProvider {
+class UrlMappingEntityManagerFactoryProviderPostgres implements EntityManagerFactoryProvider {
 
     private final DatabaseConfiguration configuration;
 

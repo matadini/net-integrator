@@ -25,7 +25,7 @@ class Script {
     @Enumerated(EnumType.STRING)
     ScriptType type;
 
-    @Column(nullable = false, length = Integer.MAX_VALUE)
+    @Column(nullable = false, length=10485760)
     String content;
 
     @Column(nullable = false)

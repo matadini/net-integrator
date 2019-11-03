@@ -11,7 +11,7 @@ public class ScriptEntityManagerFactoryProviders {
         return new ScriptEntityManagerFactoryProviderH2();
     }
 
-    public static EntityManagerFactoryProvider providerPostgreSql(DatabaseConfiguration configuration) {
-        return new ScriptEntityManagerFactoryProviderPostgreSql(configuration);
+    public static EntityManagerFactoryProvider providerPostgres(DatabaseConfiguration configuration) {
+        return new ScriptEntityManagerFactoryProviderPostgres(configuration);
     }
 }
