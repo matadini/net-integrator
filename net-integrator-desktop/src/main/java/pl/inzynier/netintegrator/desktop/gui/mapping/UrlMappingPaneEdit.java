@@ -73,6 +73,9 @@ class UrlMappingPaneEdit extends BorderPane {
 
     private void onClickButtonSave(ActionEvent event) {
 
+
+
+
     }
 
     private void onClickListView(ObservableValue<? extends UrlMappingReadDto> observable, UrlMappingReadDto oldValue, UrlMappingReadDto newValue) {

@@ -26,7 +26,7 @@ public class UrlMappingController implements SparkController {
     public void initialize(Service service) {
         service.get("/admin/url-mapping/find-all", this::findAll);
         service.post("/admin/url-mapping/create", this::create);
-        service.post("/admin/url-mapping/update", this::update);
+        service.post("/admin/url-mapping/update/:id", this::update);
         service.delete("/admin/url-mapping/delete/:id", this::delete);
     }
 
@@ -78,9 +78,13 @@ public class UrlMappingController implements SparkController {
     private Object update(Request request, Response response) {
         try {
 
+            String id = request.params("id");
+            Long aLong = Long.valueOf(id);
+
             String body = request.body();
-            UrlMappingReadDto urlMappingWriteDto = gson.fromJson(body, UrlMappingReadDto.class);
-            urlMappingService.update(urlMappingWriteDto);
+            UrlMappingWriteDto urlMappingWriteDto = gson.fromJson(body, UrlMappingWriteDto.class);
+
+            urlMappingService.update(urlMappingWriteDto, aLong);
 
             response.status(HttpStatus.OK_200);
 

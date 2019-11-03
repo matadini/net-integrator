@@ -13,7 +13,7 @@ public interface UrlMappingClient {
 
     Long create(UrlMappingWriteDto dto) throws UrlMappingClientException;
 
-    void update(UrlMappingReadDto dto) throws UrlMappingClientException;
+    void update(UrlMappingWriteDto dto, Long urlMappingId) throws UrlMappingClientException;
 
     List<UrlMappingReadDto> findAll() throws UrlMappingClientException;
 

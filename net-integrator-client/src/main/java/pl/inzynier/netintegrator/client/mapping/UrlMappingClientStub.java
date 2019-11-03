@@ -47,12 +47,14 @@ class UrlMappingClientStub implements UrlMappingClient {
     }
 
     @Override
-    public void update(UrlMappingReadDto dto) throws UrlMappingClientException {
+    public void update(UrlMappingWriteDto dto, Long urlMappingId) throws UrlMappingClientException {
 
-        if (!database.containsKey(dto.getUrlMappingId())) {
-            this.create(new UrlMappingWriteDto(dto.getEndpoint(), dto.getTarget()));
+        if (!database.containsKey(urlMappingId)) {
+            UrlMappingWriteDto dto1 = new UrlMappingWriteDto(dto.getEndpoint(), dto.getTarget());
+            this.create(dto1);
         } else {
-            database.replace(dto.getUrlMappingId(), dto);
+            UrlMappingReadDto readDto = new UrlMappingReadDto(urlMappingId, dto.getEndpoint(), dto.getTarget());
+            database.replace(urlMappingId, readDto);
         }
 
     }

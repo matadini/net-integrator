@@ -32,9 +32,9 @@ class UrlMappingServiceImpl implements UrlMappingService {
     }
 
     @Override
-    public void update(UrlMappingReadDto mappingDto) throws UrlMappingServiceException {
+    public void update(UrlMappingWriteDto mappingDto, Long urlMappingId) throws UrlMappingServiceException {
 
-        Optional<UrlMapping> byId = repository.findById(mappingDto.getUrlMappingId());
+        Optional<UrlMapping> byId = repository.findById(urlMappingId);
         if (byId.isPresent()) {
 
             PublishEndpoint publishEndpoint0 = modelMapper.map(mappingDto.getEndpoint(), PublishEndpoint.class);

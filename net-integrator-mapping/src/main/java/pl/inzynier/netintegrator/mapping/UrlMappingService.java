@@ -13,7 +13,7 @@ public interface UrlMappingService {
 
     Long create(UrlMappingWriteDto mappingDto) throws UrlMappingServiceException;
 
-    void update(UrlMappingReadDto mappingDto) throws UrlMappingServiceException;
+    void update(UrlMappingWriteDto mappingDto, Long urlMappingId) throws UrlMappingServiceException;
 
     Optional<UrlMappingReadDto> findByPublishUrlAndPublishMethod(String url, RequestMethod mapping) throws UrlMappingServiceException;
 

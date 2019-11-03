@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingClientException;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingWriteDto;
+
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,8 +29,8 @@ class UrlMappingClientHttp implements UrlMappingClient {
     }
 
     @Override
-    public void update(UrlMappingReadDto dto) throws UrlMappingClientException {
-        String target = address + "/admin/url-mapping/update";
+    public void update(UrlMappingWriteDto dto, Long urlMappingId) throws UrlMappingClientException {
+        String target = address + "/admin/url-mapping/update/" + urlMappingId;
         String jsonToSend = gson.toJson(dto);
         HttpResponse httpResponse = Unirest.post(target).body(jsonToSend).asEmpty();
     }
@@ -49,7 +50,7 @@ class UrlMappingClientHttp implements UrlMappingClient {
     public void delete(Long urlMappingId) throws UrlMappingClientException {
 
 
-        String target = address + "/admin/url-mapping/delete/"+urlMappingId;
+        String target = address + "/admin/url-mapping/delete/" + urlMappingId;
         HttpResponse httpResponse = Unirest.delete(target).asEmpty();
         System.out.println(httpResponse.getStatus());
     }
