@@ -24,12 +24,10 @@ public class UrlMappingController implements SparkController {
 
     @Override
     public void initialize(Service service) {
-
         service.get("/admin/url-mapping/find-all", this::findAll);
         service.post("/admin/url-mapping/create", this::create);
         service.post("/admin/url-mapping/update", this::update);
         service.delete("/admin/url-mapping/delete/:id", this::delete);
-
     }
 
     private Object delete(Request request, Response response) {
@@ -39,12 +37,14 @@ public class UrlMappingController implements SparkController {
             urlMappingService.delete(aLong);
 
             response.status(HttpStatus.OK_200);
-            return response;
 
         } catch (Exception ex) {
-            return "error";
+            ex.printStackTrace();
+            response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
+            response.body(ex.getMessage());
         }
 
+        return response;
     }
 
 
@@ -64,20 +64,30 @@ public class UrlMappingController implements SparkController {
             netIntegratorServer.addRouting(byId);
 
             // zwroc dane o utworzonym mappingu
-            return aLong;
-        } catch (Exception e) {
-            return "Error";
+            response.body(String.valueOf(aLong));
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
+            response.body(ex.getMessage());
         }
+
+        return response;
     }
 
     private Object update(Request request, Response response) {
         try {
+
             String body = request.body();
             UrlMappingReadDto urlMappingWriteDto = gson.fromJson(body, UrlMappingReadDto.class);
             urlMappingService.update(urlMappingWriteDto);
+
             response.status(HttpStatus.OK_200);
-        } catch (Exception e) {
-            return "Error";
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
+            response.body(ex.getMessage());
         }
         return response;
     }
@@ -85,12 +95,17 @@ public class UrlMappingController implements SparkController {
     private Object findAll(Request request, Response response) {
 
         try {
-            List<UrlMappingReadDto> all = urlMappingService.findAll();
-            return gson.toJson(all);
 
-        } catch (UrlMappingServiceException e) {
-            return "Error";
+            List<UrlMappingReadDto> all = urlMappingService.findAll();
+            String body = gson.toJson(all);
+            response.body(body);
+
+        } catch (UrlMappingServiceException ex) {
+            ex.printStackTrace();
+            response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
+            response.body(ex.getMessage());
         }
+        return response;
 
     }
 }

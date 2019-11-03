@@ -1,30 +1,23 @@
 package pl.inzynier.netintegrator.server;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
 import pl.inzynier.netintegrator.db.util.EntityManagerFactoryProvider;
 import pl.inzynier.netintegrator.http.spark.SparkController;
-import pl.inzynier.netintegrator.http.util.RequestMethod;
 import pl.inzynier.netintegrator.mapping.UrlMappingEntityManagerFactoryProviders;
 import pl.inzynier.netintegrator.mapping.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.UrlMappingServiceFactory;
 import pl.inzynier.netintegrator.mapping.dto.*;
 import pl.inzynier.netintegrator.script.*;
-import pl.inzynier.netintegrator.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.script.dto.ScriptServiceException;
-import pl.inzynier.netintegrator.script.dto.ScriptType;
-import pl.inzynier.netintegrator.script.dto.ScriptWriteDto;
 import pl.inzynier.netintegrator.server.configuration.Configuration;
 import pl.inzynier.netintegrator.server.configuration.ConfigurationRepository;
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerFactory;
-import pl.inzynier.netintegrator.server.server.core.NetIntegratorContext;
-import pl.inzynier.netintegrator.server.server.core.NetIntegratorServerImpl;
-import pl.inzynier.netintegrator.server.server.core.NetIntegratorServerConfig;
-import pl.inzynier.netintegrator.server.server.core.NetIntegratorServerCoreRoute;
+import pl.inzynier.netintegrator.server.server.core.*;
 import pl.inzynier.netintegrator.server.server.controller.urlmapping.UrlMappingController;
 
 import java.nio.file.Files;
@@ -32,15 +25,18 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) throws UrlMappingServiceException, ScriptServiceException {
-        runServer();
-    }
 
-    private static void runServer() {
+        List<String> argList = Lists.newArrayList(args).stream()
+                .filter(Objects::nonNull)
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+
 
         // commonsy
         Gson gson = new GsonBuilder().serializeNulls().create();
@@ -68,10 +64,14 @@ public class Main {
         DatabaseConfiguration configuration = read.getDatabaseConfiguration();
 
         // Serwisy modulow
-        EntityManagerFactoryProvider scriptProvider = ScriptEntityManagerFactoryProviders.providerPostgres(configuration);
+        EntityManagerFactoryProvider scriptProvider = argList.contains(NetIntegratorServerArgs.H2DB) ?
+                ScriptEntityManagerFactoryProviders.providerPostgres(configuration) :
+                ScriptEntityManagerFactoryProviders.providerH2();
         ScriptService scriptService = ScriptServiceFactory.create(scriptProvider);
 
-        EntityManagerFactoryProvider urlMappingProvider = UrlMappingEntityManagerFactoryProviders.providerPostgres(configuration);
+        EntityManagerFactoryProvider urlMappingProvider = argList.contains(NetIntegratorServerArgs.H2DB) ?
+                UrlMappingEntityManagerFactoryProviders.providerPostgres(configuration) :
+                UrlMappingEntityManagerFactoryProviders.providerH2();
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(urlMappingProvider);
 
         // Dane dla dema

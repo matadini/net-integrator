@@ -18,7 +18,7 @@ class Script {
 
     @Id
     @Column(nullable = false, unique = true, name = "script_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long scriptId;
 
     @Column(nullable = false)

@@ -21,7 +21,8 @@ o dostepnych mapowaniach
 * **net-integrator-script** - modul dostarcza funkcjonalnosc zarzadzania
 skryptami ktore sa podpiete pod mapowania http oraz funkcje wywolywania
 w runtime, skryptow groovy
-
+* **net-integrator-user** - modul do zarzadzania uzytkownikami 
+ktorzy korzystaja z aplikacji
 
 ## build and run: konsola
 

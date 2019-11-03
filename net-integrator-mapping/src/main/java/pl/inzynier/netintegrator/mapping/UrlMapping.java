@@ -15,7 +15,7 @@ class UrlMapping {
 
     @Id
     @Column(nullable = false, unique = true, name = "url_mapping_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long urlMappingId;
 
     @Embedded
