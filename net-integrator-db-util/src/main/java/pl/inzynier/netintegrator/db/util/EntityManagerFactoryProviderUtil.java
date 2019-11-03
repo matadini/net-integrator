@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

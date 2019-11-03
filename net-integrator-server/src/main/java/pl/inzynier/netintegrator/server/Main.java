@@ -4,14 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
+import pl.inzynier.netintegrator.db.util.EntityManagerFactoryProvider;
 import pl.inzynier.netintegrator.http.spark.SparkController;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
+import pl.inzynier.netintegrator.mapping.UrlMappingEntityManagerFactoryProviders;
 import pl.inzynier.netintegrator.mapping.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.UrlMappingServiceFactory;
 import pl.inzynier.netintegrator.mapping.dto.*;
-import pl.inzynier.netintegrator.script.ExampleGroovyScript;
-import pl.inzynier.netintegrator.script.ScriptService;
-import pl.inzynier.netintegrator.script.ScriptServiceFactory;
+import pl.inzynier.netintegrator.script.*;
 import pl.inzynier.netintegrator.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.script.dto.ScriptServiceException;
 import pl.inzynier.netintegrator.script.dto.ScriptType;
@@ -44,8 +44,11 @@ public class Main {
         Gson gson = new GsonBuilder().serializeNulls().create();
 
         // Serwisy modulow
-        ScriptService scriptService = ScriptServiceFactory.create(null);
-        UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
+        EntityManagerFactoryProvider scriptProvider = ScriptEntityManagerFactoryProviders.providerH2();
+        ScriptService scriptService = ScriptServiceFactory.create(scriptProvider);
+
+        EntityManagerFactoryProvider urlMappingProvider = UrlMappingEntityManagerFactoryProviders.providerH2();
+        UrlMappingService urlMappingService = UrlMappingServiceFactory.create(urlMappingProvider);
 
         // Dane dla dema
         DemoInitializer demoInitializer = new DemoInitializer(scriptService, urlMappingService);
