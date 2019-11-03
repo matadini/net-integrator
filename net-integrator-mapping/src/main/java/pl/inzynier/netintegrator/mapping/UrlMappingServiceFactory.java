@@ -3,7 +3,6 @@ package pl.inzynier.netintegrator.mapping;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
 import pl.inzynier.netintegrator.db.util.EntityManagerFactoryProvider;
 
 import javax.persistence.EntityManagerFactory;

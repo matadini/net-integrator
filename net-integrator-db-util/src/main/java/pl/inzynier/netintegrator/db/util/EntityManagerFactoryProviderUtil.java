@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.EntityManagerFactory;
+import java.util.HashMap;
 import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -20,5 +21,21 @@ public class EntityManagerFactoryProviderUtil {
         properties.put("format_sql", "true");
         properties.put("use_sql_comments", "true");
         return properties;
+    }
+    public static Map<String, String> getJpaPropertiesForPostgreSql(DatabaseConfiguration configuration) {
+        String address = configuration.getAddress();
+        String password = configuration.getPassword();
+        String user = configuration.getUser();
+
+        Map<String, String> prop = new HashMap<>();
+        prop.put("javax.persistence.jdbc.url", "jdbc:postgresql://" + address + "/archiwum");
+        prop.put("javax.persistence.jdbc.password", password);
+        prop.put("javax.persistence.jdbc.user", user);
+        prop.put("javax.persistence.jdbc.driver", "org.postgresql.Driver");
+        prop.put("hibernate.hbm2ddl.auto", "create-drop");
+        prop.put("show_sql", "true");
+        prop.put("format_sql", "true");
+        prop.put("use_sql_comments", "true");
+        return prop;
     }
 }

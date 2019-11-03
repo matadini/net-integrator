@@ -1,6 +1,8 @@
 package pl.inzynier.netintegrator.script.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor

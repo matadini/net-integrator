@@ -1,17 +1,14 @@
 package pl.inzynier.netintegrator.script;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.modelmapper.ModelMapper;
-
-
 import groovy.lang.GroovyShell;
-
+import org.modelmapper.ModelMapper;
 import pl.inzynier.netintegrator.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.script.dto.ScriptServiceException;
 import pl.inzynier.netintegrator.script.dto.ScriptType;
 import pl.inzynier.netintegrator.script.dto.ScriptWriteDto;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 class ScriptServiceImpl implements ScriptService {
