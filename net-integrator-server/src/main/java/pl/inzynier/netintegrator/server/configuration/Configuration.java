@@ -13,7 +13,7 @@ import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
 @AllArgsConstructor
 public class Configuration {
 
-    private DatabaseConfiguration mappingDatabaseConfig;
+    private DatabaseConfiguration databaseConfiguration;
 }
 
 

@@ -27,6 +27,8 @@ import pl.inzynier.netintegrator.server.server.core.NetIntegratorServerConfig;
 import pl.inzynier.netintegrator.server.server.core.NetIntegratorServerCoreRoute;
 import pl.inzynier.netintegrator.server.server.controller.urlmapping.UrlMappingController;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,15 +45,29 @@ public class Main {
         // commonsy
         Gson gson = new GsonBuilder().serializeNulls().create();
 
+        // jak plik z konfiguracja nie istnieje to
+        // utworz go przypierwszym uruchomieniu
+        String configFile = "config.json";
+        if (!Files.exists(Paths.get(configFile))) {
 
+            DatabaseConfiguration configuration = new DatabaseConfiguration();
+            configuration.setUser("postgres");
+            configuration.setPassword("admin");
+            configuration.setAddress("localhost:5432");
+
+            Configuration entity = new Configuration();
+            entity.setDatabaseConfiguration(configuration);
+
+            ConfigurationRepository configurationRepository = ConfigurationRepository.create(gson, configFile);
+            configurationRepository.createOrUpdate(entity);
+        }
+
+        // odczytaj polaczenie do bazy z konfiguracji
+        ConfigurationRepository configurationRepository = ConfigurationRepository.create(gson, configFile);
+        Configuration read = configurationRepository.read();
+        DatabaseConfiguration configuration = read.getDatabaseConfiguration();
 
         // Serwisy modulow
-        DatabaseConfiguration configuration = new DatabaseConfiguration();
-        configuration.setUser("postgres");
-        configuration.setPassword("admin");
-        configuration.setAddress("localhost:5432");
-
-
         EntityManagerFactoryProvider scriptProvider = ScriptEntityManagerFactoryProviders.providerPostgres(configuration);
         ScriptService scriptService = ScriptServiceFactory.create(scriptProvider);
 
@@ -81,59 +97,4 @@ public class Main {
         context.setNetIntegratorServer(netIntegratorServer);
     }
 
-    private static void urlMappingWithScript() throws UrlMappingServiceException, ScriptServiceException {
-        // dodaj mapping
-        PublishEndpointDto publishEndpoint2 = new PublishEndpointDto("/api-post", RequestMethod.POST);
-        TargetEndpointDto targetEndpoint2 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
-
-        UrlMappingWriteDto mapping2 = new UrlMappingWriteDto(publishEndpoint2, targetEndpoint2);
-        UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
-        Long aLong = urlMappingService.create(mapping2);
-        List<UrlMappingReadDto> mappings = urlMappingService.findAll();
-        mappings.forEach(System.out::println);
-
-        // dodaj skrypt do mappingu
-        ScriptWriteDto scriptWriteDto = new ScriptWriteDto();
-        scriptWriteDto.setContent(ExampleGroovyScript.createExampleGroovyScriptToUpperCase());
-        scriptWriteDto.setScriptType(ScriptType.POST_CALL);
-        scriptWriteDto.setUrlMappingId(aLong);
-
-        ScriptService scriptService = ScriptServiceFactory.create(null);
-        scriptService.addScript(scriptWriteDto);
-
-        List<ScriptReadDto> scripts = scriptService.findAll();
-        scripts.forEach(System.out::println);
-    }
-
-    private static void urlMappingAdd() throws UrlMappingServiceException {
-        // urlmapping dodawanie
-
-        PublishEndpointDto publishEndpoint0 = new PublishEndpointDto("/api-get", RequestMethod.GET);
-        TargetEndpointDto targetEndpoint0 = new TargetEndpointDto("/fake-get", RequestMethod.GET, "http://localhost:9090");
-        UrlMappingWriteDto mapping0 = new UrlMappingWriteDto(publishEndpoint0, targetEndpoint0);
-
-
-        UrlMappingService urlMappingService = UrlMappingServiceFactory.create(null);
-        urlMappingService.create(mapping0);
-
-
-        List<UrlMappingReadDto> all = urlMappingService.findAll();
-        all.forEach(System.out::println);
-    }
-
-    private static void configurationTest() {
-        DatabaseConfiguration mappingDbConfig = new DatabaseConfiguration();
-        mappingDbConfig.setAddress("localhost-1");
-        mappingDbConfig.setUser("user-2");
-        mappingDbConfig.setPassword("password-3");
-
-        Configuration configuration = new Configuration();
-        configuration.setMappingDatabaseConfig(mappingDbConfig);
-
-        ConfigurationRepository repository = ConfigurationRepository.create("D:/test/config.json");
-        repository.createOrUpdate(configuration);
-
-        Configuration read = repository.read();
-        Logger.info(read);
-    }
 }
