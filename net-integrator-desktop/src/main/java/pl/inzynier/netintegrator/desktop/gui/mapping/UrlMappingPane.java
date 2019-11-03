@@ -27,8 +27,10 @@ public class UrlMappingPane extends BorderPane {
 
         try {
 
+            UrlMappingPaneAddModelToUrlMappingWriteDto mapper = new UrlMappingPaneAddModelToUrlMappingWriteDto();
+
             // dodawanie
-            paneAdd = new UrlMappingPaneAdd(managmentClient, eventBus);
+            paneAdd = new UrlMappingPaneAdd(managmentClient, eventBus, mapper);
             paneAdd = JavaFxUtil.loadFxml(paneAdd, UrlMappingPaneAdd.class.getResource("UrlMappingPaneAdd.fxml"));
 
 
@@ -36,7 +38,7 @@ public class UrlMappingPane extends BorderPane {
             tabAdd.setContent(paneAdd);
 
             // edycja i usuwanie
-            paneEdit = new UrlMappingPaneEdit(managmentClient,eventBus);
+            paneEdit = new UrlMappingPaneEdit(managmentClient,eventBus, mapper);
             paneEdit = JavaFxUtil.loadFxml(paneEdit, UrlMappingPaneEdit.class.getResource("UrlMappingPaneEdit.fxml"));
             eventBus.register(paneEdit);
 

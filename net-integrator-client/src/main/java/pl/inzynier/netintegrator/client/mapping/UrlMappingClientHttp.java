@@ -33,6 +33,7 @@ class UrlMappingClientHttp implements UrlMappingClient {
         String target = address + "/admin/url-mapping/update/" + urlMappingId;
         String jsonToSend = gson.toJson(dto);
         HttpResponse httpResponse = Unirest.post(target).body(jsonToSend).asEmpty();
+        System.out.println(httpResponse.getStatus());
     }
 
     @Override

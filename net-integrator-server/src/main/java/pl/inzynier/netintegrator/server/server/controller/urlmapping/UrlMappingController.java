@@ -83,8 +83,13 @@ public class UrlMappingController implements SparkController {
 
             String body = request.body();
             UrlMappingWriteDto urlMappingWriteDto = gson.fromJson(body, UrlMappingWriteDto.class);
-
             urlMappingService.update(urlMappingWriteDto, aLong);
+
+            // pocisnij serwer aby wystawil nowy mapping
+            UrlMappingReadDto byId = urlMappingService.findById(aLong);
+            NetIntegratorContext context = NetIntegratorContext.getContext();
+            NetIntegratorServer netIntegratorServer = context.getNetIntegratorServer();
+            netIntegratorServer.addRouting(byId);
 
             response.status(HttpStatus.OK_200);
 

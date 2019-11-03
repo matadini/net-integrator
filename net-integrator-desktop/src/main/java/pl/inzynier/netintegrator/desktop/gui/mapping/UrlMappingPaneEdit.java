@@ -15,6 +15,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.mapping.dto.*;
+import pl.inzynier.netintegrator.desktop.shared.CommonStrings;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
@@ -58,6 +59,7 @@ class UrlMappingPaneEdit extends BorderPane {
     private final UrlMappingClient mappingClient;
     private final EventBus eventBus;
     private UrlMappingPaneEditModel model;
+    private final UrlMappingPaneAddModelToUrlMappingWriteDto mapper;
 
     @FXML
     private void initialize() {
@@ -73,8 +75,27 @@ class UrlMappingPaneEdit extends BorderPane {
 
     private void onClickButtonSave(ActionEvent event) {
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle(CommonStrings.APP_NAME);
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get().equals(ButtonType.OK)) {
 
+            try {
+                UrlMappingWriteDto apply = mapper.apply(model);
+                long urlMappingId = model.urlMappingId.get();
+                mappingClient.update(apply, urlMappingId);
+
+                SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.URL_MAPPING_REMOVE);
+                eventBus.post(signalOnly);
+
+                downloadUrlMappingList();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
 
     }
 
@@ -90,7 +111,7 @@ class UrlMappingPaneEdit extends BorderPane {
         if (Objects.nonNull(selectedItem)) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation Dialog");
+            alert.setTitle(CommonStrings.APP_NAME);;
             alert.setHeaderText("Look, a Confirmation Dialog");
             alert.setContentText("Are you ok with this?");
 

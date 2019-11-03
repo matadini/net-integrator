@@ -9,8 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
-import pl.inzynier.netintegrator.client.mapping.dto.PublishEndpointDto;
-import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingClientException;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingWriteDto;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
@@ -49,6 +47,8 @@ class UrlMappingPaneAdd extends BorderPane {
 
     private UrlMappingPaneAddModel model;
 
+    private final UrlMappingPaneAddModelToUrlMappingWriteDto mapper;
+
     @FXML
     private void initialize() {
 
@@ -75,7 +75,7 @@ class UrlMappingPaneAdd extends BorderPane {
     private void onClickButtonAdd(ActionEvent event) {
 
         try {
-            UrlMappingWriteDto mappingDto = modelToWriteDto(model);
+            UrlMappingWriteDto mappingDto = mapper.apply(model);
             managmentClient.create(mappingDto);
             SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.URL_MAPPING_CREATE);
             eventBus.post(signalOnly);
@@ -89,20 +89,5 @@ class UrlMappingPaneAdd extends BorderPane {
         }
     }
 
-    private static UrlMappingWriteDto modelToWriteDto(UrlMappingPaneAddModel model) {
-        TargetEndpointDto target = new TargetEndpointDto();
-        target.setHostAddress(model.targetEndpointServer.get());
-        target.setMethod(model.targetEndpointMethod.get());
-        target.setMethodUrl(model.targetEndpointURL.get());
-
-        PublishEndpointDto endpoint = new PublishEndpointDto();
-        endpoint.setMethod(model.publishEndpointMethod.get());
-        endpoint.setMethodUrl(model.publishEndpointURL.get());
-
-        UrlMappingWriteDto mappingDto = new UrlMappingWriteDto();
-        mappingDto.setEndpoint(endpoint);
-        mappingDto.setTarget(target);
-        return mappingDto;
-    }
 
 }

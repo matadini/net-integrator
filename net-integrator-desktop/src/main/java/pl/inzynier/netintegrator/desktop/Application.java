@@ -12,6 +12,7 @@ import javafx.stage.WindowEvent;
 import pl.inzynier.netintegrator.client.login.LoginClient;
 import pl.inzynier.netintegrator.desktop.gui.login.LoginPane;
 import pl.inzynier.netintegrator.desktop.gui.main.MainPane;
+import pl.inzynier.netintegrator.desktop.shared.CommonStrings;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
@@ -59,6 +60,7 @@ public class Application extends javafx.application.Application {
             controller = JavaFxUtil.loadFxml(controller, resource);
 
             loginStage = new Stage();
+            loginStage.setTitle(CommonStrings.APP_NAME);
             loginStage.setOnCloseRequest(this::onCloseRequest);
             loginStage.setScene(new Scene(controller));
             loginStage.show();
