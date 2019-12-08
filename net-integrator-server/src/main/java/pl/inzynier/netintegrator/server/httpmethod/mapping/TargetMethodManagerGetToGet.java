@@ -60,7 +60,6 @@ class TargetMethodManagerGetToGet implements TargetMethodManager {
 
             // wykonaj skrypty POST_CALL
             Long urlMappingId = urlMapping.getUrlMappingId();
-           // String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
             message = scriptService.executeScripts(urlMappingId, message);
 
 

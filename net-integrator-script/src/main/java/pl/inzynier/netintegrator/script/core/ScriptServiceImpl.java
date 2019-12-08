@@ -8,6 +8,7 @@ import pl.inzynier.netintegrator.script.core.dto.ScriptType;
 import pl.inzynier.netintegrator.script.core.dto.ScriptWriteDto;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -24,7 +25,7 @@ class ScriptServiceImpl implements ScriptService {
     }
 
     @Override
-    public Long addScript(ScriptWriteDto dto) throws ScriptServiceException {
+    public Long create(ScriptWriteDto dto) throws ScriptServiceException {
 
 
         ScriptType scriptType = dto.getScriptType();
@@ -42,6 +43,12 @@ class ScriptServiceImpl implements ScriptService {
                 .stream()
                 .map(x -> modelMapper.map(x, ScriptReadDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(Long scriptId) throws ScriptServiceException {
+        Optional<Script> byId = scriptRepository.findById(scriptId);
+        byId.ifPresent(scriptRepository::delete);
     }
 
     @Override

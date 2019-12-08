@@ -1,6 +1,5 @@
 package pl.inzynier.netintegrator.server;
 
-import com.google.common.hash.HashCode;
 import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
@@ -12,7 +11,6 @@ import pl.inzynier.netintegrator.script.ExampleGroovyScript;
 import pl.inzynier.netintegrator.script.core.ScriptService;
 import pl.inzynier.netintegrator.script.core.dto.ScriptType;
 import pl.inzynier.netintegrator.script.core.dto.ScriptWriteDto;
-import pl.inzynier.netintegrator.user.util.PasswordUtil;
 import pl.inzynier.netintegrator.user.core.UserService;
 import pl.inzynier.netintegrator.user.core.dto.UserWriteDTO;
 
@@ -60,8 +58,8 @@ class DemoInitializer {
             script2.setContent(ExampleGroovyScript.createExampleGroovyScriptToUpperCase());
             script2.setScriptType(ScriptType.POST_CALL);
 
-            scriptService.addScript(script1);
-            scriptService.addScript(script2);
+            scriptService.create(script1);
+            scriptService.create(script2);
 
             // mapowanie - internet 1
             PublishEndpointDto publishEndpoint3 = new PublishEndpointDto("/nowy-mapping", RequestMethod.GET);
@@ -80,7 +78,7 @@ class DemoInitializer {
             script3.setUrlMappingId(save4);
             script3.setContent(ExampleGroovyScript.toUpperCaseOnly());
             script3.setScriptType(ScriptType.POST_CALL);
-            scriptService.addScript(script3);
+            scriptService.create(script3);
 
             userService.addUser(new UserWriteDTO("admin", "admin"));
 

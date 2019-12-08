@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface ScriptService {
 
-    Long addScript(ScriptWriteDto dto) throws ScriptServiceException;
+    Long create(ScriptWriteDto dto) throws ScriptServiceException;
 
     List<ScriptReadDto> findByUrlMappingId(Long urlMappingId) throws ScriptServiceException;
+
+    void delete(Long scriptId)  throws ScriptServiceException;
 
     String executeScripts(Long urlMappingId, String httpRequestContent)  throws ScriptServiceException;
 }

@@ -1,16 +1,16 @@
 package pl.inzynier.netintegrator.server.server.controller.script;
 
 import com.google.gson.Gson;
-import lombok.RequiredArgsConstructor;
 import org.eclipse.jetty.http.HttpStatus;
-import pl.inzynier.netintegrator.http.spark.SparkController;
-import pl.inzynier.netintegrator.mapping.core.UrlMappingService;
-import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingWriteDto;
 import pl.inzynier.netintegrator.script.core.ScriptService;
+import pl.inzynier.netintegrator.script.core.dto.ScriptReadDto;
+import pl.inzynier.netintegrator.script.core.dto.ScriptWriteDto;
 import pl.inzynier.netintegrator.server.server.controller.BaseController;
 import spark.Request;
 import spark.Response;
 import spark.Service;
+
+import java.util.List;
 
 
 public class ScriptController extends BaseController {
@@ -24,16 +24,17 @@ public class ScriptController extends BaseController {
 
     @Override
     public void initialize(Service service) {
-        service.get("/admin/script/add", this::add);
-        service.post("/admin/script/find-by-url-id", this::findByUrlMappingId);
+        service.get("/admin/script/create", this::create);
+        service.delete("/admin/script/delete/:id", this::delete);
+        service.post("/admin/script/find-by-urlmapping-id/:id", this::findByUrlMappingId);
     }
 
-    private Object add(Request request, Response response) {
+    private Object create(Request request, Response response) {
         try {
 
             String body = request.body();
-            UrlMappingWriteDto urlMappingWriteDto = gson.fromJson(body, UrlMappingWriteDto.class);
-            return null;
+            ScriptWriteDto urlMappingWriteDto = gson.fromJson(body, ScriptWriteDto.class);
+            return scriptService.create(urlMappingWriteDto);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -43,9 +44,18 @@ public class ScriptController extends BaseController {
         }
     }
 
+    private Object delete(Request request, Response response) {
+        return null;
+    }
+
     private Object findByUrlMappingId(Request request, Response response) {
         try {
-            return null;
+
+            String id = request.params("id");
+            Long aLong = Long.valueOf(id);
+            List<ScriptReadDto> byUrlMappingId = scriptService.findByUrlMappingId(aLong);
+            return gson.toJson(byUrlMappingId);
+
         } catch (Exception ex) {
             ex.printStackTrace();
             response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);
