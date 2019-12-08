@@ -1,14 +1,10 @@
 package pl.inzynier.netintegrator.desktop.gui.script;
 
 import javafx.beans.property.*;
-import pl.inzynier.netintegrator.http.util.RequestMethod;
+import pl.inzynier.netintegrator.client.script.dto.ScriptType;
 
 class ScriptPaneModel {
-    LongProperty urlMappingId = new SimpleLongProperty();
-    StringProperty targetEndpointURL = new SimpleStringProperty();
-    StringProperty targetEndpointServer = new SimpleStringProperty();
-    ObjectProperty<RequestMethod> targetEndpointMethod = new SimpleObjectProperty<>();
-
-    StringProperty publishEndpointURL = new SimpleStringProperty();
-    ObjectProperty<RequestMethod> publishEndpointMethod = new SimpleObjectProperty<>();
+    LongProperty scriptId = new SimpleLongProperty();
+    StringProperty content = new SimpleStringProperty();
+    ObjectProperty<ScriptType> type = new SimpleObjectProperty<>();
 }

@@ -67,10 +67,10 @@ class ScriptPane extends BorderPane {
 
     private final RequestMethodStringConverter converter = new RequestMethodStringConverter();
 
-    private ScriptPaneModel model;
+    private ScriptPaneModelUrlMapping model;
 
-    private ScriptPaneModel createModel() {
-        ScriptPaneModel model = new ScriptPaneModel();
+    private ScriptPaneModelUrlMapping createModel() {
+        ScriptPaneModelUrlMapping model = new ScriptPaneModelUrlMapping();
         Bindings.bindBidirectional(labelId.textProperty(), model.urlMappingId, new NumberStringConverter());
         Bindings.bindBidirectional(labelPublishURL.textProperty(), model.publishEndpointURL);
         Bindings.bindBidirectional(labelPublishMethod.textProperty(), model.publishEndpointMethod, converter);
