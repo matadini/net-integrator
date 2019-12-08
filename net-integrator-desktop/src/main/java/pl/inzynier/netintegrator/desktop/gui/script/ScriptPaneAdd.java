@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.desktop.gui.script;
 
+import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -14,8 +15,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.converter.NumberStringConverter;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
+import pl.inzynier.netintegrator.client.mapping.dto.PublishEndpointDto;
+import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
+import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
+import pl.inzynier.netintegrator.client.script.dto.ScriptClientException;
 import pl.inzynier.netintegrator.client.script.dto.ScriptType;
+import pl.inzynier.netintegrator.client.script.dto.ScriptWriteDto;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SelectedUrlMappingChanged;
@@ -36,11 +42,11 @@ class ScriptPaneAdd extends BorderPane {
     @FXML
     private ComboBox<ScriptType> comboboxScriptType;
 
-    private final UrlMappingClient managmentClient;
+    private ScriptPaneModel model;
+
+    private final EventBus eventBus;
 
     private final ScriptClient scriptClient;
-
-    private ScriptPaneModel model;
 
     @FXML
     public void initialize() {
@@ -52,7 +58,23 @@ class ScriptPaneAdd extends BorderPane {
     }
 
     private void onClickButtonNew(ActionEvent event) {
-        System.out.println(model);
+
+
+        try {
+            ScriptWriteDto dto = new ScriptWriteDto();
+            dto.setContent(model.content.get());
+            dto.setScriptType(model.type.get());
+            dto.setUrlMappingId(model.urlMappingId.get());
+
+            Long aLong = scriptClient.create(dto);
+
+            UrlMappingReadDto urlMapping = new UrlMappingReadDto(model.urlMappingId.get(), new PublishEndpointDto(), new TargetEndpointDto());
+            SelectedUrlMappingChanged toPost = new SelectedUrlMappingChanged(urlMapping);
+            eventBus.post(toPost);
+
+        } catch (ScriptClientException e) {
+            e.printStackTrace();
+        }
     }
 
     private ScriptPaneModel createModel() {
@@ -69,8 +91,6 @@ class ScriptPaneAdd extends BorderPane {
         if (ApplicationEventSignal.SELECTED_URL_MAPPING_CHANGED.equals(event.getType())) {
             SelectedUrlMappingChanged item = (SelectedUrlMappingChanged) event;
             model.urlMappingId.set(item.getUrlMapping().getUrlMappingId());
-            //  item.get
-            // download(item.getUrlMappingId());
         }
 
     }

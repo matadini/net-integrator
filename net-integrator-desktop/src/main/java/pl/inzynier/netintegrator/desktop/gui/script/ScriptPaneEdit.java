@@ -46,8 +46,6 @@ class ScriptPaneEdit extends BorderPane {
     @FXML
     private ComboBox<ScriptType> comboboxScriptType;
 
-    private final UrlMappingClient managmentClient;
-
     private final ScriptClient scriptClient;
 
     private ScriptPaneModel model;
@@ -70,8 +68,6 @@ class ScriptPaneEdit extends BorderPane {
         }
     }
 
-
-
     private ScriptPaneModel createModel() {
         ScriptPaneModel model = new ScriptPaneModel();
         Bindings.bindBidirectional(labelScriptId.textProperty(), model.scriptId, new NumberStringConverter());
@@ -79,6 +75,7 @@ class ScriptPaneEdit extends BorderPane {
         Bindings.bindBidirectional(comboboxScriptType.valueProperty(), model.type);
         return model;
     }
+
     private void download(Long urlMappingId) {
 
         try {

@@ -94,12 +94,12 @@ class ScriptPane extends BorderPane {
         try {
 
             paneAdd = JavaFxUtil.loadFxml(
-                    new ScriptPaneAdd(managmentClient, scriptClient),
+                    new ScriptPaneAdd(eventBus, scriptClient),
                     ScriptPaneAdd.class.getResource("ScriptPaneAdd.fxml"));
             eventBus.register(paneAdd);
 
             paneEdit = JavaFxUtil.loadFxml(
-                    new ScriptPaneEdit(managmentClient, scriptClient),
+                    new ScriptPaneEdit(scriptClient),
                     ScriptPaneEdit.class.getResource("ScriptPaneEdit.fxml"));
             eventBus.register(paneEdit);
 
