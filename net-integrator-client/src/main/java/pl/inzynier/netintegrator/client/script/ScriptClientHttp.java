@@ -24,7 +24,6 @@ class ScriptClientHttp implements ScriptClient {
         String jsonToSend = gson.toJson(dto);
 
         HttpResponse<String> stringHttpResponse = Unirest.post(target).body(jsonToSend).asString();
-        System.out.println(stringHttpResponse.getBody());
         return Long.valueOf(stringHttpResponse.getBody());
     }
 

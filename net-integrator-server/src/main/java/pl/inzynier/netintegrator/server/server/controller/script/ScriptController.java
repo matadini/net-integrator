@@ -24,9 +24,9 @@ public class ScriptController extends BaseController {
 
     @Override
     public void initialize(Service service) {
-        service.get("/admin/script/create", this::create);
+        service.post("/admin/script/create", this::create);
         service.delete("/admin/script/delete/:id", this::delete);
-        service.post("/admin/script/find-by-urlmapping-id/:id", this::findByUrlMappingId);
+        service.get("/admin/script/find-by-urlmapping-id/:id", this::findByUrlMappingId);
     }
 
     private Object create(Request request, Response response) {
