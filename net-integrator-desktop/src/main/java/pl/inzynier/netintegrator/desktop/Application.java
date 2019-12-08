@@ -4,6 +4,8 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,6 +13,8 @@ import javafx.stage.WindowEvent;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
 import pl.inzynier.netintegrator.client.user.UserClient;
+import pl.inzynier.netintegrator.desktop.configuration.Configuration;
+import pl.inzynier.netintegrator.desktop.configuration.ConfigurationRepository;
 import pl.inzynier.netintegrator.desktop.gui.login.LoginPane;
 import pl.inzynier.netintegrator.desktop.gui.main.MainPane;
 import pl.inzynier.netintegrator.desktop.shared.CommonStrings;
@@ -20,6 +24,8 @@ import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,12 +54,28 @@ public class Application extends javafx.application.Application {
     private ScriptClient scriptClient;
     private UrlMappingClient managmentClient;
 
+
     @Override
     public void init() throws Exception {
         super.init();
-        userClient = UserClient.create("http://localhost:8080");
-        managmentClient = UrlMappingClient.create("http://localhost:8080");
-        scriptClient = ScriptClient.create("http://localhost:8080");
+
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String configFile = "config.json";
+        if (!Files.exists(Paths.get(configFile))) {
+
+            Configuration entity = new Configuration();
+            entity.setServerAddress("http://localhost:8080");
+
+            ConfigurationRepository configurationRepository = ConfigurationRepository.create(gson, configFile);
+            configurationRepository.createOrUpdate(entity);
+        }
+        ConfigurationRepository configurationRepository = ConfigurationRepository.create(gson, configFile);
+        Configuration configuration = configurationRepository.read();
+
+        String serverAddress = configuration.getServerAddress();
+        userClient = UserClient.create(serverAddress);
+        managmentClient = UrlMappingClient.create(serverAddress);
+        scriptClient = ScriptClient.create(serverAddress);
     }
 
     @Override
