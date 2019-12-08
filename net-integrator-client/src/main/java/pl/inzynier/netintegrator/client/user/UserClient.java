@@ -9,7 +9,7 @@ public interface UserClient {
     boolean authorization(UserWriteDTO dto);
 
     static UserClient create(String address) {
-        Gson gson = new GsonBuilder().serializeNulls().create();
+        final Gson gson = new GsonBuilder().serializeNulls().create();
         return new UserClientHttp(address, gson);
     }
 }

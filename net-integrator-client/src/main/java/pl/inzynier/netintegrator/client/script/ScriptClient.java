@@ -1,5 +1,7 @@
 package pl.inzynier.netintegrator.client.script;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.script.dto.ScriptClientException;
 import pl.inzynier.netintegrator.client.script.dto.ScriptReadDto;
@@ -18,7 +20,8 @@ public interface ScriptClient {
     void delete(ScriptReadDto dto) throws ScriptClientException;
 
     static ScriptClient create(String address) {
-        return new ScriptClientStub();
+        final Gson gson = new GsonBuilder().serializeNulls().create();
+        return new ScriptClientHttp(address, gson);
     }
 
 }

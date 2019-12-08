@@ -39,9 +39,7 @@ class UrlMappingClientHttp implements UrlMappingClient {
     @Override
     public List<UrlMappingReadDto> findAll() throws UrlMappingClientException {
         String target = address + "/admin/url-mapping/find-all";
-
         String s = Unirest.get(target).asString().getBody();
-        // String s = client.target(target).request().get(String.class);
         return gson.fromJson(s, new TypeToken<List<UrlMappingReadDto>>() {
         }.getType());
 

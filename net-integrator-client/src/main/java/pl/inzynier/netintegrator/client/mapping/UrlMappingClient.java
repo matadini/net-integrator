@@ -20,7 +20,7 @@ public interface UrlMappingClient {
     void delete(Long urlMappingId) throws UrlMappingClientException;
 
     static UrlMappingClient create(String address) {
-        Gson gson = new GsonBuilder().serializeNulls().create();
+        final Gson gson = new GsonBuilder().serializeNulls().create();
         return new UrlMappingClientHttp(address, gson);
     }
 }
