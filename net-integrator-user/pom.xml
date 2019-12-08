@@ -11,5 +11,12 @@
 
     <artifactId>net-integrator-user</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>pl.inzynier</groupId>
+            <artifactId>net-integrator-db-util</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
