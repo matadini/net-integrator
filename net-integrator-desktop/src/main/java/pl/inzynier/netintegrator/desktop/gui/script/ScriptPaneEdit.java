@@ -11,8 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.util.converter.NumberStringConverter;
 import lombok.Data;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
+import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
 import pl.inzynier.netintegrator.client.script.dto.ScriptReadDto;
 import pl.inzynier.netintegrator.client.script.dto.ScriptType;
@@ -53,15 +55,19 @@ class ScriptPaneEdit extends BorderPane {
     @FXML
     public void initialize() {
         model = createModel();
-
+        comboboxScriptType.setItems(FXCollections.observableArrayList(ScriptType.values()));
         listViewScripts.getSelectionModel().selectedItemProperty().addListener(this::changed);
 
     }
 
     private void changed(ObservableValue<? extends ScriptReadDto> observable, ScriptReadDto oldValue, ScriptReadDto newValue) {
-        model.scriptId.set(newValue.getScriptId());
-        model.content.set(newValue.getContent());
-        model.type.set(newValue.getScriptType());
+        if(newValue != null) {
+            model.scriptId.set(newValue.getScriptId());
+            model.content.set(newValue.getContent());
+            model.type.set(newValue.getScriptType());
+        } else {
+            model = createModel();
+        }
     }
 
 
@@ -88,7 +94,9 @@ class ScriptPaneEdit extends BorderPane {
 
         if (ApplicationEventSignal.SELECTED_URL_MAPPING_CHANGED.equals(event.getType())) {
             SelectedUrlMappingChanged item = (SelectedUrlMappingChanged) event;
-            download(item.getUrlMappingId());
+            UrlMappingReadDto urlMapping = item.getUrlMapping();
+            @NonNull Long urlMappingId = urlMapping.getUrlMappingId();
+            download(urlMappingId);
         }
 
     }

@@ -2,12 +2,13 @@ package pl.inzynier.netintegrator.desktop.shared.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Value;
+import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 
 @Value
 @AllArgsConstructor
 public class SelectedUrlMappingChanged implements ApplicationEvent {
 
-    Long urlMappingId;
+    UrlMappingReadDto urlMapping;
 
 
     @Override

@@ -96,10 +96,12 @@ class ScriptPane extends BorderPane {
             paneAdd = JavaFxUtil.loadFxml(
                     new ScriptPaneAdd(managmentClient, scriptClient),
                     ScriptPaneAdd.class.getResource("ScriptPaneAdd.fxml"));
+            eventBus.register(paneAdd);
 
             paneEdit = JavaFxUtil.loadFxml(
                     new ScriptPaneEdit(managmentClient, scriptClient),
                     ScriptPaneEdit.class.getResource("ScriptPaneEdit.fxml"));
+            eventBus.register(paneEdit);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,7 +112,6 @@ class ScriptPane extends BorderPane {
 
         Tab edit = JavaFxUtil.createNoClosableTab("Edit and remove");
         edit.setContent(paneEdit);
-        eventBus.register(paneEdit);
 
         ObservableList<Tab> tabs = tabPane.getTabs();
         tabs.add(add);
@@ -140,11 +141,8 @@ class ScriptPane extends BorderPane {
     private void onChangedComboboxUrlMapping(ObservableValue<? extends UrlMappingReadDto> observable, UrlMappingReadDto oldValue, UrlMappingReadDto newValue) {
 
         if (Objects.nonNull(newValue)) {
-            System.out.println("onChangedComboboxUrlMapping");
-            @NonNull Long urlMappingId = newValue.getUrlMappingId();
-            SelectedUrlMappingChanged event = new SelectedUrlMappingChanged(urlMappingId);
+            SelectedUrlMappingChanged event = new SelectedUrlMappingChanged(newValue);
             eventBus.post(event);
-
             fillModel(newValue);
         }
 

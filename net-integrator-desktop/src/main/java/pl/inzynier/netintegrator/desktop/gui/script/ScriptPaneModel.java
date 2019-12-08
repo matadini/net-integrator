@@ -5,6 +5,7 @@ import pl.inzynier.netintegrator.client.script.dto.ScriptType;
 
 class ScriptPaneModel {
     LongProperty scriptId = new SimpleLongProperty();
+    LongProperty urlMappingId = new SimpleLongProperty();
     StringProperty content = new SimpleStringProperty();
     ObjectProperty<ScriptType> type = new SimpleObjectProperty<>();
 }
