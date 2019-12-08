@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.db.util.JpaRepositoryUtil;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
@@ -47,11 +48,13 @@ class UserRepositoryImpl implements UserRepository {
     @Override
     public User findByLoginAndPassword(String login, String passwordMD5) {
         try {
-            String sql = "select u from User u where u.login = :login and u.passwordMD5 = :passwordMD5";
+            String sql = "select u from User u where u.login = :login and u.password = :passwordMD5";
             TypedQuery<User> query = entityManager.createQuery(sql, User.class);
             query.setParameter("login", login);
             query.setParameter("passwordMD5", passwordMD5);
             return query.getSingleResult();
+        } catch (NoResultException e) {
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,6 +68,8 @@ class UserRepositoryImpl implements UserRepository {
             TypedQuery<User> query = entityManager.createQuery(sql, User.class);
             query.setParameter("login", login);
             return query.getSingleResult();
+        } catch (NoResultException e) {
+
         } catch (Exception e) {
             e.printStackTrace();
         }

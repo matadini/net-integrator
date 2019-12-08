@@ -10,14 +10,14 @@ import spark.Response;
 import spark.Service;
 
 @RequiredArgsConstructor
-public class UrlMappingController implements SparkController {
+public class UserController implements SparkController {
 
     private final Gson gson;
     private final UserService userService;
 
     @Override
     public void initialize(Service service) {
-
+        service.post("/admin/user/authorization", this::authorization);
     }
 
     private Object addUser(Request request, Response response) {
@@ -29,14 +29,18 @@ public class UrlMappingController implements SparkController {
             String body = request.body();
             UserWriteDTO userWriteDTO = gson.fromJson(body, UserWriteDTO.class);
             System.out.println(userWriteDTO);
-        } catch (Exception ex) {
+            boolean authorization = userService.authorization(userWriteDTO);
+            System.out.println(authorization);
 
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-return  null;
+        return null;
     }
 
     private Object removeUser(Request request, Response response) {
-return null;
+        return null;
     }
 
 }

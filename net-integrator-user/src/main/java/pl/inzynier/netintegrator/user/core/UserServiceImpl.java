@@ -30,7 +30,8 @@ class UserServiceImpl implements UserService {
 
     @Override
     public boolean authorization(UserWriteDTO dto) throws UserServiceException {
-        return Objects.nonNull(userRepository.findByLoginAndPassword(dto.getLogin(), dto.getPassword()));
+        String password = PasswordUtil.stringToSha256String(dto.getPassword());
+        return Objects.nonNull(userRepository.findByLoginAndPassword(dto.getLogin(), password));
     }
 
     @Override

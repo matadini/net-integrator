@@ -12,6 +12,7 @@ import pl.inzynier.netintegrator.server.configuration.ConfigurationRepository;
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerFactory;
+import pl.inzynier.netintegrator.server.server.controller.user.UserController;
 import pl.inzynier.netintegrator.server.server.core.*;
 import pl.inzynier.netintegrator.server.server.controller.urlmapping.UrlMappingController;
 import pl.inzynier.netintegrator.server.util.SeriveFacotry;
@@ -81,6 +82,7 @@ public class Main {
 
         List<SparkController> adminControllers = new ArrayList<>();
         adminControllers.add(new UrlMappingController(gson, urlMappingService));
+        adminControllers.add(new UserController(gson, userService));
 
         NetIntegratorServerCoreRoute route = new NetIntegratorServerCoreRoute(urlMappingService, httpMethodMapKeyGenerator, requestMethodManagerStrategyMap);
         NetIntegratorServerImpl netIntegratorServer = new NetIntegratorServerImpl(urlMappingService, config, route, adminControllers);
