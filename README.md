@@ -59,3 +59,10 @@ połączenie do bazy brane jest z `config.json` - domyslne dane polaczenia sa w 
 
 Aby wybrac tryb, przy w uruchamianiu aplikacji nalezy dodac parametr `h2db` dla dzialania w H2, 
 nie dodawac nic jezeli odpalamy w oparciu o Postgresa.
+
+## uruchamianie w IntelliJ lub innym IDE
+
+Upewnij się że katalog roboczy dla aplikacji serwera jak i desktop są różne.
+Nie używaj tego samego katalogu bo między `config.json` dla desktop i `config.json` dla serwera
+będą występować konflikty. Upewnij się że serwer i desktop mają inaczej ustawione `working directory`
+w konfiguracji uruchomieniowej. Najlepiej ustaw: `%MODULE_WORKING_DIR%`
