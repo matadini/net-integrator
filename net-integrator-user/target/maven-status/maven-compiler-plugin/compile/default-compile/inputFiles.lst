@@ -1,9 +1,12 @@
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\dto\UserWriteDTO.java
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\UserRepositoryImpl.java
+D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\entitymanagerprovider\UserEntityManagerFactoryProviderPostgres.java
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\User.java
+D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\entitymanagerprovider\UserEntityManagerFactoryProviders.java
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\UserRepository.java
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\UserServiceFactory.java
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\UserServiceException.java
+D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\entitymanagerprovider\UserEntityManagerFactoryProviderH2.java
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\dto\UserReadDTO.java
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\UserService.java
 D:\Projects\Java\net-integrator\net-integrator-user\src\main\java\pl\inzynier\netintegrator\user\core\UserServiceImpl.java

@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.server;
 
+import com.google.common.hash.HashCode;
 import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
@@ -11,7 +12,9 @@ import pl.inzynier.netintegrator.script.ExampleGroovyScript;
 import pl.inzynier.netintegrator.script.core.ScriptService;
 import pl.inzynier.netintegrator.script.core.dto.ScriptType;
 import pl.inzynier.netintegrator.script.core.dto.ScriptWriteDto;
+import pl.inzynier.netintegrator.user.util.PasswordUtil;
 import pl.inzynier.netintegrator.user.core.UserService;
+import pl.inzynier.netintegrator.user.core.dto.UserWriteDTO;
 
 /**
  * Wstawia do bazy przykladowe dane
@@ -63,10 +66,7 @@ class DemoInitializer {
             scriptService.addScript(script1);
             scriptService.addScript(script2);
 
-
-//            String admin1 = "admin";
-//            HashCode admin = PasswordUtil.getSha256FromString(admin1);
-//            userService.addUser(new UserWriteDTO("admin", admin.toString()));
+            userService.addUser(new UserWriteDTO("admin", "admin"));
 
         } catch (Exception e) {
             Logger.info(e);

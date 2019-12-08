@@ -8,5 +8,5 @@ import lombok.RequiredArgsConstructor;
 public class UserWriteDTO {
     private final String login;
 
-    private final String passwordMD5;
+    private final String password;
 }

@@ -17,6 +17,6 @@ public class User {
 
     String login;
 
-    String passwordMD5;
+    String password;
 
 }

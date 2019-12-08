@@ -4,16 +4,9 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
-import pl.inzynier.netintegrator.db.util.EntityManagerFactoryProvider;
 import pl.inzynier.netintegrator.http.spark.SparkController;
-import pl.inzynier.netintegrator.mapping.entitymanagerprovider.UrlMappingEntityManagerFactoryProviders;
 import pl.inzynier.netintegrator.mapping.core.UrlMappingService;
-import pl.inzynier.netintegrator.mapping.core.UrlMappingServiceFactory;
-import pl.inzynier.netintegrator.mapping.core.dto.*;
-import pl.inzynier.netintegrator.script.entitymanagerprovider.ScriptEntityManagerFactoryProviders;
 import pl.inzynier.netintegrator.script.core.ScriptService;
-import pl.inzynier.netintegrator.script.core.ScriptServiceFactory;
-import pl.inzynier.netintegrator.script.core.dto.ScriptServiceException;
 import pl.inzynier.netintegrator.server.configuration.Configuration;
 import pl.inzynier.netintegrator.server.configuration.ConfigurationRepository;
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
@@ -21,6 +14,7 @@ import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerFactory;
 import pl.inzynier.netintegrator.server.server.core.*;
 import pl.inzynier.netintegrator.server.server.controller.urlmapping.UrlMappingController;
+import pl.inzynier.netintegrator.server.util.SeriveFacotry;
 import pl.inzynier.netintegrator.user.core.UserService;
 
 import java.nio.file.Files;
@@ -33,7 +27,7 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    public static void main(String[] args) throws UrlMappingServiceException, ScriptServiceException {
+    public static void main(String[] args)  {
 
         List<String> argList = Lists.newArrayList(args).stream()
                 .filter(Objects::nonNull)
@@ -70,18 +64,11 @@ public class Main {
         boolean useH2 = argList.contains(NetIntegratorServerArgs.H2DB);
         System.out.println(useH2);
 
-        EntityManagerFactoryProvider scriptProvider = useH2 ?
-                ScriptEntityManagerFactoryProviders.providerH2() :
-                ScriptEntityManagerFactoryProviders.providerPostgres(configuration);
-        ScriptService scriptService = ScriptServiceFactory.create(scriptProvider);
-
-        EntityManagerFactoryProvider urlMappingProvider = useH2 ?
-                UrlMappingEntityManagerFactoryProviders.providerH2() :
-                UrlMappingEntityManagerFactoryProviders.providerPostgres(configuration);
-        UrlMappingService urlMappingService = UrlMappingServiceFactory.create(urlMappingProvider);
+        ScriptService scriptService = SeriveFacotry.getScriptService(configuration, useH2);
+        UrlMappingService urlMappingService = SeriveFacotry.getUrlMappingService(configuration, useH2);
+        UserService userService = SeriveFacotry.getUserService(configuration, useH2);
 
         // Dane dla dema
-        UserService userService = null;
         DemoInitializer demoInitializer = new DemoInitializer(scriptService, urlMappingService, userService);
         demoInitializer.demoInit();
 

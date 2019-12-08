@@ -6,4 +6,7 @@ pl\inzynier\netintegrator\user\core\dto\UserReadDTO.class
 pl\inzynier\netintegrator\user\core\UserServiceFactory.class
 pl\inzynier\netintegrator\user\core\User.class
 pl\inzynier\netintegrator\user\core\UserServiceImpl.class
+pl\inzynier\netintegrator\user\entitymanagerprovider\UserEntityManagerFactoryProviderPostgres.class
+pl\inzynier\netintegrator\user\entitymanagerprovider\UserEntityManagerFactoryProviders.class
 pl\inzynier\netintegrator\user\core\dto\UserWriteDTO.class
+pl\inzynier\netintegrator\user\entitymanagerprovider\UserEntityManagerFactoryProviderH2.class
