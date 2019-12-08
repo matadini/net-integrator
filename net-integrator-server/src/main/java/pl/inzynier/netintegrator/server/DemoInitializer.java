@@ -76,6 +76,12 @@ class DemoInitializer {
             UrlMappingWriteDto mapping4 = new UrlMappingWriteDto(publishEndpoint4, targetEndpoint4);
             Long save4 = urlMappingService.create(mapping4);
 
+            ScriptWriteDto script3 = new ScriptWriteDto();
+            script3.setUrlMappingId(save4);
+            script3.setContent(ExampleGroovyScript.toUpperCaseOnly());
+            script3.setScriptType(ScriptType.POST_CALL);
+            scriptService.addScript(script3);
+
             userService.addUser(new UserWriteDTO("admin", "admin"));
 
         } catch (Exception e) {

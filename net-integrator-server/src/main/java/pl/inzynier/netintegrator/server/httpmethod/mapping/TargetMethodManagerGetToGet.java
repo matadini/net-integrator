@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
 import pl.inzynier.netintegrator.mapping.core.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
+import pl.inzynier.netintegrator.script.core.ScriptService;
 import pl.inzynier.netintegrator.server.server.core.NetIntegratorAppResponse;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 class TargetMethodManagerGetToGet implements TargetMethodManager {
 
     private final Gson gson;
+    private final ScriptService scriptService;
 
     @Override
     public Object manage(UrlMappingReadDto urlMapping, HttpServletRequest request, HttpServletResponse response) {
@@ -54,6 +57,11 @@ class TargetMethodManagerGetToGet implements TargetMethodManager {
 
             HttpResponse<String> stringHttpResponse = getRequest.asString();
             message = stringHttpResponse.getBody();
+
+            // wykonaj skrypty POST_CALL
+            Long urlMappingId = urlMapping.getUrlMappingId();
+           // String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+            message = scriptService.executeScripts(urlMappingId, message);
 
 
         } catch (Exception e) {

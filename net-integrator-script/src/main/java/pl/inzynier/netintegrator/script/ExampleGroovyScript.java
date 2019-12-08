@@ -38,26 +38,27 @@ public class ExampleGroovyScript {
         return "//imports\n" +
                 "import groovy.json.JsonOutput\n" +
                 "import groovy.json.JsonSlurper\n" +
-                "\n" +
                 "//define input data class\n" +
                 "class Person {\n" +
                 "    String name\n" +
                 "    String surname\n" +
                 "}\n" +
-                "\n" +
                 "// Read input data\n" +
                 "def input = args[0]\n" +
-                "\n" +
                 "// convert to UDR\n" +
                 "def slurper = new JsonSlurper()\n" +
                 "def personMap = slurper.parseText(input)\n" +
                 "def newPerson = new Person(personMap)\n" +
-                "\n" +
                 "// transform data\n" +
                 "newPerson.name = newPerson.name.toUpperCase()\n" +
                 "newPerson.surname = newPerson.surname.toUpperCase()\n" +
-                "\n" +
                 "// return data\n" +
                 "return JsonOutput.toJson(newPerson)\n";
+    }
+
+
+    public static String toUpperCaseOnly() {
+        return "def input = args[0]\n" +
+                "return input.toUpperCase()";
     }
 }

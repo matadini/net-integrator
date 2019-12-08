@@ -17,7 +17,7 @@ public class TargetMethodManagerFactory {
         Gson gson = new GsonBuilder().serializeNulls().create();
 
         Map<String, TargetMethodManager> requestMethodManagerStrategyMap = Maps.newHashMap();
-        requestMethodManagerStrategyMap.put(HttpMethodMapKeys.GET_TO_GET,  new TargetMethodManagerGetToGet(gson));
+        requestMethodManagerStrategyMap.put(HttpMethodMapKeys.GET_TO_GET,  new TargetMethodManagerGetToGet(gson, scriptService));
         requestMethodManagerStrategyMap.put(HttpMethodMapKeys.POST_TO_POST, new TargetMethodManagerPostToPost(gson, scriptService));
 
         return requestMethodManagerStrategyMap;
