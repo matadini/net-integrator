@@ -17,7 +17,7 @@ public interface ScriptClient {
 
     void delete(ScriptReadDto dto) throws ScriptClientException;
 
-    static ScriptClient create() {
+    static ScriptClient create(String address) {
         return new ScriptClientStub();
     }
 

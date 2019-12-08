@@ -32,13 +32,14 @@ public class MainPane extends BorderPane {
 
     private final ExecutorService executorService;
 
+    private final UrlMappingClient managmentClient;
+
+    private final ScriptClient scriptClient;
     @FXML
     private void initialize() {
         try {
 
-            // clients
-            UrlMappingClient managmentClient = UrlMappingClient.create("http://localhost:8080");
-            ScriptClient scriptClient = ScriptClient.create();
+
 
             // mapping view
             BorderPane mappingController = UrlMappingPaneFactory.create(managmentClient, eventBus);

@@ -19,11 +19,6 @@ public interface UrlMappingClient {
 
     void delete(Long urlMappingId) throws UrlMappingClientException;
 
-
-    static UrlMappingClient create() {
-        return new UrlMappingClientStub();
-    }
-
     static UrlMappingClient create(String address) {
         Gson gson = new GsonBuilder().serializeNulls().create();
         return new UrlMappingClientHttp(address, gson);
