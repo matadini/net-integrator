@@ -27,16 +27,12 @@ public class UserController implements SparkController {
     private Object authorization(Request request, Response response) {
         try {
             String body = request.body();
-            UserWriteDTO userWriteDTO = gson.fromJson(body, UserWriteDTO.class);
-            System.out.println(userWriteDTO);
-            boolean authorization = userService.authorization(userWriteDTO);
-            System.out.println(authorization);
-
-
+            UserWriteDTO userWriteDTO = gson.fromJson(body, UserWriteDTO.class);;
+            return userService.authorization(userWriteDTO);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     private Object removeUser(Request request, Response response) {
