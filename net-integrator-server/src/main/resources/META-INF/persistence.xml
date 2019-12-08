@@ -15,4 +15,10 @@
         <shared-cache-mode>NONE</shared-cache-mode>
     </persistence-unit>
 
+    <persistence-unit name="USER_PERSISTANCE">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>pl.inzynier.netintegrator.user.core.User</class>
+        <shared-cache-mode>NONE</shared-cache-mode>
+    </persistence-unit>
+
 </persistence>
