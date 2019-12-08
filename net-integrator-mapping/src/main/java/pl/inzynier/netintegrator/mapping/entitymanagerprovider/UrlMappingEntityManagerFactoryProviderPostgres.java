@@ -1,4 +1,4 @@
-package pl.inzynier.netintegrator.mapping;
+package pl.inzynier.netintegrator.mapping.entitymanagerprovider;
 
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;

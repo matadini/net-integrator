@@ -23,6 +23,11 @@
             <artifactId>net-integrator-script</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>pl.inzynier</groupId>
+            <artifactId>net-integrator-user</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder;
 import pl.inzynier.netintegrator.db.util.DatabaseConfiguration;
 import pl.inzynier.netintegrator.db.util.EntityManagerFactoryProvider;
 import pl.inzynier.netintegrator.http.spark.SparkController;
-import pl.inzynier.netintegrator.mapping.UrlMappingEntityManagerFactoryProviders;
+import pl.inzynier.netintegrator.mapping.entitymanagerprovider.UrlMappingEntityManagerFactoryProviders;
 import pl.inzynier.netintegrator.mapping.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.UrlMappingServiceFactory;
 import pl.inzynier.netintegrator.mapping.dto.*;
@@ -19,6 +19,7 @@ import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManagerFactory;
 import pl.inzynier.netintegrator.server.server.core.*;
 import pl.inzynier.netintegrator.server.server.controller.urlmapping.UrlMappingController;
+import pl.inzynier.netintegrator.user.UserService;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -78,7 +79,8 @@ public class Main {
         UrlMappingService urlMappingService = UrlMappingServiceFactory.create(urlMappingProvider);
 
         // Dane dla dema
-        DemoInitializer demoInitializer = new DemoInitializer(scriptService, urlMappingService);
+        UserService userService = null;
+        DemoInitializer demoInitializer = new DemoInitializer(scriptService, urlMappingService, userService);
         demoInitializer.demoInit();
 
         // Uruchomienie serwera http i aplikacji wlasciwej

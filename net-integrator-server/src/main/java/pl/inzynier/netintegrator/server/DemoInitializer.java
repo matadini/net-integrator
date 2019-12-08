@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.server;
 
+import com.google.common.hash.HashCode;
 import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
@@ -11,12 +12,19 @@ import pl.inzynier.netintegrator.script.ExampleGroovyScript;
 import pl.inzynier.netintegrator.script.ScriptService;
 import pl.inzynier.netintegrator.script.dto.ScriptType;
 import pl.inzynier.netintegrator.script.dto.ScriptWriteDto;
+import pl.inzynier.netintegrator.server.util.PasswordUtil;
+import pl.inzynier.netintegrator.user.UserService;
+import pl.inzynier.netintegrator.user.dto.UserWriteDTO;
 
+/**
+ * Wstawia do bazy przykladowe dane
+ */
 @RequiredArgsConstructor
 class DemoInitializer {
 
     private final ScriptService scriptService;
     private final UrlMappingService urlMappingService;
+    private final UserService userService;
 
     public void demoInit() {
         try {
@@ -44,14 +52,6 @@ class DemoInitializer {
             UrlMappingWriteDto mapping2 = new UrlMappingWriteDto(publishEndpoint2, targetEndpoint2);
             Long save2 = urlMappingService.create(mapping2);
 
-// internetowe mappowanie
-//            PublishEndpointDto publishEndpoint3 = new PublishEndpointDto("/internet", RequestMethod.GET);
-//            TargetEndpointDto targetEndpoint3 = new TargetEndpointDto("/posts/1", RequestMethod.GET,
-//                    "http://jsonplaceholder.typicode.com");
-//
-//            UrlMappingWriteDto mapping3 = new UrlMappingWriteDto(publishEndpoint3, targetEndpoint3);
-//            Long save3 = urlMappingService.create(mapping3);
-
             // skrypty do mapowan
             ScriptWriteDto script1 = new ScriptWriteDto();
             script1.setUrlMappingId(save1);
@@ -66,8 +66,14 @@ class DemoInitializer {
             scriptService.addScript(script1);
             scriptService.addScript(script2);
 
+
+//            String admin1 = "admin";
+//            HashCode admin = PasswordUtil.getSha256FromString(admin1);
+//            userService.addUser(new UserWriteDTO("admin", admin.toString()));
+
         } catch (Exception e) {
             Logger.info(e);
         }
     }
+
 }

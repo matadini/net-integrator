@@ -3,11 +3,12 @@ package pl.inzynier.netintegrator.user;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-class UserRepositoryImpl implements UserRepository{
+class UserRepositoryImpl implements UserRepository {
 
     private final EntityManager entityManager;
 
@@ -28,7 +29,8 @@ class UserRepositoryImpl implements UserRepository{
 
     @Override
     public List<User> findAll() {
-        return null;
+        String sql = "select u from User u order by u.userId";
+        return entityManager.createQuery(sql, User.class).getResultList();
     }
 
     @Override
@@ -38,6 +40,20 @@ class UserRepositoryImpl implements UserRepository{
 
     @Override
     public Long count() {
+        return null;
+    }
+
+    @Override
+    public User findByLoginAndPasswordMD5(String login, String passwordMD5) {
+        try {
+            String sql = "select u from User u where u.login = :login and u.passwordMD5 = :passwordMD5";
+            TypedQuery<User> query = entityManager.createQuery(sql, User.class);
+            query.setParameter("login", login);
+            query.setParameter("passwordMD5", passwordMD5);
+            return query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

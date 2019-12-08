@@ -1,6 +1,7 @@
 package pl.inzynier.netintegrator.user.dto;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 
 @Getter
