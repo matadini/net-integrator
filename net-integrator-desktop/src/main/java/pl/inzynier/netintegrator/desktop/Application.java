@@ -70,7 +70,6 @@ public class Application extends javafx.application.Application {
         } else {
 
             URL resource = LoginPane.class.getResource("LoginPane.fxml");
-            //  UserClient userClient = UserClient.create("http://localhost:8080");
             LoginPane controller = new LoginPane(eventBus, userClient);
             controller = JavaFxUtil.loadFxml(controller, resource);
 
@@ -102,9 +101,7 @@ public class Application extends javafx.application.Application {
 
             Optional.ofNullable(loginStage).ifPresent(Stage::close);
 
-
             // clients
-
             URL resource = MainPane.class.getResource("MainPane.fxml");
             MainPane controller = new MainPane(eventBus, executorService, managmentClient, scriptClient);
             controller = JavaFxUtil.loadFxml(controller, resource);

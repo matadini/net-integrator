@@ -17,8 +17,7 @@ class ScriptServiceImpl implements ScriptService {
     private final ModelMapper modelMapper;
     private final ScriptRepository scriptRepository;
 
-
-    public ScriptServiceImpl(ScriptRepository scriptRepository, ModelMapper modelMapper, GroovyShell groovyShell) {
+    ScriptServiceImpl(ScriptRepository scriptRepository, ModelMapper modelMapper, GroovyShell groovyShell) {
         this.scriptRepository = scriptRepository;
         this.modelMapper = modelMapper;
         this.groovyShell = groovyShell;
@@ -40,14 +39,6 @@ class ScriptServiceImpl implements ScriptService {
     @Override
     public List<ScriptReadDto> findByUrlMappingId(Long urlMappingId) throws ScriptServiceException {
         return scriptRepository.findByUrlMappingId(urlMappingId)
-                .stream()
-                .map(x -> modelMapper.map(x, ScriptReadDto.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ScriptReadDto> findAll() throws ScriptServiceException {
-        return scriptRepository.findAll()
                 .stream()
                 .map(x -> modelMapper.map(x, ScriptReadDto.class))
                 .collect(Collectors.toList());

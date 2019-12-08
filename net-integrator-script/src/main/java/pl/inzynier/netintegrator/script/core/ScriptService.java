@@ -13,8 +13,6 @@ public interface ScriptService {
 
     List<ScriptReadDto> findByUrlMappingId(Long urlMappingId) throws ScriptServiceException;
 
-    List<ScriptReadDto> findAll() throws ScriptServiceException;
-
     String executeScripts(Long urlMappingId, String httpRequestContent)  throws ScriptServiceException;
 }
 
