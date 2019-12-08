@@ -57,7 +57,7 @@ class ScriptPaneAdd extends BorderPane {
 
     private ScriptPaneModel createModel() {
         ScriptPaneModel model = new ScriptPaneModel();
-        //  Bindings.bindBidirectional(labelScriptId.textProperty(), model.scriptId, new NumberStringConverter());
+        Bindings.bindBidirectional(labelUrlMapping.textProperty(), model.urlMappingId, new NumberStringConverter());
         Bindings.bindBidirectional(textFieldScriptContent.textProperty(), model.content);
         Bindings.bindBidirectional(comboboxScriptType.valueProperty(), model.type);
         return model;
@@ -68,8 +68,7 @@ class ScriptPaneAdd extends BorderPane {
 
         if (ApplicationEventSignal.SELECTED_URL_MAPPING_CHANGED.equals(event.getType())) {
             SelectedUrlMappingChanged item = (SelectedUrlMappingChanged) event;
-
-            System.out.println("AddScriptPane: " + item.getUrlMapping());
+            model.urlMappingId.set(item.getUrlMapping().getUrlMappingId());
             //  item.get
             // download(item.getUrlMappingId());
         }
