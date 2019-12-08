@@ -8,6 +8,7 @@ import pl.inzynier.netintegrator.mapping.core.UrlMappingService;
 import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingServiceException;
 import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingWriteDto;
+import pl.inzynier.netintegrator.server.server.controller.BaseController;
 import pl.inzynier.netintegrator.server.server.core.NetIntegratorContext;
 import pl.inzynier.netintegrator.server.server.core.NetIntegratorServer;
 import spark.Request;
@@ -16,11 +17,15 @@ import spark.Service;
 
 import java.util.List;
 
-@RequiredArgsConstructor
-public class UrlMappingController implements SparkController {
 
-    private final Gson gson;
+public class UrlMappingController extends BaseController {
+
     private final UrlMappingService urlMappingService;
+
+    public UrlMappingController(Gson gson, UrlMappingService urlMappingService) {
+        super(gson);
+        this.urlMappingService = urlMappingService;
+    }
 
     @Override
     public void initialize(Service service) {
