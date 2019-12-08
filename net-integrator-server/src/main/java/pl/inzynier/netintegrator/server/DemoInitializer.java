@@ -32,7 +32,6 @@ class DemoInitializer {
             // 0 - czyste mapowanie
             PublishEndpointDto publishEndpoint0 = new PublishEndpointDto("/api-get", RequestMethod.GET);
             TargetEndpointDto targetEndpoint0 = new TargetEndpointDto("/fake-get", RequestMethod.GET, "http://localhost:9090");
-
             UrlMappingWriteDto mapping0 = new UrlMappingWriteDto(publishEndpoint0, targetEndpoint0);
             Long save0 = urlMappingService.create(mapping0);
 
@@ -40,7 +39,6 @@ class DemoInitializer {
             // 1 - mapowanie ze skryptem json to xml
             PublishEndpointDto publishEndpoint1 = new PublishEndpointDto("/api-post-xml", RequestMethod.POST);
             TargetEndpointDto targetEndpoint1 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
-
             UrlMappingWriteDto mapping1 = new UrlMappingWriteDto(publishEndpoint1, targetEndpoint1);
             Long save1 = urlMappingService.create(mapping1);
 
@@ -48,7 +46,6 @@ class DemoInitializer {
             // 2 - mapowanie ze skryptem
             PublishEndpointDto publishEndpoint2 = new PublishEndpointDto("/api-post", RequestMethod.POST);
             TargetEndpointDto targetEndpoint2 = new TargetEndpointDto("/fake-post", RequestMethod.POST, "http://localhost:9090");
-
             UrlMappingWriteDto mapping2 = new UrlMappingWriteDto(publishEndpoint2, targetEndpoint2);
             Long save2 = urlMappingService.create(mapping2);
 
@@ -65,6 +62,19 @@ class DemoInitializer {
 
             scriptService.addScript(script1);
             scriptService.addScript(script2);
+
+            // mapowanie - internet 1
+            PublishEndpointDto publishEndpoint3 = new PublishEndpointDto("/nowy-mapping", RequestMethod.GET);
+            TargetEndpointDto targetEndpoint3 = new TargetEndpointDto("/posts/1", RequestMethod.GET, "http://jsonplaceholder.typicode.com");
+            UrlMappingWriteDto mapping3 = new UrlMappingWriteDto(publishEndpoint3, targetEndpoint3);
+            Long save3 = urlMappingService.create(mapping3);
+
+
+            // mapowanie - internet 2
+            PublishEndpointDto publishEndpoint4 = new PublishEndpointDto("/nowy-mapping-xml", RequestMethod.GET);
+            TargetEndpointDto targetEndpoint4 = new TargetEndpointDto("/posts/1", RequestMethod.GET, "http://jsonplaceholder.typicode.com");
+            UrlMappingWriteDto mapping4 = new UrlMappingWriteDto(publishEndpoint4, targetEndpoint4);
+            Long save4 = urlMappingService.create(mapping4);
 
             userService.addUser(new UserWriteDTO("admin", "admin"));
 
