@@ -11,7 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
-import pl.inzynier.netintegrator.client.login.LoginClient;
+import pl.inzynier.netintegrator.client.user.UserClient;
+import pl.inzynier.netintegrator.client.user.dto.UserWriteDTO;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 
@@ -34,7 +35,7 @@ public class LoginPane extends BorderPane {
 
     private final EventBus eventBus;
 
-    private final LoginClient loginClient;
+    private final UserClient userClient;
 
     private final LoginPaneModel model = new LoginPaneModel();
 
@@ -49,7 +50,10 @@ public class LoginPane extends BorderPane {
 
     private void onClickButtonLogin(ActionEvent event) {
 
-        boolean authorization = loginClient.authorization(model.getLogin().get(), model.getPassword().get());
+        String login = model.getLogin().get();
+        String password = model.getPassword().get();
+        UserWriteDTO writeDTO = new UserWriteDTO(login, password);
+        boolean authorization = userClient.authorization(writeDTO);
         if(authorization) {
 
             SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.LOGIN_SUCCESS);

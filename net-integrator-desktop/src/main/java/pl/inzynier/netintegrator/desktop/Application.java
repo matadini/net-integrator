@@ -8,7 +8,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import pl.inzynier.netintegrator.client.login.LoginClient;
+import pl.inzynier.netintegrator.client.user.UserClient;
 import pl.inzynier.netintegrator.desktop.gui.login.LoginPane;
 import pl.inzynier.netintegrator.desktop.gui.main.MainPane;
 import pl.inzynier.netintegrator.desktop.shared.CommonStrings;
@@ -35,7 +35,7 @@ public class Application extends javafx.application.Application {
     public static void main(String[] args) {
 
         List<String> arrayList = new ArrayList<String>(Arrays.asList(args));
-        if (arrayList.contains("login-off")) {
+        if (arrayList.contains("user-off")) {
             loginOff = true;
         }
         launch(args);
@@ -54,8 +54,8 @@ public class Application extends javafx.application.Application {
         } else {
 
             URL resource = LoginPane.class.getResource("LoginPane.fxml");
-            LoginClient loginClient = LoginClient.create("test");
-            LoginPane controller = new LoginPane(eventBus, loginClient);
+            UserClient userClient = UserClient.create("test");
+            LoginPane controller = new LoginPane(eventBus, userClient);
             controller = JavaFxUtil.loadFxml(controller, resource);
 
             loginStage = new Stage();
