@@ -1,6 +1,6 @@
 package pl.inzynier.netintegrator.server.httpmethod.mapping;
 
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
+import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

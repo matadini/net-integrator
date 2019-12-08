@@ -2,8 +2,8 @@ package pl.inzynier.netintegrator.server.server.core;
 
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
-import pl.inzynier.netintegrator.mapping.UrlMappingService;
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
+import pl.inzynier.netintegrator.mapping.core.UrlMappingService;
+import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeyGenerator;
 import pl.inzynier.netintegrator.server.httpmethod.mapping.TargetMethodManager;
 import spark.Request;

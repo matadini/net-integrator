@@ -1,6 +1,6 @@
 package pl.inzynier.netintegrator.server.httpmethod.generator;
 
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
+import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
 
 
 public interface HttpMethodMapKeyGenerator {

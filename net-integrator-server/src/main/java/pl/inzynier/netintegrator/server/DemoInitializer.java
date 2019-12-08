@@ -1,20 +1,17 @@
 package pl.inzynier.netintegrator.server;
 
-import com.google.common.hash.HashCode;
 import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
-import pl.inzynier.netintegrator.mapping.UrlMappingService;
-import pl.inzynier.netintegrator.mapping.dto.PublishEndpointDto;
-import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingWriteDto;
+import pl.inzynier.netintegrator.mapping.core.UrlMappingService;
+import pl.inzynier.netintegrator.mapping.core.dto.PublishEndpointDto;
+import pl.inzynier.netintegrator.mapping.core.dto.TargetEndpointDto;
+import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingWriteDto;
 import pl.inzynier.netintegrator.script.ExampleGroovyScript;
-import pl.inzynier.netintegrator.script.ScriptService;
-import pl.inzynier.netintegrator.script.dto.ScriptType;
-import pl.inzynier.netintegrator.script.dto.ScriptWriteDto;
-import pl.inzynier.netintegrator.server.util.PasswordUtil;
-import pl.inzynier.netintegrator.user.UserService;
-import pl.inzynier.netintegrator.user.dto.UserWriteDTO;
+import pl.inzynier.netintegrator.script.core.ScriptService;
+import pl.inzynier.netintegrator.script.core.dto.ScriptType;
+import pl.inzynier.netintegrator.script.core.dto.ScriptWriteDto;
+import pl.inzynier.netintegrator.user.core.UserService;
 
 /**
  * Wstawia do bazy przykladowe dane

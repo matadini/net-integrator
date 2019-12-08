@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import pl.inzynier.netintegrator.script.ScriptService;
+import pl.inzynier.netintegrator.script.core.ScriptService;
 import pl.inzynier.netintegrator.server.httpmethod.generator.HttpMethodMapKeys;
 import java.util.Map;
 

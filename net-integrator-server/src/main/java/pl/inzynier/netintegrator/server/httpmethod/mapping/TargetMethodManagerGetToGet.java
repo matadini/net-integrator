@@ -6,8 +6,8 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
-import pl.inzynier.netintegrator.mapping.dto.TargetEndpointDto;
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
+import pl.inzynier.netintegrator.mapping.core.dto.TargetEndpointDto;
+import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.server.server.core.NetIntegratorAppResponse;
 
 import javax.servlet.http.HttpServletRequest;

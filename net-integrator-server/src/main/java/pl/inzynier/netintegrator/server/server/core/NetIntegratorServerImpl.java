@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.http.spark.SparkController;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
-import pl.inzynier.netintegrator.mapping.UrlMappingService;
-import pl.inzynier.netintegrator.mapping.dto.PublishEndpointDto;
-import pl.inzynier.netintegrator.mapping.dto.UrlMappingReadDto;
+import pl.inzynier.netintegrator.mapping.core.UrlMappingService;
+import pl.inzynier.netintegrator.mapping.core.dto.PublishEndpointDto;
+import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
 import spark.Service;
 
 import java.util.List;
