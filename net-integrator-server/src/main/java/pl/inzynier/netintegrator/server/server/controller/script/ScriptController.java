@@ -15,6 +15,7 @@ import java.util.List;
 
 public class ScriptController extends BaseController {
 
+    // dostarczony interfejs przez bibilioteke
     private final ScriptService scriptService;
 
     public ScriptController(Gson gson, ScriptService scriptService) {

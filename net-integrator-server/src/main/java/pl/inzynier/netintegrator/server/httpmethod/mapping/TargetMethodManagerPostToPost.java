@@ -9,6 +9,7 @@ import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
 import pl.inzynier.netintegrator.mapping.core.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.script.core.ScriptService;
+import pl.inzynier.netintegrator.script.core.dto.ScriptType;
 import pl.inzynier.netintegrator.server.server.core.NetIntegratorAppResponse;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,7 +37,7 @@ class TargetMethodManagerPostToPost implements TargetMethodManager {
             // wykonaj skrypty na danych z body
             Long urlMappingId = urlMapping.getUrlMappingId();
             String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-            body = scriptService.executeScripts(urlMappingId, body);
+            body = scriptService.executeScripts(urlMappingId, body, ScriptType.PRE_CALL);
 
             // wykonaj zapytanie do serwera targetowego
             TargetEndpointDto target = urlMapping.getTarget();

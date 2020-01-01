@@ -9,6 +9,7 @@ import pl.inzynier.netintegrator.http.util.HttpServletRequestUtil;
 import pl.inzynier.netintegrator.mapping.core.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.mapping.core.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.script.core.ScriptService;
+import pl.inzynier.netintegrator.script.core.dto.ScriptType;
 import pl.inzynier.netintegrator.server.server.core.NetIntegratorAppResponse;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,37 +33,33 @@ class TargetMethodManagerGetToGet implements TargetMethodManager {
         int scInternalServerError = HttpServletResponse.SC_OK;
 
         try {
-
-            // uzyskaj adres targetu
+            // uzyskaj adres docelowy
             TargetEndpointDto target = urlMapping.getTarget();
             String fullUrl = target.getFullUrl();
             GetRequest getRequest = Unirest.get(fullUrl);
 
-            // 1. przepisz query param URL
+            // 1. przepisz query param URL do nowego zapytania
             for (Map.Entry<String, String[]> item : request.getParameterMap().entrySet()) {
                 getRequest = getRequest.queryString(item.getKey(), item.getValue()[0]);
             }
 
-            // 2. przepisz dane z naglowka
+            // 2. przepisz dane z naglowka do nowego zapytania
             for (Map.Entry<String, String> item : HttpServletRequestUtil.getHeaderAsMap(request).entrySet()) {
-
                 String key = item.getKey();
                 String value = item.getValue();
-
-                if("Host".equals(key)) {
+                // podmien wartosc naglowkowa HOST
+                if("Host".equals(key))
                     value = target.getHostAddress().replace("http://", "");
-                }
                 getRequest = getRequest.header(key, value);
             }
 
-
+            // wykonaj zapytanie na adres docelowy
             HttpResponse<String> stringHttpResponse = getRequest.asString();
             message = stringHttpResponse.getBody();
 
             // wykonaj skrypty POST_CALL
             Long urlMappingId = urlMapping.getUrlMappingId();
-            message = scriptService.executeScripts(urlMappingId, message);
-
+            message = scriptService.executeScripts(urlMappingId, message, ScriptType.POST_CALL);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -52,10 +52,12 @@ class ScriptServiceImpl implements ScriptService {
     }
 
     @Override
-    public String executeScripts(Long urlMappingId, String httpRequestContent) throws ScriptServiceException {
+    public String executeScripts(Long urlMappingId, String httpRequestContent, ScriptType scriptType) throws ScriptServiceException {
 
-        String body = "";
-        List<ScriptReadDto> byUrlMappingId = this.findByUrlMappingId(urlMappingId);
+        String body = httpRequestContent;
+        List<ScriptReadDto> byUrlMappingId = this.findByUrlMappingId(urlMappingId).stream()
+                .filter(x -> x.getScriptType().equals(scriptType))
+                .collect(Collectors.toList());
         for (ScriptReadDto script : byUrlMappingId) {
             String content = script.getContent();
             Object skrypt = groovyShell.run(content, "skrypt", new String[]{httpRequestContent});
