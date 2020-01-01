@@ -24,18 +24,18 @@ public class NetIntegratorServerImpl implements NetIntegratorServer {
     public void run() {
 
         try {
-            // odpal sparka
+            // uruchom serwer http
             service = Service.ignite().port(config.port);
 
-            // pobierz mappingi z DB i zrob publish
+            // pobierz konfiguracje przekierowan z bazy danych
             List<UrlMappingReadDto> mappingList = urlMappingService.findAll();
+
+            // wystaw adresy do nasluchu
             for (UrlMappingReadDto mapping : mappingList) {
                 addRouting(mapping);
             }
 
-            service.get("/test", (req, resp) -> "Hello test from net-integrator-server!");
-
-            // wystaw kontrolery administracyjne
+            // wystaw adresy metod administracyjnych
             for (SparkController controller : adminControllers) {
                 controller.initialize(service);
             }

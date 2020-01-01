@@ -26,17 +26,18 @@ public class NetIntegratorServerCoreRoute implements Route {
     @Override
     public Object handle(Request request, Response resp) throws Exception {
 
-        // Odczytaj danie zadania wejsciowego
+        // Okresl metode HTTP dla adresu do nasluchu
         RequestMethod requestMethod = RequestMethod.valueOf(request.requestMethod());
         String requestURI = request.uri();
 
-        // znajdz mapowanie w bazie
-        Optional<UrlMappingReadDto> byPublishUrlAndPublishMethod = urlMappingService.findByPublishUrlAndPublishMethod(requestURI, requestMethod);
+        // znajdz konfiguracje mapowania w bazie danych
+        Optional<UrlMappingReadDto> byPublishUrlAndPublishMethod =
+                urlMappingService.findByPublishUrlAndPublishMethod(requestURI, requestMethod);
         if (!byPublishUrlAndPublishMethod.isPresent()) {
-            return "Lipa jak sto pindzisiont";
+            return "Nie znaleziono konfiguracji";
         }
 
-        // okres rodzaj mapowania
+        // okresl strategie postepowania dla konfiguracji z bazy
         UrlMappingReadDto urlMapping = byPublishUrlAndPublishMethod.get();
         String strategyKey = httpMethodMapKeyGenerator.genreate(urlMapping);
 
