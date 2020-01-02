@@ -8,7 +8,8 @@ public interface ConfigurationRepository {
 
     Configuration read();
 
-   static ConfigurationRepository create(Gson gson, String file) {
+    static ConfigurationRepository create(
+            Gson gson, String file) {
         return new ConfigurationRepositoryJsonImpl(gson, file);
     }
 }

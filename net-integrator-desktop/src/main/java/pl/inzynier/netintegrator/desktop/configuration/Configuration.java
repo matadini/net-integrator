@@ -12,7 +12,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Configuration {
-
     private String serverAddress;
 }
 

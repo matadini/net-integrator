@@ -66,10 +66,12 @@ public class Application extends javafx.application.Application {
             Configuration entity = new Configuration();
             entity.setServerAddress("http://localhost:8080");
 
-            ConfigurationRepository configurationRepository = ConfigurationRepository.create(gson, configFile);
+            ConfigurationRepository configurationRepository =
+                    ConfigurationRepository.create(gson, configFile);
             configurationRepository.createOrUpdate(entity);
         }
-        ConfigurationRepository configurationRepository = ConfigurationRepository.create(gson, configFile);
+        ConfigurationRepository configurationRepository =
+                ConfigurationRepository.create(gson, configFile);
         Configuration configuration = configurationRepository.read();
 
         String serverAddress = configuration.getServerAddress();
