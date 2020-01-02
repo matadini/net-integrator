@@ -10,6 +10,8 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,29 +21,34 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class NetIntegratorServerCoreRoute implements Route {
 
-    private final UrlMappingService urlMappingService;
-    private final HttpMethodMapKeyGenerator httpMethodMapKeyGenerator;
-    private final Map<String, TargetMethodManager> requestMethodManagerStrategyMap;
+    private final UrlMappingService mappingService;
+    private final HttpMethodMapKeyGenerator httpKeyGenerator;
+    private final Map<String, TargetMethodManager> strategyMap;
 
     @Override
     public Object handle(Request request, Response resp) throws Exception {
 
         // Okresl metode HTTP dla adresu do nasluchu
-        RequestMethod requestMethod = RequestMethod.valueOf(request.requestMethod());
+        String reqMethod = request.requestMethod();
+        RequestMethod method = RequestMethod.valueOf(reqMethod);
         String requestURI = request.uri();
 
         // znajdz konfiguracje mapowania w bazie danych
-        Optional<UrlMappingReadDto> byPublishUrlAndPublishMethod =
-                urlMappingService.findByPublishUrlAndPublishMethod(requestURI, requestMethod);
-        if (!byPublishUrlAndPublishMethod.isPresent()) {
+        Optional<UrlMappingReadDto> toPublish =
+                mappingService.findByPublishUrlAndPublishMethod(
+                        requestURI, method);
+
+        if (!toPublish.isPresent()) {
             return "Nie znaleziono konfiguracji";
         }
 
         // okresl strategie postepowania dla konfiguracji z bazy
-        UrlMappingReadDto urlMapping = byPublishUrlAndPublishMethod.get();
-        String strategyKey = httpMethodMapKeyGenerator.genreate(urlMapping);
+        UrlMappingReadDto urlMapping = toPublish.get();
+        String strategyKey = httpKeyGenerator.genreate(urlMapping);
 
-        TargetMethodManager targetMethodManager = requestMethodManagerStrategyMap.get(strategyKey);
-        return targetMethodManager.manage(urlMapping, request.raw(), resp.raw());
+        TargetMethodManager manager = strategyMap.get(strategyKey);
+        HttpServletRequest reqRaw = request.raw();
+        HttpServletResponse respRaw = resp.raw();
+        return manager.manage(urlMapping, reqRaw, respRaw);
     }
 }

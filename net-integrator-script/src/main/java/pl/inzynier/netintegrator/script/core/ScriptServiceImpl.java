@@ -57,13 +57,20 @@ class ScriptServiceImpl implements ScriptService {
             String httpRequestContent,
             ScriptType scriptType) throws ScriptServiceException {
 
+        // pobierz z bazy skrypty
         String body = httpRequestContent;
-        List<ScriptReadDto> byUrlMappingId = this.findByUrlMappingId(urlMappingId).stream()
+        List<ScriptReadDto> dtos = findByUrlMappingId(urlMappingId)
+                .stream()
                 .filter(x -> x.getScriptType().equals(scriptType))
                 .collect(Collectors.toList());
-        for (ScriptReadDto script : byUrlMappingId) {
+
+        // zmodyfikuj dane wejsciowe skryptami
+        for (ScriptReadDto script : dtos) {
             String content = script.getContent();
-            Object skrypt = groovyShell.run(content, "skrypt", new String[]{httpRequestContent});
+            Object skrypt = groovyShell.run(
+                    content,
+                    "skrypt",
+                    new String[]{httpRequestContent});
             body = skrypt.toString();
         }
         return body;

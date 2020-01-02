@@ -25,17 +25,24 @@ public class ScriptController extends BaseController {
 
     @Override
     public void initialize(Service service) {
-        service.post("/admin/script/create", this::create);
-        service.delete("/admin/script/delete/:id", this::delete);
-        service.get("/admin/script/find-by-urlmapping-id/:id", this::findByUrlMappingId);
+        service.post(
+                "/admin/script/create",
+                this::create);
+        service.delete(
+                "/admin/script/delete/:id",
+                this::delete);
+        service.get(
+                "/admin/script/find-by-urlmapping-id/:id",
+                this::findByUrlMappingId);
     }
 
     private Object create(Request request, Response response) {
         try {
 
             String body = request.body();
-            ScriptWriteDto urlMappingWriteDto = gson.fromJson(body, ScriptWriteDto.class);
-            return scriptService.create(urlMappingWriteDto);
+            Class<ScriptWriteDto> classArg = ScriptWriteDto.class;
+            ScriptWriteDto dto = gson.fromJson(body, classArg);
+            return scriptService.create(dto);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -54,8 +61,8 @@ public class ScriptController extends BaseController {
 
             String id = request.params("id");
             Long aLong = Long.valueOf(id);
-            List<ScriptReadDto> byUrlMappingId = scriptService.findByUrlMappingId(aLong);
-            return gson.toJson(byUrlMappingId);
+            List<ScriptReadDto> dtos = scriptService.findByUrlMappingId(aLong);
+            return gson.toJson(dtos);
 
         } catch (Exception ex) {
             ex.printStackTrace();
