@@ -1,11 +1,11 @@
-package pl.inzynier.netintegrator.desktop.gui.script;
+package pl.inzynier.netintegrator.desktop.shared;
 
 import javafx.util.StringConverter;
 import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 import java.util.Objects;
 
-class RequestMethodStringConverter extends StringConverter<RequestMethod> {
+public class RequestMethodStringConverter extends StringConverter<RequestMethod> {
     @Override
     public String toString(RequestMethod object) {
         return Objects.nonNull(object) ? object.toString() : null;

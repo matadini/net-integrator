@@ -17,7 +17,7 @@ import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 
 @RequiredArgsConstructor
-class UrlMappingPaneAdd extends BorderPane {
+class UrlMappingPaneAddController extends BorderPane {
 
 
     @FXML

@@ -19,6 +19,7 @@ import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
+import pl.inzynier.netintegrator.desktop.shared.RequestMethodStringConverter;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SelectedUrlMappingChanged;
@@ -29,7 +30,7 @@ import java.util.Objects;
 
 
 @RequiredArgsConstructor
-class ScriptPane extends BorderPane {
+class ScriptPaneController extends BorderPane {
 
     @FXML
     private Label labelId;

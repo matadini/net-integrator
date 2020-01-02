@@ -52,7 +52,10 @@ class ScriptServiceImpl implements ScriptService {
     }
 
     @Override
-    public String executeScripts(Long urlMappingId, String httpRequestContent, ScriptType scriptType) throws ScriptServiceException {
+    public String executeScripts(
+            Long urlMappingId,
+            String httpRequestContent,
+            ScriptType scriptType) throws ScriptServiceException {
 
         String body = httpRequestContent;
         List<ScriptReadDto> byUrlMappingId = this.findByUrlMappingId(urlMappingId).stream()

@@ -18,7 +18,7 @@ import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 
 
 @RequiredArgsConstructor
-public class LoginPane extends BorderPane {
+public class LoginPaneController extends BorderPane {
 
 
     @FXML

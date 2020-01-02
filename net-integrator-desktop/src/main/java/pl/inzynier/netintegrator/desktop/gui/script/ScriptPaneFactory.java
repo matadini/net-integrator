@@ -15,8 +15,8 @@ import java.net.URL;
 public class ScriptPaneFactory {
 
     public static BorderPane create(UrlMappingClient managmentClient, ScriptClient scriptClient, EventBus eventBus) throws IOException {
-        URL scriptFxmlUrl = ScriptPane.class.getResource("ScriptPane.fxml");
-        ScriptPane scriptController = new ScriptPane(managmentClient, scriptClient, eventBus);
+        URL scriptFxmlUrl = ScriptPaneController.class.getResource("ScriptPaneController.fxml");
+        ScriptPaneController scriptController = new ScriptPaneController(managmentClient, scriptClient, eventBus);
         return JavaFxUtil.loadFxml(scriptController, scriptFxmlUrl);
     }
 }

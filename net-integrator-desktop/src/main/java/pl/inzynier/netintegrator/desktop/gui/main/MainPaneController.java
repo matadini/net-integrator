@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 
 @RequiredArgsConstructor
-public class MainPane extends BorderPane {
+public class MainPaneController extends BorderPane {
 
     @FXML
     private MenuItem menuItemClose;

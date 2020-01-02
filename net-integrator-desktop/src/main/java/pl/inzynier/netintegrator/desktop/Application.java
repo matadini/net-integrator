@@ -15,8 +15,8 @@ import pl.inzynier.netintegrator.client.script.ScriptClient;
 import pl.inzynier.netintegrator.client.user.UserClient;
 import pl.inzynier.netintegrator.desktop.configuration.Configuration;
 import pl.inzynier.netintegrator.desktop.configuration.ConfigurationRepository;
-import pl.inzynier.netintegrator.desktop.gui.login.LoginPane;
-import pl.inzynier.netintegrator.desktop.gui.main.MainPane;
+import pl.inzynier.netintegrator.desktop.gui.login.LoginPaneController;
+import pl.inzynier.netintegrator.desktop.gui.main.MainPaneController;
 import pl.inzynier.netintegrator.desktop.shared.CommonStrings;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
@@ -91,8 +91,8 @@ public class Application extends javafx.application.Application {
             eventBus.post(signalOnly);
         } else {
 
-            URL resource = LoginPane.class.getResource("LoginPane.fxml");
-            LoginPane controller = new LoginPane(eventBus, userClient);
+            URL resource = LoginPaneController.class.getResource("LoginPaneController.fxml");
+            LoginPaneController controller = new LoginPaneController(eventBus, userClient);
             controller = JavaFxUtil.loadFxml(controller, resource);
 
             loginStage = new Stage();
@@ -124,8 +124,8 @@ public class Application extends javafx.application.Application {
             Optional.ofNullable(loginStage).ifPresent(Stage::close);
 
             // clients
-            URL resource = MainPane.class.getResource("MainPane.fxml");
-            MainPane controller = new MainPane(eventBus, executorService, managmentClient, scriptClient);
+            URL resource = MainPaneController.class.getResource("MainPaneController.fxml");
+            MainPaneController controller = new MainPaneController(eventBus, executorService, managmentClient, scriptClient);
             controller = JavaFxUtil.loadFxml(controller, resource);
 
             Stage stage = new Stage();

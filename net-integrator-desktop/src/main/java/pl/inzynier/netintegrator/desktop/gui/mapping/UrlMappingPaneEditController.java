@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-class UrlMappingPaneEdit extends BorderPane {
+class UrlMappingPaneEditController extends BorderPane {
 
 
     @FXML

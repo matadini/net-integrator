@@ -11,7 +11,7 @@ import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
 @RequiredArgsConstructor
-class UrlMappingPane extends BorderPane {
+class UrlMappingPaneController extends BorderPane {
 
     @FXML
     private TabPane tabPane;
@@ -19,8 +19,8 @@ class UrlMappingPane extends BorderPane {
     private final UrlMappingClient managmentClient;
     private final EventBus eventBus;
 
-    private UrlMappingPaneAdd paneAdd;
-    private UrlMappingPaneEdit paneEdit;
+    private UrlMappingPaneAddController paneAdd;
+    private UrlMappingPaneEditController paneEdit;
 
     private final UrlMappingPaneAddModelToUrlMappingWriteDto mapper;
 
@@ -31,16 +31,16 @@ class UrlMappingPane extends BorderPane {
         try {
 
             // dodawanie
-            paneAdd = new UrlMappingPaneAdd(managmentClient, eventBus, mapper);
-            paneAdd = JavaFxUtil.loadFxml(paneAdd, UrlMappingPaneAdd.class.getResource("UrlMappingPaneAdd.fxml"));
+            paneAdd = new UrlMappingPaneAddController(managmentClient, eventBus, mapper);
+            paneAdd = JavaFxUtil.loadFxml(paneAdd, UrlMappingPaneAddController.class.getResource("UrlMappingPaneAddController.fxml"));
 
 
             Tab tabAdd = JavaFxUtil.createNoClosableTab("       Add       ");
             tabAdd.setContent(paneAdd);
 
             // edycja i usuwanie
-            paneEdit = new UrlMappingPaneEdit(managmentClient, eventBus, mapper);
-            paneEdit = JavaFxUtil.loadFxml(paneEdit, UrlMappingPaneEdit.class.getResource("UrlMappingPaneEdit.fxml"));
+            paneEdit = new UrlMappingPaneEditController(managmentClient, eventBus, mapper);
+            paneEdit = JavaFxUtil.loadFxml(paneEdit, UrlMappingPaneEditController.class.getResource("UrlMappingPaneEditController.fxml"));
             eventBus.register(paneEdit);
 
             Tab tabEdit = JavaFxUtil.createNoClosableTab(" Edit and remove ");
