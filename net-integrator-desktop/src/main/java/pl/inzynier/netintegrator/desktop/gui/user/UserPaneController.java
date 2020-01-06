@@ -25,6 +25,7 @@ class UserPaneController extends BorderPane {
     private final EventBus eventBus;
 
     private UserPaneAddController userPaneAddController;
+    private UserPaneRemoveController userPaneRemoveController; //Controller;
 
     @FXML
     public void initialize() {
@@ -32,16 +33,26 @@ class UserPaneController extends BorderPane {
         try {
             // dodawanie
             userPaneAddController = new UserPaneAddController();
-            String path = "UserPaneAdd.fxml";
-            URL resource = UserPaneAddController.class.getResource(path);
-            userPaneAddController = JavaFxUtil.loadFxml(userPaneAddController, resource);
+            String pathAdd = "UserPaneAdd.fxml";
+            URL resourceAdd = UserPaneAddController.class.getResource(pathAdd);
+            userPaneAddController = JavaFxUtil.loadFxml(userPaneAddController, resourceAdd);
 
             Tab tabAdd = JavaFxUtil.createNoClosableTab("       Dodawanie       ");
             tabAdd.setContent(userPaneAddController);
 
+            // usuwanie
+            userPaneRemoveController = new UserPaneRemoveController();
+            String pathRemove = "UserPaneRemove.fxml";
+            URL resourceRemove = UserPaneRemoveController.class.getResource(pathRemove);
+            userPaneRemoveController = JavaFxUtil.loadFxml(userPaneRemoveController, resourceRemove);
+
+            Tab tabRemove = JavaFxUtil.createNoClosableTab("       Usuwanie       ");
+            tabRemove.setContent(userPaneRemoveController);
+
             // dodaj tabsy do widoku
             ObservableList<Tab> tabs = tabPane.getTabs();
             tabs.add(tabAdd);
+            tabs.add(tabRemove);
           //  tabs.add(tabEdit);
 
         } catch (Exception ex) {
