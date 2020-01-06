@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.client.user.UserClient;
+import pl.inzynier.netintegrator.client.user.dto.UserClientException;
 import pl.inzynier.netintegrator.client.user.dto.UserWriteDTO;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
@@ -50,19 +51,23 @@ public class LoginPaneController extends BorderPane {
 
     private void onClickButtonLogin(ActionEvent event) {
 
-        String login = model.getLogin().get();
-        String password = model.getPassword().get();
-        UserWriteDTO writeDTO = new UserWriteDTO(login, password);
-        boolean authorization = userClient.authorization(writeDTO);
-        if(authorization) {
+        try {
+            String login = model.getLogin().get();
+            String password = model.getPassword().get();
+            UserWriteDTO writeDTO = new UserWriteDTO(login, password);
+            boolean authorization = userClient.authorization(writeDTO);
+            if(authorization) {
 
-            SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.LOGIN_SUCCESS);
-            eventBus.post(signalOnly);
+                SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.LOGIN_SUCCESS);
+                eventBus.post(signalOnly);
 
-        } else {
-            Platform.runLater(this::showAlertNieprawidloweDaneLogowania);
+            } else {
+                Platform.runLater(this::showAlertNieprawidloweDaneLogowania);
+            }
+            Logger.info(model);
+        } catch (UserClientException e) {
+            e.printStackTrace();
         }
-        Logger.info(model);
 
     }
 

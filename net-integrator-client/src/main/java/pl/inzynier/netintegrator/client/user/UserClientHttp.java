@@ -4,7 +4,11 @@ import com.google.gson.Gson;
 import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import lombok.RequiredArgsConstructor;
+import pl.inzynier.netintegrator.client.user.dto.UserClientException;
+import pl.inzynier.netintegrator.client.user.dto.UserReadDTO;
 import pl.inzynier.netintegrator.client.user.dto.UserWriteDTO;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 class UserClientHttp implements UserClient {
@@ -20,5 +24,20 @@ class UserClientHttp implements UserClient {
         String s = httpResponse.getBody();
         System.out.println(s);
         return Boolean.valueOf(s);
+    }
+
+    @Override
+    public List<UserReadDTO> getAll() throws UserClientException {
+        return null;
+    }
+
+    @Override
+    public Long add(UserWriteDTO dto) throws UserClientException {
+        return null;
+    }
+
+    @Override
+    public void remove(Long id) throws UserClientException {
+
     }
 }

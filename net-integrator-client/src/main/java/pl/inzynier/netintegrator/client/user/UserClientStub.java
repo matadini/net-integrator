@@ -1,8 +1,10 @@
 package pl.inzynier.netintegrator.client.user;
 
-import com.google.gson.Gson;
-import lombok.RequiredArgsConstructor;
+import pl.inzynier.netintegrator.client.user.dto.UserClientException;
+import pl.inzynier.netintegrator.client.user.dto.UserReadDTO;
 import pl.inzynier.netintegrator.client.user.dto.UserWriteDTO;
+
+import java.util.List;
 
 class UserClientStub implements UserClient {
 
@@ -10,6 +12,21 @@ class UserClientStub implements UserClient {
     public boolean authorization(UserWriteDTO dto) {
 
         return "admin".equals(dto.getLogin()) && "admin".equals(dto.getPassword());
+    }
+
+    @Override
+    public List<UserReadDTO> getAll() throws UserClientException {
+        return null;
+    }
+
+    @Override
+    public Long add(UserWriteDTO dto) throws UserClientException {
+        return null;
+    }
+
+    @Override
+    public void remove(Long id) throws UserClientException {
+
     }
 }
 
