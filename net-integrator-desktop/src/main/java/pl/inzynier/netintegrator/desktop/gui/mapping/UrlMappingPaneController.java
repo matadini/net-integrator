@@ -8,6 +8,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
+import pl.inzynier.netintegrator.desktop.shared.CommonUtil;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
 import java.net.URL;
@@ -40,7 +41,8 @@ class UrlMappingPaneController extends BorderPane {
             controllerAdd = JavaFxUtil.loadFxml(controllerAdd, resource);
 
 
-            Tab tabAdd = JavaFxUtil.createNoClosableTab("       Add       ");
+            String add =  CommonUtil.standardFormat("Add");
+            Tab tabAdd = JavaFxUtil.createNoClosableTab(add);
             tabAdd.setContent(controllerAdd);
 
             // edycja i usuwanie
@@ -51,7 +53,8 @@ class UrlMappingPaneController extends BorderPane {
             controllerEdit = JavaFxUtil.loadFxml(controllerEdit, resource1);
             eventBus.register(controllerEdit);
 
-            Tab tabEdit = JavaFxUtil.createNoClosableTab(" Edit and remove ");
+            String editAndRemove = CommonUtil.standardFormat("Edit and remove");
+            Tab tabEdit = JavaFxUtil.createNoClosableTab(editAndRemove);
             tabEdit.setContent(controllerEdit);
 
             // dodaj tabsy do widoku

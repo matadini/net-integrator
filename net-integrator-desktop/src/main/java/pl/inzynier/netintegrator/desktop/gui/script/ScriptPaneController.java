@@ -18,6 +18,7 @@ import pl.inzynier.netintegrator.client.mapping.dto.PublishEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.TargetEndpointDto;
 import pl.inzynier.netintegrator.client.mapping.dto.UrlMappingReadDto;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
+import pl.inzynier.netintegrator.desktop.shared.CommonUtil;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 import pl.inzynier.netintegrator.desktop.shared.RequestMethodStringConverter;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEvent;
@@ -108,10 +109,10 @@ class ScriptPaneController extends BorderPane {
             e.printStackTrace();
         }
 
-        Tab add = JavaFxUtil.createNoClosableTab("      Add      ");
+        Tab add = JavaFxUtil.createNoClosableTab(CommonUtil.standardFormat("Add"));
         add.setContent(paneAdd);
 
-        Tab edit = JavaFxUtil.createNoClosableTab("Edit and remove");
+        Tab edit = JavaFxUtil.createNoClosableTab(CommonUtil.standardFormat("Edit and remove"));
         edit.setContent(paneEdit);
 
         ObservableList<Tab> tabs = tabPane.getTabs();

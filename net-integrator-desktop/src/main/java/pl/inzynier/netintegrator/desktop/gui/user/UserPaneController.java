@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.user.UserClient;
 
+import pl.inzynier.netintegrator.desktop.shared.CommonUtil;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
 import java.net.URL;
@@ -37,7 +38,7 @@ class UserPaneController extends BorderPane {
             URL resourceAdd = UserPaneAddController.class.getResource(pathAdd);
             userPaneAddController = JavaFxUtil.loadFxml(userPaneAddController, resourceAdd);
 
-            Tab tabAdd = JavaFxUtil.createNoClosableTab("       Dodawanie       ");
+            Tab tabAdd = JavaFxUtil.createNoClosableTab(CommonUtil.standardFormat("Add"));
             tabAdd.setContent(userPaneAddController);
 
             // usuwanie
@@ -46,7 +47,7 @@ class UserPaneController extends BorderPane {
             URL resourceRemove = UserPaneRemoveController.class.getResource(pathRemove);
             userPaneRemoveController = JavaFxUtil.loadFxml(userPaneRemoveController, resourceRemove);
 
-            Tab tabRemove = JavaFxUtil.createNoClosableTab("       Usuwanie       ");
+            Tab tabRemove = JavaFxUtil.createNoClosableTab(CommonUtil.standardFormat("Remove"));
             tabRemove.setContent(userPaneRemoveController);
 
             // dodaj tabsy do widoku

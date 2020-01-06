@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <fx:root prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
@@ -53,10 +54,13 @@
             </GridPane>
             <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                <children>
-                  <Button fx:id="buttonRemove" mnemonicParsing="false" prefWidth="75.0" text="Usuń" />
+                  <Button fx:id="buttonRemove" mnemonicParsing="false" prefWidth="75.0" text="Remove" />
                </children>
             </HBox>
-            <Label text="Użytkownicy:" />
+            <Label text="Available users:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
