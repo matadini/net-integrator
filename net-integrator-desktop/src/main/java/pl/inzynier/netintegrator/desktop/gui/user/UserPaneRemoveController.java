@@ -1,5 +1,6 @@
 package pl.inzynier.netintegrator.desktop.gui.user;
 
+import com.google.common.base.Strings;
 import com.google.common.eventbus.Subscribe;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.LongProperty;
@@ -19,6 +20,7 @@ import pl.inzynier.netintegrator.client.user.UserClient;
 import pl.inzynier.netintegrator.client.user.dto.UserClientException;
 import pl.inzynier.netintegrator.client.user.dto.UserReadDTO;
 import pl.inzynier.netintegrator.desktop.shared.ApplicationSession;
+import pl.inzynier.netintegrator.desktop.shared.CommonStrings;
 
 
 import java.util.List;
@@ -83,6 +85,7 @@ class UserPaneRemoveController extends BorderPane {
     private void onClickListView(ObservableValue<? extends UserReadDTO> observable, UserReadDTO oldValue, UserReadDTO newValue) {
         if (Objects.nonNull(newValue)) {
             fillModel(newValue);
+            labelInfo.setText(CommonStrings.EMPTY);
         }
     }
 
