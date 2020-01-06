@@ -10,8 +10,10 @@ import javafx.scene.layout.BorderPane;
 import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.client.script.ScriptClient;
+import pl.inzynier.netintegrator.client.user.UserClient;
 import pl.inzynier.netintegrator.desktop.gui.mapping.UrlMappingPaneFactory;
 import pl.inzynier.netintegrator.desktop.gui.script.ScriptPaneFactory;
+import pl.inzynier.netintegrator.desktop.gui.user.UserPaneFactory;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -35,6 +37,9 @@ public class MainPaneController extends BorderPane {
     private final UrlMappingClient managmentClient;
 
     private final ScriptClient scriptClient;
+
+    private final UserClient userClient;
+
     @FXML
     private void initialize() {
         try {
@@ -46,13 +51,16 @@ public class MainPaneController extends BorderPane {
 
             // script view
             BorderPane scriptController = ScriptPaneFactory.create(managmentClient, scriptClient, eventBus);
-
             eventBus.register(scriptController);
+
+            // user view
+            BorderPane userController = UserPaneFactory.create(userClient, eventBus);
 
             // fx pane
             ObservableList<Tab> tabs = tabPane.getTabs();
             tabs.add(new Tab("Mapowania", mappingController));
             tabs.add(new Tab("Skrypty", scriptController));
+            tabs.add(new Tab("Użytkownicy", userController));
 
         } catch (IOException e) {
             e.printStackTrace();

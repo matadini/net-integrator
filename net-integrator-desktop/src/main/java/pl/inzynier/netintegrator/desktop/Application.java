@@ -127,7 +127,12 @@ public class Application extends javafx.application.Application {
 
             // clients
             URL resource = MainPaneController.class.getResource("MainPane.fxml");
-            MainPaneController controller = new MainPaneController(eventBus, executorService, managmentClient, scriptClient);
+            MainPaneController controller = new MainPaneController(
+                    eventBus,
+                    executorService,
+                    managmentClient,
+                    scriptClient,
+                    userClient);
             controller = JavaFxUtil.loadFxml(controller, resource);
 
             Stage stage = new Stage();
