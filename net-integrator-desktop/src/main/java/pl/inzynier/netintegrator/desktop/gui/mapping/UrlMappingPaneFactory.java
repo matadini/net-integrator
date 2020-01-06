@@ -14,7 +14,7 @@ import java.net.URL;
 public class UrlMappingPaneFactory {
 
     public static BorderPane create(UrlMappingClient managmentClient, EventBus eventBus) throws IOException {
-        URL mappingFxmlUrl = UrlMappingPaneController.class.getResource("UrlMappingPaneController.fxml");
+        URL mappingFxmlUrl = UrlMappingPaneController.class.getResource("UrlMappingPane.fxml");
         UrlMappingPaneAddModelToUrlMappingWriteDto mapper = new UrlMappingPaneAddModelToUrlMappingWriteDto();
         UrlMappingPaneController mappingController = new UrlMappingPaneController(managmentClient, eventBus, mapper);
         mappingController = JavaFxUtil.loadFxml(mappingController, mappingFxmlUrl);

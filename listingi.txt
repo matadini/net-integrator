@@ -261,20 +261,13 @@ class UrlMappingPaneEditController extends BorderPane {
 // listing 12
 class UrlMappingPaneAddController extends BorderPane {
 
-    private final UrlMappingClient managmentClient;
-
-    private final EventBus eventBus;
-
+    private UrlMappingClient managmentClient;
+    private EventBus eventBus;
     private UrlMappingPaneAddModel model;
-
-    private final UrlMappingPaneAddModelToUrlMappingWriteDto mapper;
-
+    private UrlMappingPaneAddModelToUrlMappingWriteDto mapper;
     (...)
-
     private void onClickButtonAdd(ActionEvent event) {
-
         (...)
-
          // wyslij do serwera dane do zapisu
         UrlMappingWriteDto mappingDto = mapper.apply(model);
         managmentClient.create(mappingDto);
@@ -286,7 +279,6 @@ class UrlMappingPaneAddController extends BorderPane {
 
         // wyczysc formularz
         model = createNewModel();
-
         (...)
     }
 }

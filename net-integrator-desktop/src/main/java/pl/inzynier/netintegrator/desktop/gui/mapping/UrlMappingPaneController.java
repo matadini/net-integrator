@@ -35,7 +35,7 @@ class UrlMappingPaneController extends BorderPane {
             // dodawanie
             controllerAdd = new UrlMappingPaneAddController(
                     managmentClient, eventBus, mapper);
-            String path = "UrlMappingPaneAddController.fxml";
+            String path = "UrlMappingPaneAdd.fxml";
             URL resource = UrlMappingPaneAddController.class.getResource(path);
             controllerAdd = JavaFxUtil.loadFxml(controllerAdd, resource);
 
@@ -46,7 +46,7 @@ class UrlMappingPaneController extends BorderPane {
             // edycja i usuwanie
             controllerEdit = new UrlMappingPaneEditController(
                     managmentClient, eventBus, mapper);
-            String name = "UrlMappingPaneEditController.fxml";
+            String name = "UrlMappingPaneEdit.fxml";
             URL resource1 = UrlMappingPaneEditController.class.getResource(name);
             controllerEdit = JavaFxUtil.loadFxml(controllerEdit, resource1);
             eventBus.register(controllerEdit);

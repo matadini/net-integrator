@@ -93,7 +93,7 @@ public class Application extends javafx.application.Application {
             eventBus.post(signalOnly);
         } else {
 
-            URL resource = LoginPaneController.class.getResource("LoginPaneController.fxml");
+            URL resource = LoginPaneController.class.getResource("LoginPane.fxml");
             LoginPaneController controller = new LoginPaneController(eventBus, userClient);
             controller = JavaFxUtil.loadFxml(controller, resource);
 
@@ -126,7 +126,7 @@ public class Application extends javafx.application.Application {
             Optional.ofNullable(loginStage).ifPresent(Stage::close);
 
             // clients
-            URL resource = MainPaneController.class.getResource("MainPaneController.fxml");
+            URL resource = MainPaneController.class.getResource("MainPane.fxml");
             MainPaneController controller = new MainPaneController(eventBus, executorService, managmentClient, scriptClient);
             controller = JavaFxUtil.loadFxml(controller, resource);
 
