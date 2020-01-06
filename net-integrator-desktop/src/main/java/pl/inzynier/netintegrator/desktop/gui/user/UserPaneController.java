@@ -33,7 +33,7 @@ class UserPaneController extends BorderPane {
 
         try {
             // dodawanie
-            userPaneAddController = new UserPaneAddController();
+            userPaneAddController = new UserPaneAddController(eventBus, userClient);
             String pathAdd = "UserPaneAdd.fxml";
             URL resourceAdd = UserPaneAddController.class.getResource(pathAdd);
             userPaneAddController = JavaFxUtil.loadFxml(userPaneAddController, resourceAdd);
@@ -42,10 +42,11 @@ class UserPaneController extends BorderPane {
             tabAdd.setContent(userPaneAddController);
 
             // usuwanie
-            userPaneRemoveController = new UserPaneRemoveController();
+            userPaneRemoveController = new UserPaneRemoveController(userClient);
             String pathRemove = "UserPaneRemove.fxml";
             URL resourceRemove = UserPaneRemoveController.class.getResource(pathRemove);
             userPaneRemoveController = JavaFxUtil.loadFxml(userPaneRemoveController, resourceRemove);
+            eventBus.register(userPaneRemoveController);
 
             Tab tabRemove = JavaFxUtil.createNoClosableTab(CommonUtil.standardFormat("Remove"));
             tabRemove.setContent(userPaneRemoveController);
@@ -54,7 +55,7 @@ class UserPaneController extends BorderPane {
             ObservableList<Tab> tabs = tabPane.getTabs();
             tabs.add(tabAdd);
             tabs.add(tabRemove);
-          //  tabs.create(tabEdit);
+            //  tabs.create(tabEdit);
 
         } catch (Exception ex) {
             System.out.println(ex);
