@@ -14,6 +14,7 @@ import org.pmw.tinylog.Logger;
 import pl.inzynier.netintegrator.client.user.UserClient;
 import pl.inzynier.netintegrator.client.user.dto.UserClientException;
 import pl.inzynier.netintegrator.client.user.dto.UserWriteDTO;
+import pl.inzynier.netintegrator.desktop.shared.ApplicationSession;
 import pl.inzynier.netintegrator.desktop.shared.event.ApplicationEventSignal;
 import pl.inzynier.netintegrator.desktop.shared.event.SignalOnly;
 
@@ -58,6 +59,8 @@ public class LoginPaneController extends BorderPane {
             boolean authorization = userClient.authorization(writeDTO);
             if(authorization) {
 
+                ApplicationSession instance = ApplicationSession.getInstance();
+                instance.setLoggedUser(login);
                 SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.LOGIN_SUCCESS);
                 eventBus.post(signalOnly);
 

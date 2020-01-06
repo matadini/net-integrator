@@ -1,9 +1,8 @@
-package pl.inzynier.netintegrator.desktop.gui.mapping;
+package pl.inzynier.netintegrator.desktop.gui.user;
 
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 
-class UrlMappingPaneEditModel extends UrlMappingPaneAddModel {
-
+class UserPaneRemoveModel extends UserPaneAddModel {
     LongProperty id = new SimpleLongProperty();
 }

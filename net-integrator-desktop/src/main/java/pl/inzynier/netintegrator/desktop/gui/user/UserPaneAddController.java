@@ -48,7 +48,8 @@ class UserPaneAddController extends BorderPane {
     private void onClickButtonNew(ActionEvent actionEvent) {
         try {
             UserWriteDTO dto = new UserWriteDTO(model.login.get(), model.password.get());
-            userClient.create(dto);
+            Long aLong = userClient.create(dto);
+            System.out.println(aLong);
             model = createModel();
 
             eventBus.post(UserPaneEvent.ADDED_USER);
@@ -62,6 +63,7 @@ class UserPaneAddController extends BorderPane {
         UserPaneAddModel model = new UserPaneAddModel();
         Bindings.bindBidirectional(textFieldLogin.textProperty(), model.login);
         Bindings.bindBidirectional(passwordField.textProperty(), model.password);
+        Bindings.bindBidirectional(confirmPasswordField.textProperty(), model.confirmPassword);
         return model;
     }
 

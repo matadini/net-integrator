@@ -85,7 +85,7 @@ class UrlMappingPaneEditController extends BorderPane {
 
             try {
                 UrlMappingWriteDto apply = mapper.apply(model);
-                long urlMappingId = model.urlMappingId.get();
+                long urlMappingId = model.id.get();
                 mappingClient.update(apply, urlMappingId);
 
                 SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.URL_MAPPING_REMOVE);
@@ -163,7 +163,7 @@ class UrlMappingPaneEditController extends BorderPane {
         model.publishMethod.set(endpoint.getMethod());
         model.publishURL.set(endpoint.getMethodUrl());
 
-        model.urlMappingId.set(dto.getUrlMappingId());
+        model.id.set(dto.getUrlMappingId());
     }
 
     /**
@@ -181,7 +181,7 @@ class UrlMappingPaneEditController extends BorderPane {
         Bindings.bindBidirectional(textfieldPublishURL.textProperty(), newModel.publishURL);
         Bindings.bindBidirectional(textfieldPublishURL.textProperty(), newModel.publishURL);
 
-        Bindings.bindBidirectional(labelUrlMappingId.textProperty(), newModel.urlMappingId, new NumberStringConverter());
+        Bindings.bindBidirectional(labelUrlMappingId.textProperty(), newModel.id, new NumberStringConverter());
         return newModel;
     }
 
