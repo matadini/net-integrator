@@ -155,13 +155,13 @@ class UrlMappingPaneEditController extends BorderPane {
 
     private void fillModel(UrlMappingReadDto dto) {
         @NonNull TargetEndpointDto target = dto.getTarget();
-        model.targetEndpointURL.set(target.getMethodUrl());
-        model.targetEndpointMethod.set(target.getMethod());
-        model.targetEndpointServer.set(target.getHostAddress());
+        model.targetURL.set(target.getMethodUrl());
+        model.targetMethod.set(target.getMethod());
+        model.targetServer.set(target.getHostAddress());
 
         @NonNull PublishEndpointDto endpoint = dto.getEndpoint();
-        model.publishEndpointMethod.set(endpoint.getMethod());
-        model.publishEndpointURL.set(endpoint.getMethodUrl());
+        model.publishMethod.set(endpoint.getMethod());
+        model.publishURL.set(endpoint.getMethodUrl());
 
         model.urlMappingId.set(dto.getUrlMappingId());
     }
@@ -173,13 +173,13 @@ class UrlMappingPaneEditController extends BorderPane {
      */
     private UrlMappingPaneEditModel createNewModel() {
         UrlMappingPaneEditModel newModel = new UrlMappingPaneEditModel();
-        Bindings.bindBidirectional(comboboxTargetMethod.valueProperty(), newModel.targetEndpointMethod);
-        Bindings.bindBidirectional(textfieldTargetURL.textProperty(), newModel.targetEndpointURL);
-        Bindings.bindBidirectional(textfieldTargetServer.textProperty(), newModel.targetEndpointServer);
+        Bindings.bindBidirectional(comboboxTargetMethod.valueProperty(), newModel.targetMethod);
+        Bindings.bindBidirectional(textfieldTargetURL.textProperty(), newModel.targetURL);
+        Bindings.bindBidirectional(textfieldTargetServer.textProperty(), newModel.targetServer);
 
-        Bindings.bindBidirectional(comboboxPublishMethod.valueProperty(), newModel.publishEndpointMethod);
-        Bindings.bindBidirectional(textfieldPublishURL.textProperty(), newModel.publishEndpointURL);
-        Bindings.bindBidirectional(textfieldPublishURL.textProperty(), newModel.publishEndpointURL);
+        Bindings.bindBidirectional(comboboxPublishMethod.valueProperty(), newModel.publishMethod);
+        Bindings.bindBidirectional(textfieldPublishURL.textProperty(), newModel.publishURL);
+        Bindings.bindBidirectional(textfieldPublishURL.textProperty(), newModel.publishURL);
 
         Bindings.bindBidirectional(labelUrlMappingId.textProperty(), newModel.urlMappingId, new NumberStringConverter());
         return newModel;
@@ -187,7 +187,8 @@ class UrlMappingPaneEditController extends BorderPane {
 
     @Subscribe
     private void handle(ApplicationEvent event) {
-        if (ApplicationEventSignal.URL_MAPPING_CREATE.equals(event.getType())) {
+        if (ApplicationEventSignal.URL_MAPPING_CREATE.equals(
+                event.getType())) {
             downloadUrlMappingList();
         }
     }

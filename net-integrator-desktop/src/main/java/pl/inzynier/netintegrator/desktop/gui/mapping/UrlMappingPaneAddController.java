@@ -62,23 +62,40 @@ class UrlMappingPaneAddController extends BorderPane {
     }
 
     private UrlMappingPaneAddModel createNewModel() {
-        UrlMappingPaneAddModel newModel = new UrlMappingPaneAddModel();
-        comboboxTargetMethod.valueProperty().bindBidirectional(newModel.targetEndpointMethod);
-        textfieldTargetURL.textProperty().bindBidirectional(newModel.targetEndpointURL);
-        textfieldTargetServer.textProperty().bindBidirectional(newModel.targetEndpointServer);
+        UrlMappingPaneAddModel newModel =
+                new UrlMappingPaneAddModel();
 
-        comboboxPublishMethod.valueProperty().bindBidirectional(newModel.publishEndpointMethod);
-        textfieldPublishURL.textProperty().bindBidirectional(newModel.publishEndpointURL);
+        comboboxTargetMethod.valueProperty()
+                .bindBidirectional(newModel.targetMethod);
+
+        textfieldTargetURL.textProperty()
+                .bindBidirectional(newModel.targetURL);
+
+        textfieldTargetServer.textProperty()
+                .bindBidirectional(newModel.targetServer);
+
+        comboboxPublishMethod.valueProperty()
+                .bindBidirectional(newModel.publishMethod);
+
+        textfieldPublishURL.textProperty()
+                .bindBidirectional(newModel.publishURL);
+
         return newModel;
     }
 
     private void onClickButtonAdd(ActionEvent event) {
 
         try {
+            // wyslij do serwera dane do zapisu
             UrlMappingWriteDto mappingDto = mapper.apply(model);
             managmentClient.create(mappingDto);
-            SignalOnly signalOnly = SignalOnly.of(ApplicationEventSignal.URL_MAPPING_CREATE);
+
+            // wyslij sygnal na szyne
+            SignalOnly signalOnly = SignalOnly.of(
+                    ApplicationEventSignal.URL_MAPPING_CREATE);
             eventBus.post(signalOnly);
+
+            // wyczysc formularz
             model = createNewModel();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

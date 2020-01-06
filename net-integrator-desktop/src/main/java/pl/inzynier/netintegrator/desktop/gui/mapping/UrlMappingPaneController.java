@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import pl.inzynier.netintegrator.client.mapping.UrlMappingClient;
 import pl.inzynier.netintegrator.desktop.shared.JavaFxUtil;
 
+import java.net.URL;
+
 @RequiredArgsConstructor
 class UrlMappingPaneController extends BorderPane {
 
@@ -19,8 +21,8 @@ class UrlMappingPaneController extends BorderPane {
     private final UrlMappingClient managmentClient;
     private final EventBus eventBus;
 
-    private UrlMappingPaneAddController paneAdd;
-    private UrlMappingPaneEditController paneEdit;
+    private UrlMappingPaneAddController controllerAdd;
+    private UrlMappingPaneEditController controllerEdit;
 
     private final UrlMappingPaneAddModelToUrlMappingWriteDto mapper;
 
@@ -31,20 +33,26 @@ class UrlMappingPaneController extends BorderPane {
         try {
 
             // dodawanie
-            paneAdd = new UrlMappingPaneAddController(managmentClient, eventBus, mapper);
-            paneAdd = JavaFxUtil.loadFxml(paneAdd, UrlMappingPaneAddController.class.getResource("UrlMappingPaneAddController.fxml"));
+            controllerAdd = new UrlMappingPaneAddController(
+                    managmentClient, eventBus, mapper);
+            String path = "UrlMappingPaneAddController.fxml";
+            URL resource = UrlMappingPaneAddController.class.getResource(path);
+            controllerAdd = JavaFxUtil.loadFxml(controllerAdd, resource);
 
 
             Tab tabAdd = JavaFxUtil.createNoClosableTab("       Add       ");
-            tabAdd.setContent(paneAdd);
+            tabAdd.setContent(controllerAdd);
 
             // edycja i usuwanie
-            paneEdit = new UrlMappingPaneEditController(managmentClient, eventBus, mapper);
-            paneEdit = JavaFxUtil.loadFxml(paneEdit, UrlMappingPaneEditController.class.getResource("UrlMappingPaneEditController.fxml"));
-            eventBus.register(paneEdit);
+            controllerEdit = new UrlMappingPaneEditController(
+                    managmentClient, eventBus, mapper);
+            String name = "UrlMappingPaneEditController.fxml";
+            URL resource1 = UrlMappingPaneEditController.class.getResource(name);
+            controllerEdit = JavaFxUtil.loadFxml(controllerEdit, resource1);
+            eventBus.register(controllerEdit);
 
             Tab tabEdit = JavaFxUtil.createNoClosableTab(" Edit and remove ");
-            tabEdit.setContent(paneEdit);
+            tabEdit.setContent(controllerEdit);
 
             // dodaj tabsy do widoku
             ObservableList<Tab> tabs = tabPane.getTabs();

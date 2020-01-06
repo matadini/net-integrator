@@ -9,12 +9,18 @@ import pl.inzynier.netintegrator.http.util.RequestMethod;
 
 @ToString
 class UrlMappingPaneAddModel {
+    StringProperty targetURL =
+            new SimpleStringProperty();
 
-    StringProperty targetEndpointURL = new SimpleStringProperty();
-    StringProperty targetEndpointServer = new SimpleStringProperty();
-    ObjectProperty<RequestMethod> targetEndpointMethod = new SimpleObjectProperty<>();
+    StringProperty targetServer =
+            new SimpleStringProperty();
 
-    StringProperty publishEndpointURL = new SimpleStringProperty();
-    ObjectProperty<RequestMethod> publishEndpointMethod = new SimpleObjectProperty<>();
+    ObjectProperty<RequestMethod> targetMethod =
+            new SimpleObjectProperty<>();
 
+    StringProperty publishURL =
+            new SimpleStringProperty();
+
+    ObjectProperty<RequestMethod> publishMethod =
+            new SimpleObjectProperty<>();
 }

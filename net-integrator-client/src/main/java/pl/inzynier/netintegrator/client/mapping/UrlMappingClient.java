@@ -11,16 +11,22 @@ import java.util.List;
 
 public interface UrlMappingClient {
 
-    Long create(UrlMappingWriteDto dto) throws UrlMappingClientException;
+    Long create(UrlMappingWriteDto dto)
+            throws UrlMappingClientException;
 
-    void update(UrlMappingWriteDto dto, Long urlMappingId) throws UrlMappingClientException;
+    void update(UrlMappingWriteDto dto, Long urlMappingId)
+            throws UrlMappingClientException;
 
-    List<UrlMappingReadDto> findAll() throws UrlMappingClientException;
+    List<UrlMappingReadDto> findAll()
+            throws UrlMappingClientException;
 
-    void delete(Long urlMappingId) throws UrlMappingClientException;
+    void delete(Long urlMappingId)
+            throws UrlMappingClientException;
 
     static UrlMappingClient create(String address) {
-        final Gson gson = new GsonBuilder().serializeNulls().create();
+        final Gson gson = new GsonBuilder()
+                .serializeNulls()
+                .create();
         return new UrlMappingClientHttp(address, gson);
     }
 }
