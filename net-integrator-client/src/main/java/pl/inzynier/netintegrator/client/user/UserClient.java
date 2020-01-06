@@ -15,9 +15,9 @@ public interface UserClient {
 
     List<UserReadDTO> getAll() throws UserClientException;
 
-    Long add(UserWriteDTO dto) throws UserClientException;
+    Long create(UserWriteDTO dto) throws UserClientException;
 
-    void remove(Long id) throws UserClientException;
+    void delete(Long id) throws UserClientException;
 
     static UserClient create(String address) {
         final Gson gson = new GsonBuilder().serializeNulls().create();

@@ -20,12 +20,12 @@ class UserClientStub implements UserClient {
     }
 
     @Override
-    public Long add(UserWriteDTO dto) throws UserClientException {
+    public Long create(UserWriteDTO dto) throws UserClientException {
         return null;
     }
 
     @Override
-    public void remove(Long id) throws UserClientException {
+    public void delete(Long id) throws UserClientException {
 
     }
 }

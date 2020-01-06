@@ -1,10 +1,14 @@
 package pl.inzynier.netintegrator.user.core;
 
 import lombok.RequiredArgsConstructor;
+import pl.inzynier.netintegrator.user.core.dto.UserReadDTO;
 import pl.inzynier.netintegrator.user.core.dto.UserWriteDTO;
 import pl.inzynier.netintegrator.user.util.PasswordUtil;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 class UserServiceImpl implements UserService {
@@ -12,10 +16,10 @@ class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public Long addUser(UserWriteDTO dto) throws UserServiceException {
+    public Long create(UserWriteDTO dto) throws UserServiceException {
 
         String login = dto.getLogin();
-        if(Objects.nonNull(userRepository.findByLogin(login))) {
+        if (Objects.nonNull(userRepository.findByLogin(login))) {
             throw new UserServiceException("Użytkownik o podanym loginie już istnieje");
         }
 
@@ -35,7 +39,17 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeUser(Long userId) throws UserServiceException {
+    public void delete(Long userId) throws UserServiceException {
+        Optional<User> byId = userRepository.findById(userId);
+        if(byId.isPresent()) {
+            userRepository.delete(byId.get());
+        }
+    }
 
+    @Override
+    public List<UserReadDTO> findAll() throws UserServiceException {
+        return userRepository.findAll().stream()
+                .map(x -> new UserReadDTO(x.userId, x.login, x.password))
+                .collect(Collectors.toList());
     }
 }

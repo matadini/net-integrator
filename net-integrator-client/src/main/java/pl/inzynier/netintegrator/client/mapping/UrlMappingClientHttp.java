@@ -47,8 +47,6 @@ class UrlMappingClientHttp implements UrlMappingClient {
 
     @Override
     public void delete(Long urlMappingId) throws UrlMappingClientException {
-
-
         String target = address + "/admin/url-mapping/delete/" + urlMappingId;
         HttpResponse httpResponse = Unirest.delete(target).asEmpty();
         System.out.println(httpResponse.getStatus());

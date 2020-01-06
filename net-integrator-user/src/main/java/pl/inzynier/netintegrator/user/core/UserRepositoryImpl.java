@@ -21,12 +21,23 @@ class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findById(Long id) {
+        try {
+
+            String sql = "select u from User u where u.id = :id";
+            TypedQuery<User> query = entityManager.createQuery(sql, User.class);
+            query.setParameter("id", id);
+            return Optional.ofNullable(query.getSingleResult());
+        } catch (NoResultException ignored) {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return Optional.empty();
     }
 
     @Override
     public void delete(User entity) {
-
+        JpaRepositoryUtil.delete(entity, entityManager);
     }
 
     @Override
@@ -53,7 +64,7 @@ class UserRepositoryImpl implements UserRepository {
             query.setParameter("login", login);
             query.setParameter("passwordMD5", passwordMD5);
             return query.getSingleResult();
-        } catch (NoResultException e) {
+        } catch (NoResultException ignored) {
 
         } catch (Exception e) {
             e.printStackTrace();

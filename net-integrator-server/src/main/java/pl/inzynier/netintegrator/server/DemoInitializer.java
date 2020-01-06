@@ -80,7 +80,7 @@ class DemoInitializer {
             script3.setScriptType(ScriptType.POST_CALL);
             scriptService.create(script3);
 
-            userService.addUser(new UserWriteDTO("admin", "admin"));
+            userService.create(new UserWriteDTO("admin", "admin"));
 
         } catch (Exception e) {
             Logger.info(e);

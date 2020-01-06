@@ -33,7 +33,7 @@ public class ScriptController extends BaseController {
                 this::delete);
         service.get(
                 "/admin/script/find-by-urlmapping-id/:id",
-                this::findByUrlMappingId);
+                this::findByUrlMappingId, gson::toJson);
     }
 
     private Object create(Request request, Response response) {
@@ -61,8 +61,8 @@ public class ScriptController extends BaseController {
 
             String id = request.params("id");
             Long aLong = Long.valueOf(id);
-            List<ScriptReadDto> dtos = scriptService.findByUrlMappingId(aLong);
-            return gson.toJson(dtos);
+            return scriptService.findByUrlMappingId(aLong);
+          //  return gson.toJson(dtos);
 
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -54,7 +54,7 @@ class UserPaneController extends BorderPane {
             ObservableList<Tab> tabs = tabPane.getTabs();
             tabs.add(tabAdd);
             tabs.add(tabRemove);
-          //  tabs.add(tabEdit);
+          //  tabs.create(tabEdit);
 
         } catch (Exception ex) {
             System.out.println(ex);

@@ -112,7 +112,7 @@ class ScriptPaneController extends BorderPane {
         Tab add = JavaFxUtil.createNoClosableTab(CommonUtil.standardFormat("Add"));
         add.setContent(paneAdd);
 
-        Tab edit = JavaFxUtil.createNoClosableTab(CommonUtil.standardFormat("Edit and remove"));
+        Tab edit = JavaFxUtil.createNoClosableTab(CommonUtil.standardFormat("Edit and delete"));
         edit.setContent(paneEdit);
 
         ObservableList<Tab> tabs = tabPane.getTabs();
