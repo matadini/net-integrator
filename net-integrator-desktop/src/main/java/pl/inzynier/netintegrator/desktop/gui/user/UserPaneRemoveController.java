@@ -9,14 +9,7 @@ import pl.inzynier.netintegrator.client.user.UserClient;
 
 
 @RequiredArgsConstructor
-class UserPaneController extends BorderPane {
-
-    @FXML
-    private TabPane tabPane;
-
-    private final UserClient userClient;
-
-    private final EventBus eventBus;
+class UserPaneRemoveController extends BorderPane {
 
     @FXML
     public void initialize() {
