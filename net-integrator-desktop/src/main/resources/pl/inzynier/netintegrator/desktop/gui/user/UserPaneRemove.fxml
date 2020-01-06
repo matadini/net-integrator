@@ -16,7 +16,7 @@
    <center>
       <GridPane hgap="5.0" vgap="5.0" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" />
+          <ColumnConstraints hgrow="NEVER" />
           <ColumnConstraints hgrow="ALWAYS" />
         </columnConstraints>
         <rowConstraints>
@@ -38,6 +38,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
               </rowConstraints>
                <children>
@@ -47,6 +48,7 @@
                   <Label fx:id="labelId" text="..." GridPane.columnIndex="1" />
                   <Label fx:id="labelLogin" text="..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="labelPassword" text="..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="labelInfo" text="..." wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
