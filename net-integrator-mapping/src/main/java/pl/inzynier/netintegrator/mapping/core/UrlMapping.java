@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "url_mapping")
+@Table(name = "net_url_mapping")
 class UrlMapping {
 
     @Id

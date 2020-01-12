@@ -53,7 +53,7 @@ class UrlMappingPaneController extends BorderPane {
             controllerEdit = JavaFxUtil.loadFxml(controllerEdit, resource1);
             eventBus.register(controllerEdit);
 
-            String editAndRemove = CommonUtil.standardFormat("Edit and delete");
+            String editAndRemove = CommonUtil.standardFormat("Edit");
             Tab tabEdit = JavaFxUtil.createNoClosableTab(editAndRemove);
             tabEdit.setContent(controllerEdit);
 

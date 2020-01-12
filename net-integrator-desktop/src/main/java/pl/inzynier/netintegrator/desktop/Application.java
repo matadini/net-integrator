@@ -137,8 +137,8 @@ public class Application extends javafx.application.Application {
 
             Stage stage = new Stage();
             stage.setTitle(CommonStrings.APP_NAME);
-            stage.setWidth(1024);
-            stage.setHeight(768);
+            stage.setWidth(750);
+            stage.setHeight(580);
             stage.setScene(new Scene(controller));
             stage.setOnCloseRequest(this::onCloseRequest);
             stage.show();

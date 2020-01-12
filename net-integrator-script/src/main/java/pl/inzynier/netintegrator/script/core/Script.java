@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "scripts")
+@Table(name = "net_script")
 class Script {
 
     @Id
